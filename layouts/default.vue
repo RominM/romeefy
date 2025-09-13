@@ -10,11 +10,5 @@
 </script>
 
 <style lang='scss' scoped>
-  .default-layout{
-    max-width: 100%;
-    height: 100vh;
-    background-color: $dark-background;
-    background-color: greenyellow;
-    color: $dark-text-primary;
-  }
+
 </style>

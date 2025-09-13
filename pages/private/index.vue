@@ -7,9 +7,7 @@
 <script setup lang='ts'>
 import { useAPI } from '~/composables/api/useApi'
 
-definePageMeta({
-  layout: 'private',
-})
+
 
 onMounted(async () => {
   const res = await useAPI().chart.getGlobal()
