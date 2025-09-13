@@ -17,8 +17,9 @@
 </template>
 
 <script setup lang="ts">
-const leftWidth = ref(300)
-const isDragging = ref(false)
+const leftWidth = ref<number>(300)
+const isDragging = ref<boolean>(false)
+
 let startX = 0
 let startWidth = 0
 
