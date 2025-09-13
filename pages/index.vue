@@ -1,8 +1,8 @@
 <template>
-  <div class='index'>
+  <main-wrapper class='index'>
     Page index
     
-  </div>
+  </main-wrapper>
 </template>
 
 <script setup lang='ts'>
