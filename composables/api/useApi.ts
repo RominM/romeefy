@@ -1,4 +1,3 @@
-import { loginAdmin } from '../endpoints/loginAdmin'
 import { deezerAlbum } from './deezerApi/deezerAlbum'
 import { deezerArtist } from './deezerApi/deezerArtist'
 import { deezerChart } from './deezerApi/deezerChart'
@@ -11,7 +10,6 @@ import { deezerTrack } from './deezerApi/deezerTrack'
 import { deezerUser } from './deezerApi/deezerUser'
 
 export const useAPI = () => ({
-  adminAuth: loginAdmin(),
   genre: deezerGenre(),
   artist: deezerArtist(),
   album: deezerAlbum(),
