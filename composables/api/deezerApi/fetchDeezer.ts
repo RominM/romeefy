@@ -4,12 +4,17 @@ export function fetchDeezer<T = any>(path: string, params: Record<string, any> =
   const { get } = useRequest()
 
   const fetchData = async (): Promise<T | null> => {
-    const { data, error } = await get<T>(`/deezer${path}`, { params })
-    if (error) {
-      console.error('Deezer API error:', error)
+    const res = await get<any>(`/deezer${path}`, { params })
+    if ('error' in res && res.error) {
+      console.error('Deezer API error:', res.error)
       return null
     }
-    return data ?? null
+
+    if ('data' in res && res.data !== undefined) {
+      return res.data as T
+    }
+
+    return res as T
   }
 
   return { fetchData }

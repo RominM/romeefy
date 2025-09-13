@@ -2,9 +2,9 @@ import { fetchDeezer } from "./fetchDeezer"
 
 export const deezerSearch = () => {
   return {
-    artist: (q: string) => fetchDeezer(`/search/artist`, { q }).fetchData(),
-    album: (q: string) => fetchDeezer(`/search/album`, { q }).fetchData(),
-    track: (q: string) => fetchDeezer(`/search/track`, { q }).fetchData(),
-    playlist: (q: string) => fetchDeezer(`/search/playlist`, { q }).fetchData()
+    artist: (artistId: string) => fetchDeezer(`/search/artist`, { artistId }).fetchData(),
+    album: (artistId: string) => fetchDeezer(`/search/album`, { artistId }).fetchData(),
+    track: (artistId: string) => fetchDeezer(`/search/track`, { artistId }).fetchData(),
+    playlist: (artistId: string) => fetchDeezer(`/search/playlist`, { artistId }).fetchData()
   }
 }

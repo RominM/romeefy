@@ -5,13 +5,16 @@
 </template>
 
 <script setup lang='ts'>
+import { useAPI } from '~/composables/api/useApi'
+
 definePageMeta({
   layout: 'private',
 })
 
 onMounted(async () => {
-  const res = await $fetch('/api/deezer/genre')
-  console.log(res)
+  const res = await useAPI().chart.getGlobal()
+
+    console.log(res)
 })
 
 
