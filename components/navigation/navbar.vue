@@ -2,7 +2,6 @@
   <nav class='navbar'>
     <home-nav /> 
     <search-module />
-    <p>default</p>
   </nav>
 </template>
 
