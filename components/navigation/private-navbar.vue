@@ -1,10 +1,11 @@
 <template>
-  <nav class='navigation'>
+  <nav class='private-navigation'>
     <nav-list v-if="userRoutes.length > 0" :routes="userRoutes" />
-    <div v-if="isLoggedIn" class='navigation__admin'>
+    <div v-if="isLoggedIn" class='private-navigation__admin'>
       <nav-list v-if="adminRoutes.length > 0" :routes="adminRoutes" />
       <logout-button />
     </div>
+    <p>private</p>
   </nav>
 </template>
 
@@ -28,10 +29,13 @@ const isLoggedIn = computed(() => auth.isLoggedIn)
 </script>
 
 <style lang='scss' scoped>
-    .navigation,
-    .navigation__admin{
+    .private-navigation,
+    .private-navigation__admin{
       display: flex;
       justify-content: end;
       gap: 10px;
+    }
+    .private-navigation{
+      background-color:red;
     }
 </style>
