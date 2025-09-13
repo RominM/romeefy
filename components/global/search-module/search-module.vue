@@ -1,7 +1,7 @@
 <template>
     <div class='search-module'>
       <h-icon :icon="Search01Icon" color="#b3b3b3"/>
-      <input class='search-module__input' type="text" placeholder="Que qouhaitez-vous écouter ou regarder ?"/>
+      <input class='search-module__input' type="text" placeholder="Que souhaitez-vous écouter ou regarder ?"/>
       <h-icon :icon="DeliveryBox01Icon" color="#b3b3b3"/>
     </div>
 </template>
