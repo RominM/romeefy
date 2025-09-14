@@ -14,6 +14,7 @@ export const usePlayingTrack = (trackId: number) => {
       audioEl.play().catch(e => console.warn('Impossible de lancer le son :', e))
     }, { once: true })
     
-    useGlobalEvents().emitEvent(EGlobalEvent.TOGGLE_TRACK, track.preview)
+    useGlobalEvents().emitEvent(EGlobalEvent.LISTEN_TRACK_PREVIEW, track.preview)
+    useGlobalEvents().emitEvent(EGlobalEvent.TRACK_DATA, track)
   })
 }

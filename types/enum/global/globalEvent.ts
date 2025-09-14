@@ -1,3 +1,5 @@
 export enum EGlobalEvent {
-  TOGGLE_TRACK = 'toggle-track',
+  LISTEN_TRACK_PREVIEW = 'toggle-track',
+  PLAYER_STATE = 'player-state',
+  TRACK_DATA = 'track-data'
 } 

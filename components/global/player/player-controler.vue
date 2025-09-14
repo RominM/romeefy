@@ -2,7 +2,11 @@
   <div class='player-controler'>
     <h-icon :icon="ArrowDataTransferHorizontalIcon" size="20px"/>
     <h-icon :icon="PreviousIcon" size="20px" title="Précedent"/>
-    <h-icon :icon="onPlay ? PauseCircleIcon : PlayCircleIcon" size="40px" :title="onPlay ? 'Pause' : 'Lecture'"/>
+    <h-icon 
+      :icon="onPlay ? PauseCircleIcon : PlayCircleIcon" 
+      size="40px" 
+      :title="onPlay ? 'Pause' : 'Lecture'" 
+      @click="togglePlay()"/>
     <h-icon :icon="NextIcon" size="20px" title="Suivant"/>
     <h-icon :icon="onLoopSong ? RepeatOne01Icon : RepeatIcon" size="20px" :title="onLoopSong ? 'Désactiver la répétition' : 'Activer la répétition'"/>
   </div>
@@ -10,9 +14,28 @@
 
 <script setup lang='ts'>
 import { PauseCircleIcon, PlayCircleIcon, PreviousIcon, NextIcon, RepeatIcon, RepeatOne01Icon, ArrowDataTransferHorizontalIcon } from '@hugeicons/core-free-icons';
+import { EGlobalEvent } from '~/types/enum/global/globalEvent'
+
+useGlobalEvents().subscribeTo(EGlobalEvent.PLAYER_STATE, (playing: boolean | undefined) => {  
+  if(!playing) return
+  onPlay.value = playing
+})
 
 const onPlay = ref<boolean>(false)
 const onLoopSong = ref<boolean>(false)
+
+function togglePlay() {
+  const audioEl = document.querySelector<HTMLAudioElement>('audio')
+  if (!audioEl) return
+
+  if (audioEl.paused) {
+    audioEl.play().catch(e => console.warn('Impossible de lancer le son :', e))
+    onPlay.value = true
+  } else {
+    audioEl.pause()
+    onPlay.value = false
+  }
+}
 </script>
 
 <style lang='scss' scoped>

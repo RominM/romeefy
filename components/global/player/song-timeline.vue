@@ -17,15 +17,31 @@
 
 <script setup lang='ts'>
 import { useFormatTime } from '~/composables/formats/useFormatTime'
+import { EGlobalEvent } from '~/types/enum/global/globalEvent'
 
 const props = defineProps({
-  source: { type: String, default: '' },
-  isPlaying: { type: Boolean, default: false }
+  source: { type: String, default: '' }
 })
 
 const audio = ref<HTMLAudioElement | null>(null)
-const currentTime = ref(0)
-const duration = ref(0)
+const isPlaying = ref<boolean>(false)
+
+const currentTime = ref<number>(0)
+const duration = ref<number>(0)
+
+onMounted(() => {
+  if (!audio.value) return
+
+  audio.value.addEventListener('playing', () => {
+    isPlaying.value = true
+    useGlobalEvents().emitEvent(EGlobalEvent.PLAYER_STATE, true)
+  })
+
+  audio.value.addEventListener('pause', () => {
+    isPlaying.value = false
+    useGlobalEvents().emitEvent(EGlobalEvent.PLAYER_STATE, false)
+  })
+})
 
 function updateProgress() {
   if (audio.value) currentTime.value = audio.value.currentTime

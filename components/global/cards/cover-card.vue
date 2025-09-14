@@ -13,33 +13,12 @@
 <script setup lang='ts'>
 import { PlayCircleIcon } from '@hugeicons/core-free-icons';
 import type { PropType } from 'vue';
-import { useAPI } from '~/composables/api/useApi';
-import { EGlobalEvent } from '~/types/enum/global/globalEvent';
 
 const props = defineProps({
   coverCard: { type: Object as PropType<TCoverCard>, required: true},
   sourceRedirect: { type: String, require: true },
   trackId: { type: Number, default: 0 }
 })
-
-function playTrack() {
-  usePlayingTrack(props.trackId)
-  // useAPI().track.getById(props.trackId).then(track => {
-  //   if (!track?.preview) return
-
-  //   const audioEl = document.querySelector<HTMLAudioElement>('audio')
-  //   if (!audioEl || !track?.preview) return
-
-  //   audioEl.src = track.preview
-
-  //   audioEl.addEventListener('canplay', () => {
-  //     audioEl.play().catch(e => console.warn('Impossible de lancer le son :', e))
-  //   }, { once: true })
-    
-  //   useGlobalEvents().emitEvent(EGlobalEvent.TOGGLE_TRACK, track.preview)
-  // })
-}
-
 </script>
 
 <style lang='scss' scoped>
