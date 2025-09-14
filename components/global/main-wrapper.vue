@@ -9,7 +9,10 @@
 </script>
 
 <style lang='scss' scoped>
-    .main-wrapper{
-      border: solid 1px;
-    }
+  .main-wrapper{
+    border: solid 1px;
+    background-color: $dark-surface;
+    height: 100vh;
+    border-radius: 8px;
+  }
 </style>
