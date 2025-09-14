@@ -17,7 +17,7 @@
 
       <ul class='section-card__list-container__ul' >
         <li v-for="(coverCard, index) in coverCardList" :key="`cover-card-${index}`" class='section-card__list-container__ul__li'>
-          <cover-card :cover-card="coverCard" :source-redirect="sourceRedirect" />
+          <cover-card :cover-card="coverCard" :source-redirect="sourceRedirect" :track-id="coverCard.id" />
         </li>
       </ul>
 
