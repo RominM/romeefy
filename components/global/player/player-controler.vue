@@ -1,10 +1,10 @@
 <template>
   <div class='player-controler'>
     <h-icon :icon="ArrowDataTransferHorizontalIcon" size="20px"/>
-    <h-icon :icon="PreviousIcon" size="20px"/>
-    <h-icon :icon="onPlay ? PauseCircleIcon : PlayCircleIcon" size="40px"/>
-    <h-icon :icon="NextIcon" size="20px"/>
-    <h-icon :icon="onLoopSong ? RepeatOne01Icon : RepeatIcon" size="20px"/>
+    <h-icon :icon="PreviousIcon" size="20px" title="Précedent"/>
+    <h-icon :icon="onPlay ? PauseCircleIcon : PlayCircleIcon" size="40px" :title="onPlay ? 'Pause' : 'Lecture'"/>
+    <h-icon :icon="NextIcon" size="20px" title="Suivant"/>
+    <h-icon :icon="onLoopSong ? RepeatOne01Icon : RepeatIcon" size="20px" :title="onLoopSong ? 'Désactiver la répétition' : 'Activer la répétition'"/>
   </div>
 </template>
 
@@ -20,5 +20,5 @@ const onLoopSong = ref<boolean>(false)
     display: flex;
     justify-content: space-around;
     width: 300px;
-  }
+}
 </style>

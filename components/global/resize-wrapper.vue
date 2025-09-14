@@ -62,15 +62,15 @@ function onMouseUp() {
     background-color: $dark-background;
   }
   .resize-handle{
-    padding: 5px 1px 5px 2px;
+    padding: 5px 2px 5px 3px;
     &--hover{
       height: 100%;
       width: 1px;
-      border: solid 1px $dark-background;
+      border: solid 1px transparent;
       transition: 0.3s;
     }
     &:hover  .resize-handle--hover {
-      border-left: solid 1px #fff;
+      border-left: solid 1px $light-background;
     }
   }
 </style>

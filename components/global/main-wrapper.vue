@@ -10,7 +10,7 @@
 
 <style lang='scss' scoped>
   .main-wrapper{
-    border: solid 1px;
+    padding: 10px;
     background-color: $dark-surface;
     height: 100%;
     border-radius: 8px;
