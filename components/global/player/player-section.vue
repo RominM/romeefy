@@ -13,6 +13,7 @@
 <style lang='scss' scoped>
   .player-section{
     display: flex;
+    gap: 10px;
     height: 100px;
     padding: 10px;
     background-color: $dark-background;
