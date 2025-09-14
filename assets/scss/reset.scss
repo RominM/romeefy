@@ -16,6 +16,7 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--bg);
   color: var(--text);
+  // overflow: hidden;
 }
 
 img, picture, video, canvas, svg {

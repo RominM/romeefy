@@ -12,7 +12,7 @@
       <hr class="resize-handle--hover">
     </div>
 
-    <div style="flex: 1;">
+    <div style="flex: 1; min-width: 0; overflow: hidden;">
       <slot name="right"/>
     </div>
   </div>
