@@ -19,7 +19,7 @@ import { Notification01Icon, UserGroup02Icon } from '@hugeicons/core-free-icons'
     justify-content: flex-end;
     gap: 25px;
     &__btn {
-      background-color: #fff;
+      background-color: $light-background;
       font-weight: bold;
       border-radius: 20px;
       padding: 1px 14px;
