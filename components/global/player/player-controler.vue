@@ -1,0 +1,24 @@
+<template>
+  <div class='player-controler'>
+    <h-icon :icon="ArrowDataTransferHorizontalIcon" size="20px"/>
+    <h-icon :icon="PreviousIcon" size="20px"/>
+    <h-icon :icon="onPlay ? PauseCircleIcon : PlayCircleIcon" size="40px"/>
+    <h-icon :icon="NextIcon" size="20px"/>
+    <h-icon :icon="onLoopSong ? RepeatOne01Icon : RepeatIcon" size="20px"/>
+  </div>
+</template>
+
+<script setup lang='ts'>
+import { PauseCircleIcon, PlayCircleIcon, PreviousIcon, NextIcon, RepeatIcon, RepeatOne01Icon, ArrowDataTransferHorizontalIcon } from '@hugeicons/core-free-icons';
+
+const onPlay = ref<boolean>(false)
+const onLoopSong = ref<boolean>(false)
+</script>
+
+<style lang='scss' scoped>
+  .player-controler{
+    display: flex;
+    justify-content: space-around;
+    width: 300px;
+  }
+</style>
