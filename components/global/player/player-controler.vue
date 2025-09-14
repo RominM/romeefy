@@ -10,12 +10,7 @@
 
 <script setup lang='ts'>
 import { PauseCircleIcon, PlayCircleIcon, PreviousIcon, NextIcon, RepeatIcon, RepeatOne01Icon, ArrowDataTransferHorizontalIcon } from '@hugeicons/core-free-icons';
-import { EGlobalEvent } from '~/types/enum/global/globalEvent';
 
-useGlobalEvents().subscribeTo(EGlobalEvent.TOGGLE_TRACK, (payload)=> {
-  console.log(payload);
-  
-})
 const onPlay = ref<boolean>(false)
 const onLoopSong = ref<boolean>(false)
 </script>

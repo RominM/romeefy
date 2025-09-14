@@ -2,7 +2,7 @@
   <nuxt-link :to="`${sourceRedirect}/${coverCard.id}`" class='cover-card'>
     <div class='cover-card__img-wrapper'>
       <img class='cover-card__img-wrapper__img' :src="coverCard.coverMedium" :alt="coverCard.alt">
-      <div v-if="trackId" class="cover-card__img-wrapper--show-play" @click.prevent.stop="playTrack()">
+      <div v-if="trackId" class="cover-card__img-wrapper--show-play" @click.prevent.stop="usePlayingTrack(trackId)">
         <h-icon :icon="PlayCircleIcon" size="40px"/>
       </div>
     </div>
@@ -13,19 +13,33 @@
 <script setup lang='ts'>
 import { PlayCircleIcon } from '@hugeicons/core-free-icons';
 import type { PropType } from 'vue';
+import { useAPI } from '~/composables/api/useApi';
 import { EGlobalEvent } from '~/types/enum/global/globalEvent';
 
 const props = defineProps({
   coverCard: { type: Object as PropType<TCoverCard>, required: true},
   sourceRedirect: { type: String, require: true },
-  trackId: { type: String, default: '5' }
+  trackId: { type: Number, default: 0 }
 })
 
 function playTrack() {
-  console.log(props.trackId);
-  
-  useGlobalEvents().emitEvent(EGlobalEvent.TOGGLE_TRACK, props.trackId)
+  usePlayingTrack(props.trackId)
+  // useAPI().track.getById(props.trackId).then(track => {
+  //   if (!track?.preview) return
+
+  //   const audioEl = document.querySelector<HTMLAudioElement>('audio')
+  //   if (!audioEl || !track?.preview) return
+
+  //   audioEl.src = track.preview
+
+  //   audioEl.addEventListener('canplay', () => {
+  //     audioEl.play().catch(e => console.warn('Impossible de lancer le son :', e))
+  //   }, { once: true })
+    
+  //   useGlobalEvents().emitEvent(EGlobalEvent.TOGGLE_TRACK, track.preview)
+  // })
 }
+
 </script>
 
 <style lang='scss' scoped>

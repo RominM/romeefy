@@ -1,5 +1,5 @@
 interface IArtist {
-  id: string
+  id: number
   link: string
   name: string
   picture: string

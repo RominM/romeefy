@@ -35,6 +35,8 @@ async function getGlobalChart() {
   if(!allChart || !allChart.artists) return
 
   artistsList.value = mappingChatArtist(allChart.artists.data)
+  console.log(artistsList.value);
+  
 }
 
 function mappingChatArtist(artists: IArtist[]): TCoverCard[] {  

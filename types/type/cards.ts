@@ -2,7 +2,7 @@ export {}
 
 declare global {
   type TCoverCard = {
-    id: string
+    id: number
     coverMedium: string
     alt: string
     describe: string
