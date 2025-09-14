@@ -28,8 +28,8 @@ function playTrack() {
 <style lang='scss' scoped>
   .cover-card {
     display: block;
-    padding: 7px;
-    width: 175px;
+    padding: 10px;
+    width: 190px;
     border-radius: 7px;
     transition: 0.3s;
     &__img-wrapper {

@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: [
     '~/assets/scss/reset.scss',
-    '~/assets/scss/main.scss'
+    '~/assets/scss/main.scss',
   ],
   vite: {
     css: {
