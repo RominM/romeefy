@@ -1,10 +1,13 @@
 <template>
   <nav class='navbar'>
     <native-menu />
+
     <div class="navbar__center">
       <home-nav /> 
       <search-module />
     </div>
+
+    <user-menu />
   </nav>
 </template>
 
@@ -16,7 +19,8 @@
   .navbar{
     display: flex;
     align-items: center;
-    padding: 3px;
+    justify-content: space-between;
+    padding: 7px;
     background-color:$dark-background;
     &__center {
     display: flex;

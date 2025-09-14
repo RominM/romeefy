@@ -1,5 +1,5 @@
 <template>
-  <div class="resize-wrapper" style="display: flex; width: 100%;">
+  <div class="resize-wrapper" style="">
     <div :style="{ width: leftWidth + 'px' }">
       <slot name="left"/>
     </div>
@@ -8,7 +8,9 @@
       class="resize-handle"
       :style="{ cursor: isDragging ? 'grabbing' : 'grab' }"
       @mousedown.prevent="onMouseDown"
-    ></div>
+    >
+      <hr class="resize-handle--hover">
+    </div>
 
     <div style="flex: 1;">
       <slot name="right"/>
@@ -49,7 +51,21 @@ function onMouseUp() {
 </script>
 
 <style lang='scss' scoped>
+  .resize-wrapper{
+    display: flex;
+    width: 100%;
+    background-color: $dark-background;
+  }
   .resize-handle{
-    width: 5px;
+    padding: 5px 1px 5px 2px;
+    &--hover{
+      height: 100%;
+      width: 1px;
+      border: solid 1px $dark-background;
+      transition: 0.3s;
+    }
+    &:hover  .resize-handle--hover {
+      border-left: solid 1px #fff;
+    }
   }
 </style>
