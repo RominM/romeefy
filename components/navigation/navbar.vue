@@ -22,6 +22,9 @@
     justify-content: space-between;
     padding: 7px;
     background-color:$dark-background;
+    & > * {
+      width: 33%;
+    }
     &__center {
     display: flex;
     gap: 10px;

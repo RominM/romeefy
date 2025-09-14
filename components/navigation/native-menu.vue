@@ -19,6 +19,7 @@ const isDisabledRight = ref<boolean>(true)
 <style lang='scss' scoped>
   .native-menu{
     display: flex;
+  
     &__arrows {
       display: flex;
     }

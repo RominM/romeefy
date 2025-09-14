@@ -12,7 +12,7 @@
   .main-wrapper{
     border: solid 1px;
     background-color: $dark-surface;
-    height: 100vh;
+    height: 100%;
     border-radius: 8px;
   }
 </style>

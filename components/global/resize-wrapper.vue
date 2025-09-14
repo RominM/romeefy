@@ -51,9 +51,14 @@ function onMouseUp() {
 </script>
 
 <style lang='scss' scoped>
+  $--navbar: 58px;
+  $--playbar: 100px;
+
   .resize-wrapper{
     display: flex;
     width: 100%;
+    padding: 5px;
+    height: calc(100dvh - $--navbar - $--playbar);
     background-color: $dark-background;
   }
   .resize-handle{

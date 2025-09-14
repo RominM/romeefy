@@ -16,6 +16,7 @@ import { Notification01Icon, UserGroup02Icon } from '@hugeicons/core-free-icons'
 <style lang='scss' scoped>
   .user-menu{
     display: flex;
+    justify-content: flex-end;
     gap: 25px;
     &__btn {
       background-color: #fff;
