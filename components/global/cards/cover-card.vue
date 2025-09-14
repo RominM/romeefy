@@ -2,7 +2,7 @@
   <nuxt-link :to="`${sourceRedirect}/${coverCard.id}`" class='cover-card'>
     <div class='cover-card__img-wrapper'>
       <img class='cover-card__img-wrapper__img' :src="coverCard.coverMedium" :alt="coverCard.alt">
-      <div v-if="trackId" class="cover-card__img-wrapper--show-play" @click.stop="playTrack()">
+      <div v-if="trackId" class="cover-card__img-wrapper--show-play" @click.prevent.stop="playTrack()">
         <h-icon :icon="PlayCircleIcon" size="40px"/>
       </div>
     </div>
@@ -13,6 +13,7 @@
 <script setup lang='ts'>
 import { PlayCircleIcon } from '@hugeicons/core-free-icons';
 import type { PropType } from 'vue';
+import { EGlobalEvent } from '~/types/enum/global/globalEvent';
 
 const props = defineProps({
   coverCard: { type: Object as PropType<TCoverCard>, required: true},
@@ -22,6 +23,8 @@ const props = defineProps({
 
 function playTrack() {
   console.log(props.trackId);
+  
+  useGlobalEvents().emitEvent(EGlobalEvent.TOGGLE_TRACK, props.trackId)
 }
 </script>
 
