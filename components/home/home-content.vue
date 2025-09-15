@@ -65,16 +65,16 @@ async function getGlobalChart() {
   if(!allChart || !allChart.artists) return
 console.log(allChart);
 
-chartList.value = Object.entries(allChart).map(([id, value]) => {
+chartList.value = Object.entries(allChart).map(([id, value], index) => {
   const meta = formatChart[id as ChartId]
   
 
   return {
-    id,
+    id: index,
     coverMedium: meta.img,
     alt: meta.alt ?? id,
     describe: meta.describe ?? '',
-  }
+  } satisfies TCoverCard
 })
 
   console.log(chartList.value);
