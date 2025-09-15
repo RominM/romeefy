@@ -14,7 +14,7 @@
 import { PlayCircleIcon } from '@hugeicons/core-free-icons';
 import type { PropType } from 'vue';
 
-const props = defineProps({
+defineProps({
   coverCard: { type: Object as PropType<TCoverCard>, required: true},
   sourceRedirect: { type: String, require: true },
   trackId: { type: Number, default: 0 }
@@ -49,6 +49,13 @@ const props = defineProps({
     }
     &__describe {
       color: $light-background;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.4em;
+      max-height: calc(1.4em * 3);
     }
 
     &:hover {

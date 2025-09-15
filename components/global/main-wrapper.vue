@@ -1,7 +1,7 @@
 <template>
-    <div class='main-wrapper'>
-      <slot />
-    </div>
+  <div class='main-wrapper custom-scrollbar'>
+    <slot />
+  </div>
 </template>
 
 <script setup lang='ts'>
@@ -14,7 +14,8 @@
     height: 100%;
     width: 100%;
     border-radius: 8px;
-    background-color: $dark-surface;
-    overflow: hidden;
+    background: #141313;
+    background: linear-gradient(307deg, rgba(20, 19, 19, 1) 76%, rgba(46, 46, 46, 1) 100%);
+    overflow: auto;
   }
 </style>
