@@ -7,6 +7,7 @@
         <p class='user-library__bento__subtitle'>C'est simple, nous allons vous aider</p>
         <button class='user-library__bento__btn'>Créer une playlist</button>
       </div>
+
       <div class='user-library__bento'>
         <p class='user-library__bento__title'>Cherchons quelque podcats auxquels vous abonner</p>
         <p class='user-library__bento__subtitle'>Nous vous transmettrons des informations sur les nouveaux épisodes</p>
@@ -32,7 +33,7 @@
     display: flex;
     flex-direction: column;
     gap: 7px;
-    padding: 20px;
+    padding: 15px;
     border-radius: 10px;
     background-color: $dark-surface-secondary;
     &__title {
