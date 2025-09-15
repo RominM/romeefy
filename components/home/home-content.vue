@@ -23,6 +23,36 @@ const artistsList = ref<TCoverCard[] | null>(null)
 const chartList = ref<TCoverCard[] | null>(null)
 const loading = ref<boolean>(false)
 
+type ChartId = keyof typeof formatChart 
+const formatChart = {
+  tracks: {
+    describe: 'blabla',
+    img: 'http://myimg.fr',
+    alt: 'alt example'
+  },
+  artists: {
+    describe: 'blabla',
+    img: 'http://myimg.fr',
+    alt: 'alt example'
+  },
+    albums: {
+    describe: 'blabla',
+    img: 'http://myimg.fr',
+    alt: 'alt example'
+  },
+    playlists: {
+    describe: 'blabla',
+    img: 'http://myimg.fr',
+    alt: 'alt example'
+  },  
+  podcasts: {
+    describe: 'blabla',
+    img: 'http://myimg.fr',
+    alt: 'alt example'
+  }
+}
+
+
 onMounted(() => {
   getGlobalChart()
 })
@@ -33,9 +63,22 @@ async function getGlobalChart() {
   loading.value = false
 
   if(!allChart || !allChart.artists) return
+console.log(allChart);
 
+chartList.value = Object.entries(allChart).map(([id, value]) => {
+  const meta = formatChart[id as ChartId]
+  
+
+  return {
+    id,
+    coverMedium: meta.img,
+    alt: meta.alt ?? id,
+    describe: meta.describe ?? '',
+  }
+})
+
+  console.log(chartList.value);
   artistsList.value = mappingChatArtist(allChart.artists.data)
-  console.log(artistsList.value);
   
 }
 
@@ -48,6 +91,10 @@ function mappingChatArtist(artists: IArtist[]): TCoverCard[] {
       describe: 'coucou'
     }  
   })
+}
+
+function findImgToChartId(id: string) {
+  return id
 }
 </script>
 
