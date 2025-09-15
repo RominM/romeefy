@@ -1,0 +1,28 @@
+.custom-scrollbar {
+  /* Pour Chrome, Edge, Safari */
+  &::-webkit-scrollbar {
+    width: 10px;              /* largeur de la scrollbar verticale */
+    height: 10px;             /* hauteur pour la scrollbar horizontale */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #1e1e1e;      /* couleur du fond */
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #666;         /* couleur de la barre */
+    border-radius: 10px;
+    border: 2px solid #1e1e1e; /* pour créer un "padding" visuel */
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #999;         /* couleur au hover */
+  }
+
+  /* Pour Firefox */
+  * {
+    scrollbar-width: thin;            /* "auto" | "thin" | "none" */
+    scrollbar-color: #666 #1e1e1e;    /* thumb | track */
+  }
+}

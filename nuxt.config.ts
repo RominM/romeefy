@@ -18,9 +18,8 @@ export default defineNuxtConfig({
     }
   },
   runtimeConfig: {
-    ADMIN_USERNAME: process.env.ADMIN_USERNAME,
-    ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
-    JWT_SECRET: process.env.JWT_SECRET
+    pexelsApiKey: process.env.PEXELS_API_KEY,
+    public: {}
   },
   modules: ['@pinia/nuxt'],
   components: [

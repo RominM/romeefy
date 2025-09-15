@@ -8,6 +8,7 @@ import { deezerRadio } from './deezerApi/deezerRadio'
 import { deezerSearch } from './deezerApi/deezerSearch'
 import { deezerTrack } from './deezerApi/deezerTrack'
 import { deezerUser } from './deezerApi/deezerUser'
+import { usePexels } from './pexels/usePexels'
 
 export const useAPI = () => ({
   genre: deezerGenre(),
@@ -19,5 +20,6 @@ export const useAPI = () => ({
   editorial: deezerEditorial(),
   user: deezerUser(), // need OAuth for most
   radio: deezerRadio(),
-  search: deezerSearch()
+  search: deezerSearch(),
+  pexels: usePexels()
 })
