@@ -37,9 +37,6 @@ async function getArtist() {
 
   const colors = await useColors().extractTopColors(artist.value.picture_xl)
   colorSecondary.value = colors[0].rgb
-
-  console.log(colorSecondary.value);
-  
 }
 
 function onScroll(scrollTop: number) {
@@ -55,9 +52,6 @@ function onScroll(scrollTop: number) {
   const scale = 1.2 - Math.min(scrollTop / maxScroll, 1) * (1 - minScale)
   currentScale.value = scale
 }
-
-
-
 </script>
 
 <style lang='scss' scoped>
