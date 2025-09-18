@@ -63,8 +63,11 @@ onMounted(async () => {
 
 async function getAllChart() {
   loading.value = true
-  allChart.value = await useAPI().chart.getGlobal()
+  const { data, error } = await useAPI().chart.getGlobal()
   loading.value = false
+
+  if(!data || error ) return 
+  allChart.value = data
 }
 
 async function setupSections() {
