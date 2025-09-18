@@ -1,39 +1,43 @@
 <template>
-  <div class='home-content'>
-    <section-cards 
-      v-if="trackList" 
-      title-section="Morceaux du moment" 
-      source-redirect="chart"
-      :cover-card-list="trackList" 
-    />
+  <div class="home-content">
+    <loader v-if="loading" class='home-content--loader' />
+    <div v-else-if="allChart" class='home-content--all-chart'>
+      <section-cards 
+        v-if="trackList" 
+        title-section="Morceaux du moment" 
+        source-redirect="chart"
+        :cover-card-list="trackList" 
+      />
 
-    <section-cards 
-      v-if="artistsList" 
-      title-section="Artistes recomandés pour vous" 
-      source-redirect="artist"
-      :cover-card-list="artistsList" 
-    />
-    
-    <section-cards 
-    v-if="playlistList" 
-    title-section="Playlist recommandés" 
-    source-redirect="chart"
-    :cover-card-list="playlistList" 
-    />
+      <section-cards 
+        v-if="artistsList" 
+        title-section="Artistes recomandés pour vous" 
+        source-redirect="artist"
+        :cover-card-list="artistsList" 
+      />
 
-    <section-cards 
-      v-if="podcastList" 
-      title-section="Podcast" 
+      <section-cards 
+      v-if="playlistList" 
+      title-section="Playlist recommandés" 
       source-redirect="chart"
-      :cover-card-list="podcastList" 
-    />
+      :cover-card-list="playlistList" 
+      />
 
-    <section-cards 
-      v-if="chartList" 
-      title-section="Classement recommandés" 
-      source-redirect="chart"
-      :cover-card-list="chartList" 
-    />
+      <section-cards 
+        v-if="podcastList" 
+        title-section="Podcast" 
+        source-redirect="chart"
+        :cover-card-list="podcastList" 
+      />
+
+      <section-cards 
+        v-if="chartList" 
+        title-section="Classement recommandés" 
+        source-redirect="chart"
+        :cover-card-list="chartList" 
+      />
+    </div>
+  <error-content v-else class='home-content--error' @retry="getAllChart"/>
   </div>
 </template>
 
@@ -65,8 +69,11 @@ async function getAllChart() {
 
 async function setupSections() {
   if(!allChart.value || !allChart.value.artists) return
-  
+
+  loading.value = true
   const pexelsRes = await useAPI().pexels.search("music", 5)
+  loading.value = false
+
   const pexelsPhotos = pexelsRes.photos
 
   console.log('tracks ', allChart.value.podcasts.data);
@@ -128,8 +135,18 @@ function mappingChatPodcats(podcasts: IPodcast[]): TCoverCard[]  {
 
 <style lang='scss' scoped>
 .home-content {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 30px;
+  height: 100%;
+  width: 100%;
+  &--loader,
+  &--error {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 </style>

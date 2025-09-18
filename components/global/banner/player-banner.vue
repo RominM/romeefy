@@ -38,11 +38,14 @@ $--color: var(--color);
     gap: 20px;
     padding: 20px;
     background-color: $--color;
+    filter: brightness(70%);
+
   }
   &::after {
     content: '';
     display: block;
     background: linear-gradient(180deg, $--color 0%, transparent 100%);
+    filter: brightness(70%);
     height: 100px;
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <div class='banner' :style="{ transform: `scale(${scale})`, backgroundImage: `url(${banner})` }">
-    <div class='banner__overlay' :style="{ backgroundColor: color }"></div>
+    <div class='banner__overlay' :style="{ backgroundColor: banner ? color : '#000'  }"></div>
   </div>
 </template>
 
@@ -18,9 +18,10 @@ defineProps({
   top: 0;
   width: 100%;
   height: 45vh;
-  background-position: center;
+  background-position: center 40%;
   background-size: cover;
   background-repeat: no-repeat;
+  filter: brightness(70%);
   overflow: hidden;
   z-index: 0;
 }
