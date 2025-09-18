@@ -14,7 +14,7 @@
     </div>
     </div>
     <!-- <pre style="color: antiquewhite;">{{ artist }}</pre> -->
-    <error-content v-else />
+    <error-content v-else class='artist-content__error' @retry="getArtist"/>
   </div>
 </template>
 
@@ -35,7 +35,7 @@ onMounted(async () => {
 async function getArtist() {
   loading.value = true
   artist.value = await useAPI().artist.getById(props.artistId)
-  loading.value = true
+  loading.value = false
 }
 </script>
 
@@ -44,7 +44,8 @@ async function getArtist() {
   position: relative;
   height: 100%;
   width: 100%;
-  &__loader{
+  &__loader,
+  &__error {
     position: absolute;
     top: 50%;
     left: 50%;
