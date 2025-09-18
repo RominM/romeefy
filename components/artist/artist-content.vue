@@ -14,7 +14,7 @@ defineProps({
 
 function handleScroll(event: Event) {
   const target = event.target as HTMLElement
-  emit('scroll', target.scrollTop)  // on émet scrollTop vers le parent
+  emit('scroll', target.scrollTop)
 }
 </script>
 

@@ -97,7 +97,6 @@ function scrollRight() {
         &--icon-right{
           border-radius: 50%;
           padding: -3px;
-          // background-color: $dark-background;
           color: $dark-text-primary;
           &:hover {
             color: $light-background;

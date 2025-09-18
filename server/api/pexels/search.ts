@@ -1,4 +1,3 @@
-// ~/server/api/pexels/search.ts
 export default defineEventHandler(async (event) => {
   const query = getQuery(event)
   const config = useRuntimeConfig()
