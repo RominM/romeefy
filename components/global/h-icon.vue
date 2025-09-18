@@ -17,5 +17,9 @@ defineProps({
 <style lang='scss' scoped>
 .h-icon {
   cursor: pointer;
+  transform: 0.3s;
+  &:hover {
+    transform: scale(1.08);
+  }
 }
 </style>

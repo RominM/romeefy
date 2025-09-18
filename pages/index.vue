@@ -8,5 +8,7 @@
 </script>
 
 <style lang='scss' scoped>
-.indew {}
+.index {
+  padding: 10px;
+}
 </style>

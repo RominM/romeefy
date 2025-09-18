@@ -24,6 +24,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  padding: 10px;
   color: $light-surface;
   &__title {
     color: $light-background;
