@@ -22,7 +22,7 @@ const artist = ref<IArtist>()
 
 const currentColor = ref<string>('transparent')
 const currentScale = ref<number>(1.2)
-const colorSecondary = ref<string>('#0A3C17')
+const colorSecondary = ref<string>('')
 
 onMounted(async () => {
   getArtist()
@@ -32,13 +32,22 @@ async function getArtist() {
   loading.value = true
   artist.value = await useAPI().artist.getById(props.artistId)
   loading.value = false
+
+  if(!artist.value) return 
+
+  const colors = await useColors().extractTopColors(artist.value.picture_xl)
+  colorSecondary.value = colors[0].rgb
+
+  console.log(colorSecondary.value);
+  
 }
 
 function onScroll(scrollTop: number) {
   // opacity
   const maxScroll = 200
   const opacity = Math.min(scrollTop / maxScroll, 1)
-  const baseRgb = useColors().hexToRgb(colorSecondary.value)
+
+  const baseRgb = useColors().rgbStringToArray(colorSecondary.value) 
   currentColor.value = `rgba(${baseRgb[0]}, ${baseRgb[1]}, ${baseRgb[2]}, ${opacity})`
 
   // scale
@@ -46,6 +55,9 @@ function onScroll(scrollTop: number) {
   const scale = 1.2 - Math.min(scrollTop / maxScroll, 1) * (1 - minScale)
   currentScale.value = scale
 }
+
+
+
 </script>
 
 <style lang='scss' scoped>
