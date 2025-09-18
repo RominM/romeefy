@@ -1,16 +1,19 @@
 <template>
-  <div class='artist-content'>
+  <loader v-if="loading" />
+  <div v-else-if="artist" class='artist-content'>
+    <banner :banner="artist.picture_xl || `url(${artist.picture_xl})`"/>
     <div 
       class='artist-content__banner' 
       :style="{ backgroundImage: artist?.picture_xl ? `url(${artist.picture_xl})` : '' }">
-      <div class='artist-content__banner__artist-name'>
-        <p>Artiste vérifié</p>
-        <h1 class='artist-content__banner__artist-name__name'>{{ artist?.name }}</h1>
-        <p class='artist-content__banner__artist-name__nmb'>{{ artist?.nb_fan }} auditeurs mensuels</p>
-      </div>
+    </div>
+    <div class='artist-content__banner__artist-name'>
+      <p>Artiste vérifié</p>
+      <h1 class='artist-content__banner__artist-name__name'>{{ artist?.name }}</h1>
+      <p class='artist-content__banner__artist-name__nmb'>{{ artist?.nb_fan }} auditeurs mensuels</p>
     </div>
     <!-- <pre style="color: antiquewhite;">{{ artist }}</pre> -->
   </div>
+  <error-content v-else />
 </template>
 
 <script setup lang='ts'>
@@ -20,54 +23,18 @@ const props = defineProps({
   artistId: { type: Number, required: true }
 })
 
+const loading = ref<boolean>(true)
 const artist = ref<IArtist>()
-const mainColor = ref<string>()
 
 onMounted(async () => {
   getArtist()
 })
 
 async function getArtist() {
+  loading.value = true
   artist.value = await useAPI().artist.getById(props.artistId)
-
-    mainColor.value = await getDominantColor(artist.value?.picture_xl)
-console.log(mainColor.value)
+  loading.value = true
 }
-
-function getDominantColor(imgUrl: string): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const img = new Image()
-    img.crossOrigin = 'anonymous'  // nécessaire si l'image vient d'un autre domaine
-    img.src = imgUrl
-
-    img.onload = () => {
-      const canvas = document.createElement('canvas')
-      canvas.width = img.width
-      canvas.height = img.height
-      const ctx = canvas.getContext('2d')
-      if (!ctx) return reject('Impossible de récupérer le context')
-
-      ctx.drawImage(img, 0, 0)
-      const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data
-
-      const colorCount: Record<string, number> = {}
-      for (let i = 0; i < data.length; i += 4) {
-        const r = data[i]
-        const g = data[i + 1]
-        const b = data[i + 2]
-        const key = `${r},${g},${b}`
-        colorCount[key] = (colorCount[key] || 0) + 1
-      }
-
-      // trier et prendre la couleur la plus fréquente
-      const dominant = Object.entries(colorCount).sort((a, b) => b[1] - a[1])[0][0]
-      resolve(`rgb(${dominant})`)
-    }
-
-    img.onerror = reject
-  })
-}
-
 </script>
 
 <style lang='scss' scoped>
