@@ -1,6 +1,7 @@
 <template>
-  <loader v-if="loading" />
-  <div v-else-if="artist" class='artist-content'>
+  <div class='artist-content'>
+    <loader v-if="loading" class='artist-content__loader' />
+    <div v-else-if="artist">
     <banner :banner="artist.picture_xl || `url(${artist.picture_xl})`"/>
     <div 
       class='artist-content__banner' 
@@ -11,9 +12,10 @@
       <h1 class='artist-content__banner__artist-name__name'>{{ artist?.name }}</h1>
       <p class='artist-content__banner__artist-name__nmb'>{{ artist?.nb_fan }} auditeurs mensuels</p>
     </div>
+    </div>
     <!-- <pre style="color: antiquewhite;">{{ artist }}</pre> -->
+    <error-content v-else />
   </div>
-  <error-content v-else />
 </template>
 
 <script setup lang='ts'>
@@ -40,6 +42,14 @@ async function getArtist() {
 <style lang='scss' scoped>
 .artist-content {
   position: relative;
+  height: 100%;
+  width: 100%;
+  &__loader{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
   &__banner {
     width: 100%;
     height: 40vh;
