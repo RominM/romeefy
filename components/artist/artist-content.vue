@@ -1,41 +1,20 @@
 <template>
-  <div class='artist-content'>
-    <loader v-if="loading" class='artist-content__loader' />
-    <div v-else-if="artist">
-    <banner :banner="artist.picture_xl || `url(${artist.picture_xl})`"/>
-    <div 
-      class='artist-content__banner' 
-      :style="{ backgroundImage: artist?.picture_xl ? `url(${artist.picture_xl})` : '' }">
-    </div>
-    <div class='artist-content__banner__artist-name'>
-      <p>Artiste vérifié</p>
-      <h1 class='artist-content__banner__artist-name__name'>{{ artist?.name }}</h1>
-      <p class='artist-content__banner__artist-name__nmb'>{{ artist?.nb_fan }} auditeurs mensuels</p>
-    </div>
-    </div>
-    <!-- <pre style="color: antiquewhite;">{{ artist }}</pre> -->
-    <error-content v-else class='artist-content__error' @retry="getArtist"/>
+  <div class='artist-content' @scroll="handleScroll">
+    <artist-header :artist="artist" />
+    <artist-main :artist="artist" :color-secondary="colorSecondary"  />
   </div>
 </template>
 
 <script setup lang='ts'>
-import { useAPI } from '~/composables/api/useApi'
-
-const props = defineProps({
-  artistId: { type: Number, required: true }
+const emit = defineEmits(['scroll'])
+defineProps({
+  artist: { type: Object, required: true },
+  colorSecondary: { type: String, required: true}
 })
 
-const loading = ref<boolean>(true)
-const artist = ref<IArtist>()
-
-onMounted(async () => {
-  getArtist()
-})
-
-async function getArtist() {
-  loading.value = true
-  artist.value = await useAPI().artist.getById(props.artistId)
-  loading.value = false
+function handleScroll(event: Event) {
+  const target = event.target as HTMLElement
+  emit('scroll', target.scrollTop)  // on émet scrollTop vers le parent
 }
 </script>
 
@@ -43,38 +22,6 @@ async function getArtist() {
 .artist-content {
   position: relative;
   height: 100%;
-  width: 100%;
-  &__loader,
-  &__error {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-  &__banner {
-    width: 100%;
-    height: 40vh;
-    z-index: 999;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    &__artist-name {
-      position: absolute;
-      bottom: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      color: $light-background;
-      padding: 20px;
-      &__name {
-        font-size: 75px;
-        font-weight: 800;
-        line-height: 75px;
-      }
-      &__nmb {
-
-      }
-    }
-  }
+  overflow: auto;
 }
 </style>
