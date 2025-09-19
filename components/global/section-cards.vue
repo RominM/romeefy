@@ -34,7 +34,7 @@
 </template>
 
 <script setup lang='ts'>
-import { CircleArrowLeft01Icon, CircleArrowRight01Icon } from '@hugeicons/core-free-icons';
+import { CircleArrowRight01Icon } from '@hugeicons/core-free-icons';
 import type { PropType } from 'vue';
 
 defineProps({
@@ -58,12 +58,12 @@ function scrollRight() {
 <style lang='scss' scoped>
   .section-card{
     &__top{
+      @include noSelect;
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 10px;
       color: $light-text-primary;
-      @include noSelect;
       &__title {
         font-weight: 700;
       }
