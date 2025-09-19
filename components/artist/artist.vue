@@ -36,6 +36,7 @@ async function getArtist() {
   if(!data || error) return
 
   artist.value = data
+console.log(artist.value);
 
   const colors = await useColors().extractTopColors(artist.value.picture_xl)
   colorSecondary.value = colors[0].rgb

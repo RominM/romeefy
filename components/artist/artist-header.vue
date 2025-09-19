@@ -5,16 +5,18 @@
       Artiste vérifié
     </p>
     <h1 class='artist-header__name'>{{ artist.name }}</h1>
-    <p>{{ artist.nb_fan }} auditeurs mensuels</p>
+    <p>{{ numFan}} auditeurs mensuels</p>
   </header>
 </template>
 
 <script setup lang='ts'>
 import { CheckmarkBadge01Icon } from '@hugeicons/core-free-icons';
 
-defineProps({
+const props = defineProps({
   artist: { type: Object, required: true },
 })
+
+const numFan = computed(() => new Intl.NumberFormat().format(props.artist.nb_fan))
 </script>
 
 <style lang='scss' scoped>
@@ -25,7 +27,7 @@ defineProps({
   align-items: flex-start;
   width: 100%;
   height: calc(45vh - 20px);
-  padding: 0 20px 40px ;
+  padding: 0 20px 20px ;
   color: #fff;
   z-index: 1;
   &__is-verified {

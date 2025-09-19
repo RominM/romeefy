@@ -3,7 +3,7 @@
     <player-banner :color-secondary="colorSecondary"/>
     
     <div class='artist-main__content'>
-      <section-track v-if="topTrack" :track-list="topTrack" title="Populaire"/>
+      <section-track v-if="topTrack" :track-list="topTrack" title="Populaires"/>
     </div>
 
     <p style="padding: 20px;">
@@ -78,9 +78,8 @@ async function getTopTracks() {
   background: linear-gradient(307deg, rgba(20, 19, 19, 1) 64%, rgba(38, 38, 38, 1) 100%);
   &__content {
     position: relative;
-    padding: 0 20px;
-    margin-top: -80px;
-    z-index: 1;
+    padding: 10px 20px;
+    z-index: 10;
   }
 }
 </style>
