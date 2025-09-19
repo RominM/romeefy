@@ -35,7 +35,7 @@ const duration = computed(() => {
   const trackDuration = props.track.duration
   const minutes = Math.floor(trackDuration / 60)
   const remainingSeconds = trackDuration % 60
-  return `${minutes}:${remainingSeconds}`
+  return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`
 })
 </script>
 
