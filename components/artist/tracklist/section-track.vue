@@ -1,8 +1,8 @@
 <template>
-  <div class='section-track'>
-    <h3>{{ title }}</h3>
+  <section class='section-track'>
+    <h3 class='section-track__title'>{{ title }}</h3>
     <tracks-list :track-list="trackList" />
-  </div>
+  </section>
 </template>
 
 <script setup lang='ts'>
@@ -13,5 +13,14 @@ defineProps({
 </script>
 
 <style lang='scss' scoped>
-    .section-track{}
+  .section-track {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    &__title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+    }
+  }
 </style>
