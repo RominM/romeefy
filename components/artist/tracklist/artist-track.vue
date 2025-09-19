@@ -27,7 +27,7 @@ const props = defineProps({
 })
 
 const listenRandom =  computed(() => {
-  const generateNumber = Math.floor(Math.random() * (500_000_000 - 1_000_000 + 1)) + 1_000_000
+  const generateNumber = Math.floor(Math.random() * (1_000_000_000 - 100_000 + 1)) + 1_000_000
   return new Intl.NumberFormat().format(generateNumber) 
 })
 
