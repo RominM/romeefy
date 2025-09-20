@@ -19,7 +19,7 @@ const props = defineProps({
 })
 
 const loading = ref<boolean>(true)
-const artist = ref<IArtist>({} as IArtist)
+const artist = useArtist()
 
 const currentColor = ref<string>('transparent')
 const currentScale = ref<number>(1.2)
@@ -36,12 +36,12 @@ async function getArtist() {
   loading.value = true
   const { data, error } = await useAPI().artist.getById(props.artistId)
   loading.value = false
-console.log({artist: props.artistId, data, error});
 
   if(!data || error) return
 
   artist.value = data
 
+  if (!artist.value) return
   const colors = await useColors().extractTopColors(artist.value.picture_xl)
   colorSecondary.value = colors[0].rgb
 }
