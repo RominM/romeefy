@@ -1,12 +1,12 @@
 <template>
-  <div class='artist'>
-    <loader v-if="loading" class='artist--loader' />
-    <div v-else-if="artist" class='artist--wrapper'>
+  <div class='artist-page'>
+    <loader v-if="loading" class='artist-page--loader' />
+    <div v-else-if="artist" class='artist-page--wrapper'>
       <player-top-fixed v-if="trackId" :scroll-top="scrollTop" :color="currentColor" :name="artist.name" :track-id="trackId" />
       <banner :banner="artist.picture_xl" :color="currentColor" :scale="currentScale"/>
       <artist-content :artist="artist" :color-secondary="colorSecondary" @scroll="onScroll" @track-id="trackId = $event"/>
     </div>
-    <error-content v-else class='artist--error' @retry="getArtist"/>
+    <error-content v-else class='artist-page--error' @retry="getArtist"/>
   </div>
 </template>
 
@@ -36,6 +36,7 @@ async function getArtist() {
   loading.value = true
   const { data, error } = await useAPI().artist.getById(props.artistId)
   loading.value = false
+console.log({artist: props.artistId, data, error});
 
   if(!data || error) return
 
@@ -66,12 +67,7 @@ $--navbar: 58px;
 $--playbar: 100px;
 $--global-padding: 20px;
 
-.test {
-  position: fixed;
-  z-index: 12;
-}
-
-.artist {
+.artist-page {
   position: relative;
   height: 100%;
   width: 100%;

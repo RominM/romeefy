@@ -1,6 +1,6 @@
 <template>
   <div class="play-top-fixed" :style="{ backgroundColor: color }">
-    <div :class="['play-top-fixed__content', scrollTop >= 400 ? '--is-visible':'']">
+    <div :class="['play-top-fixed__content', isVisible ? '--is-visible':'']">
       <player-button :track-id="trackId"/>
       <h2 class="play-top-fixed__content__name">{{ name }}</h2>
     </div>
@@ -9,13 +9,17 @@
 
 <script lang="ts" setup>
 
-defineProps({
+const props = defineProps({
   color: { type: String, required: true },
   scrollTop: { type: Number, required: true },
   name: { type: String, required: true },
   trackId: { type: Number, required: true }
 })
 
+const isVisible = computed(() => {
+  const fortyVhInPixels = window.innerHeight * 0.4
+  return props.scrollTop >= fortyVhInPixels
+})
 </script>
 
 <style lang="scss" scoped>
@@ -25,7 +29,7 @@ defineProps({
   padding: 10px 20px;
   width: 100%;
   z-index: 15;
-  filter: brightness(80%);
+  filter: brightness(70%);
 
   &__content{
     display: flex; 
