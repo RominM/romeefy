@@ -16,8 +16,6 @@ const props = defineProps({
   trackId: { type: Number, required: true}
 })
 
-
-
 const { byTrackId, isCurrentTrackPlaying } = usePlay()
 
 const isPlayingThisTrack = computed(() => isCurrentTrackPlaying(props.trackId))

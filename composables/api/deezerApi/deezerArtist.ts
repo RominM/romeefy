@@ -1,20 +1,21 @@
 import { fetchDeezer } from "./fetchDeezer"
 
 export const deezerArtist = () => {
+  const _path = '/artist'
   return {
     getById: (artistId: number, params: Record<string, any> = {}) =>
-      fetchDeezer(`/artist/${artistId}`, params).fetchData(),
+      fetchDeezer(_path + `/${artistId}`, params).fetchData(),
 
     getTopTracks: (artistId: number, params: Record<string, any> = {}) =>
-      fetchDeezer(`/artist/${artistId}/top`, params).fetchData(),
+      fetchDeezer(_path + `/${artistId}/top`, params).fetchData(),
 
     getAlbums: (artistId: number, params: Record<string, any> = {}) =>
-      fetchDeezer(`/artist/${artistId}/albums`, params).fetchData(),
+      fetchDeezer(_path + `/${artistId}/albums`, params).fetchData(),
 
     getAllByGenreId: (genreId: number, params: Record<string, any> = {}) =>
       fetchDeezer(`/genre/${genreId}/artists`, params).fetchData(),
 
     getRelated: (artistId: number, params: Record<string, any> = {}) =>
-      fetchDeezer(`/artist/${artistId}/related`, params).fetchData()
+      fetchDeezer(_path +`/${artistId}/related`, params).fetchData()
   }
 }

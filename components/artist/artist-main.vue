@@ -3,7 +3,10 @@
     <player-banner v-if="trackId" :color-secondary="colorSecondary" :track-id="trackId"/>
     
     <div class='artist-main__content'>
+      <section-tracks :artist-id="artist.id" />
+      <section-discography :artist-id="artist.id" />
       <section-track v-if="topTrack" :track-list="topTrack" title="Populaires"  />
+      <section-cards title-section="Discographie" :cover-card-list="albumList" :source-redirect="`/artist/${artist.id}/discography`"/>
     </div>
 
     <p style="padding: 20px;">
@@ -56,22 +59,35 @@ const props = defineProps({
 
 const topTrack = ref()
 const trackId = ref<number>()
+const loading = ref<boolean>(false)
 
 onMounted(() => {
+  console.log(props.artist);
+  
   getTopTracks()
+  getAlbums()
 })
 
 async function getTopTracks() {
-  
-  const { data, error } = await useAPI().artist.getTopTracks(props.artist.id, { limit: 5, order: 'RATING_DESC' })
+  loading.value = true
+  const { data, error } = await useAPI().artist.getTopTracks(props.artist.id, { limit: 10, order: 'RATING_DESC' })
+  loading.value = false
   
   if(!data || error) return
 
   topTrack.value = data
   trackId.value = topTrack.value[0].id
+
   emit('track-id', trackId.value)
 }
 
+async function getAlbums() {
+  loading.value = true
+  const { data, error } = await useAPI().artist.getAlbums(props.artist.id)
+  console.log({ data, error });
+  
+  loading.value = false
+}
 
 </script>
 

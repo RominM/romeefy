@@ -15,20 +15,13 @@
 <script setup lang='ts'>
 import { ArrowDataTransferHorizontalIcon, NextIcon, PauseCircleIcon, PlayCircleIcon, PreviousIcon, RepeatIcon, RepeatOne01Icon } from '@hugeicons/core-free-icons';
 
-// useGlobalEvents().subscribeTo(EGlobalEvent.PLAYER_STATE, (playing: boolean | undefined) => {  
-//   if(!playing) return
-//   onPlay.value = playing
-// })
+const { togglePlayGlobal, isPlaying } = usePlay()
 
-// const onPlay = ref<boolean>(false)
 const onLoopSong = ref<boolean>(false)
 
-const { togglePlayGlobal, isPlaying } = usePlay()
 function togglePlay() {
   togglePlayGlobal()
 }
-
-
 </script>
 
 <style lang='scss' scoped>

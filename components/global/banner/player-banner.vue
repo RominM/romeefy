@@ -31,7 +31,7 @@ $--color: var(--color);
     gap: 20px;
     padding: 10px 20px 10px 20px;
     background-color: $--color;
-    filter: brightness(80%);
+    filter: brightness(70%);
     z-index: 9;
     &__follow {
       display: flex;
@@ -53,7 +53,7 @@ $--color: var(--color);
     top: 0;
     display: block;
     background: linear-gradient($--color 50%, transparent 100%);
-    filter: brightness(80%);
+    filter: brightness(70%);
     height: 180px;
     width: 100%;
     z-index: 8;
