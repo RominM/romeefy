@@ -10,5 +10,7 @@ const artistId = Number(route.params.id)
 </script>
 
 <style scoped lang="scss">
-.discography{}
+.discography{
+  overflow: hidden;
+}
 </style>
