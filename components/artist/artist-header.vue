@@ -26,7 +26,7 @@ const numFan = computed(() => new Intl.NumberFormat().format(props.artist.nb_fan
   justify-content: flex-end;
   align-items: flex-start;
   width: 100%;
-  height: calc(45vh - 20px);
+  height: calc(40vh - 20px);
   padding: 0 20px 20px ;
   color: #fff;
   z-index: 1;

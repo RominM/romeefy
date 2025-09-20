@@ -1,8 +1,11 @@
 <template>
-  <div class='artist-content' @scroll="handleScroll">
-    <artist-header :artist="artist" />
-    <artist-main :artist="artist" :color-secondary="colorSecondary"  />
-  </div>
+  <!-- <div class='artist-content custom-scrollbar' @scroll="handleScroll"> -->
+    <scroll-container class='artist-content'  @target="handleScroll">
+
+      <artist-header :artist="artist" />
+      <artist-main :artist="artist" :color-secondary="colorSecondary"  />
+    </scroll-container>
+  <!-- </div> -->
 </template>
 
 <script setup lang='ts'>
@@ -12,8 +15,9 @@ defineProps({
   colorSecondary: { type: String, required: true}
 })
 
-function handleScroll(event: Event) {
-  const target = event.target as HTMLElement
+function handleScroll(target: HTMLElement) {
+  // const target = event.target as HTMLElement
+
   emit('scroll', target.scrollTop)
 }
 </script>
@@ -22,6 +26,6 @@ function handleScroll(event: Event) {
 .artist-content {
   position: relative;
   height: 100%;
-  overflow: auto;
+  margin-top: 40px;
 }
 </style>

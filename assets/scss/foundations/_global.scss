@@ -1,28 +1,34 @@
+/* Pour Chrome, Safari et Edge */
 .custom-scrollbar {
-  /* Pour Chrome, Edge, Safari */
+  overflow-y: auto; /* active la scrollbar */
+  
+  /* largeur */
   &::-webkit-scrollbar {
-    width: 10px;              /* largeur de la scrollbar verticale */
-    height: 10px;             /* hauteur pour la scrollbar horizontale */
+    width: 15px; 
+    height: 8px; /* utile si scroll horizontal */
   }
 
+  /* fond */
   &::-webkit-scrollbar-track {
-    background: #1e1e1e;      /* couleur du fond */
-    border-radius: 10px;
+    position: absolute;
+    right: 20px;
+    margin-right: 50px;
+    background: transparent; 
   }
 
+  /* curseur */
   &::-webkit-scrollbar-thumb {
-    background: #666;         /* couleur de la barre */
-    border-radius: 10px;
-    border: 2px solid #1e1e1e; /* pour créer un "padding" visuel */
+    background: grey;
   }
 
+  /* hover */
   &::-webkit-scrollbar-thumb:hover {
-    background: #999;         /* couleur au hover */
+    background: linear-gradient(180deg, #2563EB, #1E40AF);
   }
+}
 
-  /* Pour Firefox */
-  * {
-    scrollbar-width: thin;            /* "auto" | "thin" | "none" */
-    scrollbar-color: #666 #1e1e1e;    /* thumb | track */
-  }
+/* Pour Firefox */
+.my-scrollable {
+  scrollbar-width: thin; /* auto | thin | none */
+  scrollbar-color: #3B82F6 transparent; 
 }
