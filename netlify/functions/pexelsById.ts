@@ -1,6 +1,8 @@
+import type { HandlerEvent } from '@netlify/functions'
 import fetch from 'node-fetch'
 
-export const handler = async (event) => {
+
+export const handler = async (event: HandlerEvent) => {
   const id = event.queryStringParameters?.id
   if (!id) {
     return { statusCode: 400, body: JSON.stringify({ error: true, message: 'Missing photo id' }) }
