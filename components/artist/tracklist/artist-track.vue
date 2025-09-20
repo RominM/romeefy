@@ -1,7 +1,7 @@
 <template>
-  <div class='artist-track'>
+  <div class='artist-track' @click="togglePlay">
     <div class='artist-track__index-icon'>
-      <h-icon :icon="PlayIcon" class='artist-track__index-icon--icon' size="25px"/>
+      <h-icon :icon="!isPlayingThisTrack ? PlayIcon : PauseFreeIcons" class='artist-track__index-icon--icon' size="25px"/>
       <span class='artist-track__index-icon--index'>{{  index  }}</span>
     </div>
     <img class='artist-track__album-cover' :src="track.album.cover_small" alt="">
@@ -19,12 +19,13 @@
 </template>
 
 <script setup lang='ts'>
-import { AddCircleIcon, MoreHorizontalIcon, PlayIcon } from '@hugeicons/core-free-icons';
+import { AddCircleIcon, MoreHorizontalIcon, PauseFreeIcons, PlayIcon } from '@hugeicons/core-free-icons';
 
 const props = defineProps({
   track: { type: Object, required: true },
   index: { type: Number, default: null }
 })
+
 
 const listenRandom =  computed(() => {
   const generateNumber = Math.floor(Math.random() * (1_000_000_000 - 100_000 + 1)) + 1_000_000
@@ -37,6 +38,16 @@ const duration = computed(() => {
   const remainingSeconds = trackDuration % 60
   return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`
 })
+
+const { byPreview, isCurrentTrackPlaying } = usePlay()
+
+const isPlayingThisTrack = computed(() => isCurrentTrackPlaying(undefined, props.track.preview))
+
+function togglePlay() {
+  byPreview(props.track.preview)
+}
+
+
 </script>
 
 <style lang='scss' scoped>

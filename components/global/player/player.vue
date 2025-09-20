@@ -1,6 +1,6 @@
 <template>
   <div class='player'>
-    <player-controler />
+    <player-controller />
     <song-timeline :source="source"/>
   </div>
 </template>

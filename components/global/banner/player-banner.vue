@@ -1,7 +1,7 @@
 <template>
   <div class='player-banner' :style="{ '--color': colorSecondary }" >
     <div class="player-banner__content">
-      <player-button />
+      <player-button :track-id="trackId"/>
       <h-icon :icon="ArrowDataTransferHorizontalIcon" size="45px" />
       <button class='player-banner__content__follow'>S'abonner</button>
       <h-icon :icon="MoreHorizontalIcon" size="45px" />
@@ -13,7 +13,8 @@
 import { ArrowDataTransferHorizontalIcon, MoreHorizontalIcon } from '@hugeicons/core-free-icons';
 
 defineProps({
-  colorSecondary: { type: String, required: true}
+  colorSecondary: { type: String, required: true},
+  trackId:  { type: Number, required: true}
 })
 const onLoopSong = ref<boolean>(false)
 </script>
@@ -52,8 +53,7 @@ $--color: var(--color);
     top: 0;
     display: block;
     background: linear-gradient($--color 50%, transparent 100%);
-        filter: brightness(80%);
-
+    filter: brightness(80%);
     height: 180px;
     width: 100%;
     z-index: 8;
