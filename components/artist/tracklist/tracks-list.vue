@@ -1,6 +1,6 @@
 <template>
   <ul class='track-list'>
-    <li v-for="(track, index) in trackList" :key="`track-${index}`" class='track-list__el'>
+    <li v-for="(track, index) in trackList" :key="`track-${index}`" class='track-list__el' >
       <artist-track :track="track" :index="index + 1"/>
     </li>
   </ul>

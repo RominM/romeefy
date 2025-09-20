@@ -1,7 +1,7 @@
 <template>
   <div class="play-top-fixed" :style="{ backgroundColor: color }">
     <div :class="['play-top-fixed__content', scrollTop >= 400 ? '--is-visible':'']">
-      <player-button />
+      <player-button :track-id="trackId"/>
       <h2 class="play-top-fixed__content__name">{{ name }}</h2>
     </div>
   </div>
@@ -13,6 +13,7 @@ defineProps({
   color: { type: String, required: true },
   scrollTop: { type: Number, required: true },
   name: { type: String, required: true },
+  trackId: { type: Number, required: true }
 })
 
 </script>

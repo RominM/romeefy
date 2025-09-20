@@ -1,12 +1,12 @@
 <template>
-  <scroll-container class='artist-content' @target="emit('scroll', $event.scrollTop)">
+  <scroll-container class='artist-content' @target="emits('scroll', $event.scrollTop)">
     <artist-header :artist="artist" />
-    <artist-main :artist="artist" :color-secondary="colorSecondary"  />
+    <artist-main :artist="artist" :color-secondary="colorSecondary" @track-id="emits('track-id', $event)" />
   </scroll-container>
 </template>
 
 <script setup lang='ts'>
-const emit = defineEmits(['scroll'])
+const emits = defineEmits(['scroll', 'track-id'])
 
 defineProps({
   artist: { type: Object, required: true },

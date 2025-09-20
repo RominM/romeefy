@@ -1,9 +1,9 @@
 <template>
   <main class='artist-main'>
-    <player-banner :color-secondary="colorSecondary"/>
+    <player-banner v-if="trackId" :color-secondary="colorSecondary" :track-id="trackId"/>
     
     <div class='artist-main__content'>
-      <section-track v-if="topTrack" :track-list="topTrack" title="Populaires"/>
+      <section-track v-if="topTrack" :track-list="topTrack" title="Populaires"  />
     </div>
 
     <p style="padding: 20px;">
@@ -48,12 +48,14 @@
 <script setup lang='ts'>
 import { useAPI } from '~/composables/api/useApi';
 
+const emit = defineEmits(['track-id'])
 const props = defineProps({
   artist: { type: Object, required: true },
   colorSecondary: { type: String, required: true}
 })
 
 const topTrack = ref()
+const trackId = ref<number>()
 
 onMounted(() => {
   getTopTracks()
@@ -66,8 +68,8 @@ async function getTopTracks() {
   if(!data || error) return
 
   topTrack.value = data
-  console.log(topTrack.value);
-  
+  trackId.value = topTrack.value[0].id
+  emit('track-id', trackId.value)
 }
 
 

@@ -2,9 +2,9 @@
   <div class='artist'>
     <loader v-if="loading" class='artist--loader' />
     <div v-else-if="artist" class='artist--wrapper'>
-      <player-top-fixed :scroll-top="scrollTop" :color="currentColor" :name="artist.name" />
+      <player-top-fixed v-if="trackId" :scroll-top="scrollTop" :color="currentColor" :name="artist.name" :track-id="trackId" />
       <banner :banner="artist.picture_xl" :color="currentColor" :scale="currentScale"/>
-      <artist-content :artist="artist" :color-secondary="colorSecondary" @scroll="onScroll"/>
+      <artist-content :artist="artist" :color-secondary="colorSecondary" @scroll="onScroll" @track-id="trackId = $event"/>
     </div>
     <error-content v-else class='artist--error' @retry="getArtist"/>
   </div>
@@ -25,6 +25,8 @@ const currentColor = ref<string>('transparent')
 const currentScale = ref<number>(1.2)
 const scrollTop = ref<number>(0)
 const colorSecondary = ref<string>('')
+
+const trackId = ref<number>()
 
 onMounted(async () => {
   getArtist()

@@ -2,7 +2,7 @@
   <nuxt-link :to="`${sourceRedirect}/${coverCard.id}`" class='cover-card'>
     <div class='cover-card__img-wrapper'>
       <img class='cover-card__img-wrapper__img' :src="coverCard.coverMedium" :alt="coverCard.alt">
-      <div v-if="trackId" class="cover-card__img-wrapper--show-play" @click.prevent.stop="usePlayingTrack(trackId)">
+      <div v-if="trackId" class="cover-card__img-wrapper--show-play" @click.prevent.stop="usePlay().byTrackId(trackId)">
         <h-icon :icon="PlayCircleIcon" size="40px"/>
       </div>
     </div>
