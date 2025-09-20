@@ -2,6 +2,7 @@
   <div class='artist'>
     <loader v-if="loading" class='artist--loader' />
     <div v-else-if="artist" class='artist--wrapper'>
+      <player-top-fixed :scroll-top="scrollTop" :color="currentColor" :name="artist.name" />
       <banner :banner="artist.picture_xl" :color="currentColor" :scale="currentScale"/>
       <artist-content :artist="artist" :color-secondary="colorSecondary" @scroll="onScroll"/>
     </div>
@@ -22,6 +23,7 @@ const artist = ref<IArtist>({} as IArtist)
 
 const currentColor = ref<string>('transparent')
 const currentScale = ref<number>(1.2)
+const scrollTop = ref<number>(0)
 const colorSecondary = ref<string>('')
 
 onMounted(async () => {
@@ -36,23 +38,23 @@ async function getArtist() {
   if(!data || error) return
 
   artist.value = data
-console.log(artist.value);
 
   const colors = await useColors().extractTopColors(artist.value.picture_xl)
   colorSecondary.value = colors[0].rgb
 }
 
-function onScroll(scrollTop: number) {
+function onScroll(top: number) {
+  scrollTop.value = top 
   // opacity
   const maxScroll = 200
-  const opacity = Math.min(scrollTop / maxScroll, 1)
+  const opacity = Math.min(scrollTop.value / maxScroll, 1)
 
   const baseRgb = useColors().rgbStringToArray(colorSecondary.value) 
   currentColor.value = `rgba(${baseRgb[0]}, ${baseRgb[1]}, ${baseRgb[2]}, ${opacity})`
 
   // scale
   const minScale = 0.95
-  const scale = 1.2 - Math.min(scrollTop / maxScroll, 1) * (1 - minScale)
+  const scale = 1.2 - Math.min(scrollTop.value / maxScroll, 1) * (1 - minScale)
   currentScale.value = scale
 }
 </script>
@@ -61,6 +63,11 @@ function onScroll(scrollTop: number) {
 $--navbar: 58px;
 $--playbar: 100px;
 $--global-padding: 20px;
+
+.test {
+  position: fixed;
+  z-index: 12;
+}
 
 .artist {
   position: relative;
