@@ -1,33 +1,43 @@
 <template>
-  <div class="play_top-fixed" :style="{ backgroundColor: color }">
-    <h-icon 
-      :icon="onPlay ? PauseCircleIcon : PlayCircleIcon" 
-      size="55px"
-      color="#1db954"
-      :title="onPlay ? 'Pause' : 'Lecture'" 
-      @click="togglePlay()"
-    />
-    <h2>{{ name }}</h2>
+  <div class="play-top-fixed" :style="{ backgroundColor: color }">
+    <div :class="['play-top-fixed__content', scrollTop >= 400 ? '--is-visible':'']">
+      <player-button />
+      <h2 class="play-top-fixed__content__name">{{ name }}</h2>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { PauseCircleIcon, PlayCircleIcon } from '@hugeicons/core-free-icons';
 
 defineProps({
-    color: { type: String, required: true },
-    scrollTop: { type: Number, required: true },
-    name: { type: String, required: true },
+  color: { type: String, required: true },
+  scrollTop: { type: Number, required: true },
+  name: { type: String, required: true },
 })
-
-const onPlay = ref<boolean>(false)
 
 </script>
 
 <style lang="scss" scoped>
-.play_top-fixed {
-  position: fixed;
+.play-top-fixed {
+  position: sticky;
+  top: 0;
+  padding: 10px 20px;
   width: 100%;
-  z-index: 12;
+  z-index: 15;
+  filter: brightness(80%);
+
+  &__content{
+    display: flex; 
+    align-items: center;
+    gap: 12px;
+    opacity: 0;
+    transition: 0.5s;
+    &.--is-visible{
+      opacity: 1;
+    }
+    &__name {
+      color: #fff;
+    }
+  }
 }
 </style>

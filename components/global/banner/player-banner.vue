@@ -1,12 +1,7 @@
 <template>
   <div class='player-banner' :style="{ '--color': colorSecondary }" >
     <div class="player-banner__content">
-      <h-icon 
-      :icon="onPlay ? PauseCircleIcon : PlayCircleIcon" 
-      size="55px"
-      color="#1db954"
-      :title="onPlay ? 'Pause' : 'Lecture'" 
-      @click="togglePlay()"/>
+      <player-button />
       <h-icon :icon="ArrowDataTransferHorizontalIcon" size="45px" />
       <button class='player-banner__content__follow'>S'abonner</button>
       <h-icon :icon="MoreHorizontalIcon" size="45px" />
@@ -15,18 +10,12 @@
 </template>
 
 <script setup lang='ts'>
-import { ArrowDataTransferHorizontalIcon, MoreHorizontalIcon, PauseCircleIcon, PlayCircleIcon } from '@hugeicons/core-free-icons';
+import { ArrowDataTransferHorizontalIcon, MoreHorizontalIcon } from '@hugeicons/core-free-icons';
 
 defineProps({
   colorSecondary: { type: String, required: true}
 })
-
-const onPlay = ref<boolean>(false)
 const onLoopSong = ref<boolean>(false)
-
-function togglePlay() {
-
-}
 </script>
 
 <style lang='scss' scoped>
@@ -41,7 +30,7 @@ $--color: var(--color);
     gap: 20px;
     padding: 10px 20px 10px 20px;
     background-color: $--color;
-    filter: brightness(70%);
+    filter: brightness(80%);
     z-index: 9;
     &__follow {
       display: flex;
@@ -62,8 +51,9 @@ $--color: var(--color);
     position: absolute;
     top: 0;
     display: block;
-    background: linear-gradient($--color 15%, transparent 100%);
-    filter: brightness(95%);
+    background: linear-gradient($--color 50%, transparent 100%);
+        filter: brightness(80%);
+
     height: 180px;
     width: 100%;
     z-index: 8;
