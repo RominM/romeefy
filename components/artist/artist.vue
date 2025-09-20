@@ -73,18 +73,18 @@ $--global-padding: 20px;
   position: relative;
   height: 100%;
   width: 100%;
+  &--wrapper {
+    position: relative;
+    height: 500px;
+    overflow: hidden;
+    height: calc(100dvh - $--navbar - $--playbar - $--global-padding);
+  }
   &--loader,
   &--error {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-  }
-  &--wrapper {
-    position: relative;
-    height: 500px;
-    overflow: hidden;
-    height: calc(100dvh - $--navbar - $--playbar - $--global-padding);
   }
 }
 

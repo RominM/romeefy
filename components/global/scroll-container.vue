@@ -83,8 +83,6 @@ function stopDrag() {
   document.removeEventListener('mousemove', onDrag)
   document.removeEventListener('mouseup', stopDrag)
 }
-
-
 </script>
 
 <style lang="scss" scoped>
