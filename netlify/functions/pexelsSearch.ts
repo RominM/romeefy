@@ -1,6 +1,7 @@
+import type { HandlerEvent } from '@netlify/functions'
 import fetch from 'node-fetch'
 
-export const handler = async (event) => {
+export const handler = async (event: HandlerEvent) => {
   const query = event.queryStringParameters?.q || 'nature'
   const perPage = event.queryStringParameters?.per_page || 10
   const apiKey = process.env.PEXELS_API_KEY
