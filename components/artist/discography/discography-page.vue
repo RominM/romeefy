@@ -20,7 +20,6 @@ const props = defineProps({
 })
 
 const route = useRoute()
-const discography = ref()
 const loading = ref<boolean>(false)
 const target = ref<number>(0)
 const trackId = ref<number>()
