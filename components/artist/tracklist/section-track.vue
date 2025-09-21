@@ -1,7 +1,7 @@
 <template>
   <section class='section-track'>
     <h3 class='section-track__title'>{{ title }}</h3>
-    <tracks-list :track-list="trackList" />
+    <tracks-list :track-list="trackList" show-cover/>
   </section>
 </template>
 

@@ -1,11 +1,8 @@
 <template>
-  <div>
-    <slot
-      v-for="item in items"
-      :key="item.id"
-      name="item"
-      :item="item"
-    />
+  <div class="fetch-wrapper">
+    <template v-for="item in items" :key="item.id">
+      <slot name="item" :item="item"/>
+    </template>
 
     <div ref="bottomRef" style="height: 1px"></div>
 
@@ -16,19 +13,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-
 interface FetchResult<T> {
   data: T[]
   error: any
+  next?: string | null
+  total?: number
 }
 
-interface Props<T> {
-  fetch: (index: number, limit: number) => Promise<FetchResult<T>>
-  pageSize?: number
-}
-
-const props = defineProps<Props<any>>()
+const props = defineProps({
+  fetch: { type: Function as PropType<(index: number, limit: number) => Promise<FetchResult<any>>>, required: true },
+  pageSize: { type: Number, default: 25 }
+})
 
 const items = ref<any[]>([])
 const loading = ref(false)
@@ -53,12 +48,17 @@ async function loadMore() {
   loading.value = true
   try {
     const { data, error: err } = await props.fetch(index.value, pageSize)
+
     if (err) {
       error.value = err
     } else {
       items.value.push(...data)
-      if (data.length < pageSize) hasMore.value = false
-      index.value += pageSize
+
+      if (data.length < pageSize) {
+        hasMore.value = false
+      } else {
+        index.value += pageSize
+      }
     }
   } catch (err) {
     error.value = err

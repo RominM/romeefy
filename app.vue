@@ -1,13 +1,6 @@
 <template>
   <NuxtLayout>
-    <resize-wrapper>
-      <template #left>
-        <user-library />
-      </template>
-      <template #right>
-        <NuxtPage />
-      </template>
-    </resize-wrapper>
+    <NuxtPage/>
   </NuxtLayout>
 </template>
 
