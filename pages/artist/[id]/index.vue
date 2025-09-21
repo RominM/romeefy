@@ -1,7 +1,7 @@
 <template>
-  <main-wrapper class='artist'>
+  <!-- <main-wrapper class='artist'> -->
     <artist-page :artist-id="artistId"/>
-  </main-wrapper>
+  <!-- </main-wrapper> -->
 </template>
 
 <script setup lang='ts'>

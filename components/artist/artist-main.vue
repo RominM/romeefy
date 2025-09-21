@@ -62,8 +62,6 @@ const trackId = ref<number>()
 const loading = ref<boolean>(false)
 
 onMounted(() => {
-  console.log(props.artist);
-  
   getTopTracks()
   getAlbums()
 })
