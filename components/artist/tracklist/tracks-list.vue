@@ -5,11 +5,11 @@
       :key="`track-${index}`" 
       class='track-list__el'
     >
-      <artist-track :track="track" :index="index + 1"/>
+      <artist-track :track="track" :index="index + 1" :show-cover="showCover"/>
     </li>
   </ul>
 
-  <button v-if="trackList.length > defaultLimit" @click="toggleLimit" class="toggle-btn">
+  <button v-if="!viewAll && trackList.length > defaultLimit" @click="toggleLimit" class="toggle-btn">
     {{ showAll ? 'Afficher moins' : 'Afficher plus' }}
   </button>
 </template>
@@ -18,13 +18,16 @@
 import { computed, ref } from 'vue'
 
 const props = defineProps({
-  trackList: { type: Array, required: true }
+  trackList: { type: Array, required: true },
+  viewAll: { type: Boolean, defautl: false },
+  showCover: { type: Boolean, defautl: false }
 })
 
 const defaultLimit = 5
 const showAll = ref<boolean>(false)
 
 const visibleTracks = computed(() => {
+  if(props.viewAll) return props.trackList
   return showAll.value ? props.trackList : props.trackList.slice(0, defaultLimit)
 })
 

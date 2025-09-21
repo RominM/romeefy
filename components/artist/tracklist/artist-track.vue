@@ -4,7 +4,7 @@
       <h-icon :icon="!isPlayingThisTrack ? PlayIcon : PauseFreeIcons" class='artist-track__index-icon--icon' size="25px"/>
       <span class='artist-track__index-icon--index'>{{  index  }}</span>
     </div>
-    <img class='artist-track__album-cover' :src="track.album.cover_small" alt="">
+    <img v-if="showCover" class='artist-track__album-cover' :src="track.album.cover_small" alt="">
     <p class='artist-track__title'>
       <span> {{ track.title }}</span>
       <span v-if="track.explicit_lyrics" class='artist-track__title--is-explicit'>E</span>
@@ -23,7 +23,8 @@ import { AddCircleIcon, MoreHorizontalIcon, PauseFreeIcons, PlayIcon } from '@hu
 
 const props = defineProps({
   track: { type: Object, required: true },
-  index: { type: Number, default: null }
+  index: { type: Number, default: null },
+  showCover: { type: Boolean, defautl: false }
 })
 
 
