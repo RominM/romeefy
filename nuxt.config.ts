@@ -17,10 +17,6 @@ export default defineNuxtConfig({
       }
     }
   },
-  runtimeConfig: {
-    pexelsApiKey: process.env.PEXELS_API_KEY,
-    public: {}
-  },
   modules: ['@pinia/nuxt'],
   components: [
     { path: '~/components', pathPrefix: false } 

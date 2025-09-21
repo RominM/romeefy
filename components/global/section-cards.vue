@@ -62,8 +62,8 @@ function scrollRight() {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
-      color: $light-text-primary;
+      margin-bottom: 15px;
+      color: #fff;
       &__title {
         font-weight: 700;
       }
