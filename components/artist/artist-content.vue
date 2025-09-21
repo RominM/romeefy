@@ -12,7 +12,6 @@ defineProps({
   artist: { type: Object, required: true },
   colorSecondary: { type: String, required: true}
 })
-
 </script>
 
 <style lang='scss' scoped>
