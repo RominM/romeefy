@@ -20,7 +20,7 @@
 
     <main-wrapper v-if="showRightPanle" :style="{ width: rightWidth + 'px' }">
       <scroll-container>
-        <slot name="right"/>
+        <artist-details />
       </scroll-container>
     </main-wrapper>
   </div>
