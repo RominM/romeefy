@@ -6,7 +6,8 @@
         <h-icon :icon="PlayCircleIcon" size="40px"/>
       </div>
     </div>
-    <p class='cover-card__describe'>{{ coverCard.describe }}</p>
+    <p class='cover-card__title'>{{ coverCard.title }}</p>
+    <p v-if="coverCard.describe" class='cover-card__describe'>{{ coverCard.describe }}</p>
   </nuxt-link>
 </template>
 
@@ -23,7 +24,9 @@ defineProps({
 
 <style lang='scss' scoped>
   .cover-card {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
     padding: 10px;
     width: 190px;
     border-radius: 7px;
@@ -47,15 +50,27 @@ defineProps({
         transition: 0.3s;
       }
     }
+
+    &__title,
     &__describe {
-      color: $light-background;
       display: -webkit-box;
       -webkit-box-orient: vertical;
-      -webkit-line-clamp: 3;
+      -webkit-line-clamp: 2;
       overflow: hidden;
       text-overflow: ellipsis;
       line-height: 1.4em;
       max-height: calc(1.4em * 3);
+    }
+    &__title {
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    &__describe {
+      font-size: 12px;
+      color: $light-text-secondary;
+      font-weight: 500;
+
     }
 
     &:hover {

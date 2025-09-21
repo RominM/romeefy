@@ -29,7 +29,6 @@
         source-redirect="chart"
         :cover-card-list="podcastList" 
       />
-
     </div>
     <error-content v-else class='home-content--error' @retry="getAllChart"/>
   </div>
@@ -37,7 +36,6 @@
 
 <script setup lang='ts'>
 import { useAPI } from '~/composables/api/useApi'
-// import type { IArtist } from '~/types/interfaces/artists'
 
 const artistsList = ref<TCoverCard[] | null>(null)
 const playlistList = ref<TCoverCard[] | null>(null)
@@ -66,7 +64,7 @@ async function setupSections() {
   if(!allChart.value || !allChart.value.artists) return
 
   artistsList.value = mappingChatArtist(allChart.value.artists.data)
-  playlistList.value = mappingChatArtist(allChart.value.playlists.data)
+  playlistList.value = mappingChatPlaylist(allChart.value.playlists.data)
   trackList.value = mappingChatTracks(allChart.value.tracks.data)
   podcastList.value = mappingChatPodcats(allChart.value.podcasts.data)
 }
@@ -75,33 +73,45 @@ function mappingChatArtist(artists: IArtist[]): TCoverCard[] {
   return artists.map((artist: IArtist) => {
     return {   
       id: artist.id,
+      title: artist.name, 
       coverMedium: artist.picture_medium,
-      alt: artist.name,
-      describe: 'test'
-    }  
-  })
-}
-
-function mappingChatTracks(tracks: ITrack[]): TCoverCard[] {
-  console.log({tracks});
-  
-  return tracks.map((track: ITrack) => {
-    return {
-      id: track.id,
-      coverMedium: track.album.cover_medium,
-      alt: track.title,
-      describe: 'test'
+      alt: `playlist ${artist.name}`,
     }
   })
 }
 
-function mappingChatPodcats(podcasts: IPodcast[]): TCoverCard[]  {
+function mappingChatPlaylist(playlists: IPlaylist[]): TCoverCard[] {
+  return playlists.map((playlist: IPlaylist) => {
+    return {   
+      id: playlist.id,
+      title: playlist.title, 
+      coverMedium: playlist.picture_medium,
+      alt: `playlist ${playlist.title}`,
+      describe: `${playlist.nb_tracks} titres`,
+    }
+  })
+}
+
+function mappingChatTracks(tracks: ITrack[]): TCoverCard[] {
+  return tracks.map((track: ITrack) => {
+    return {
+      id: track.id,
+      title: track.title,
+      coverMedium: track.album.cover_medium,
+      alt: `titre ${track.title}`,
+      describe: track.artist.name
+    }
+  })
+}
+
+function mappingChatPodcats(podcasts: IPodcast[]): TCoverCard[] {
   return podcasts.map((podcast: IPodcast) => {
     return {
       id: podcast.id,
       coverMedium: podcast.picture_medium,
       alt: podcast.title,
-      describe: podcast.description
+      title: podcast.description,
+      describe: podcast.title
     }
   })
 }
@@ -112,11 +122,11 @@ function mappingChatPodcats(podcasts: IPodcast[]): TCoverCard[]  {
   position: relative;
   height: 100%;
   width: 100%;
-  padding: 20px;
+  padding: 20px 0 20px 20px;
   &--all-chart {
     display: flex;
     flex-direction: column;
-    gap: 45px;
+    gap: 20px;
   }
   &--loader,
   &--error {

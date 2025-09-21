@@ -101,7 +101,6 @@ $--global-padding: 20px;
   position: relative;
   height: 100%; 
   z-index: 99;
-  // outline: 2px solid red;
 
   &__content {
     height: 100%; 
@@ -116,14 +115,14 @@ $--global-padding: 20px;
     position: absolute;
     top: 8px;
     bottom: 8px;
-    right: 5px;
+    right: 0;
     display: none;
-    width: 20px;
+    width: 12px;
     opacity: 0;
     transition: 0.3s;
     z-index: 99;
     &__overlay-thumb {
-      background: grey;
+      background: rgba(128, 128, 128, 0.678);
       min-height: 20px;
       cursor: pointer;
       transform: translateY(0);
