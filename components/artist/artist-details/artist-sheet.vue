@@ -1,6 +1,6 @@
 <template>
   <scroll-container class="artist-sheet">
-    <top-track-artist :cover="topTrack[0].album.cover_medium" :artist-name="artist.name" :title-track="topTrack[0].title"/>
+    <top-track-artist v-if="topTrack && artist" :cover="topTrack[0].album.cover_medium" :artist-name="artist.name" :title-track="topTrack[0].title"/>
     
   <!-- <pre>{{ artist }}</pre> -->
   <!-- <pre>{{ topTrack[0] }}</pre> -->

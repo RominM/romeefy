@@ -65,11 +65,11 @@ function onScroll(top: number) {
 <style lang='scss' scoped>
 $--navbar: 58px;
 $--playbar: 100px;
-$--global-padding: 20px;
+$--global-padding: 10px;
 
 .artist-page {
   position: relative;
-  height: 100%;
+  min-height: 100%;
   width: 100%;
   &--wrapper {
     position: relative;
