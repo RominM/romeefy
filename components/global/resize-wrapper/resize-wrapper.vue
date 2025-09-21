@@ -1,51 +1,32 @@
 <template>
   <div class="resize-wrapper">
-    <div :style="{ width: leftWidth + 'px' }">
-      <main-wrapper>
-        <slot name="left"/>
-      </main-wrapper>
-    </div>
+    <main-wrapper class="resize-wrapper__left-panel" :style="{ width: leftWidth + 'px' }">
+      <scroll-container>
+        <user-library />
+      </scroll-container>
+    </main-wrapper>
 
-    <div
-      class="resize-handle"
-      :style="{ cursor: isDragging ? 'grabbing' : 'grab' }"
-      @mousedown.prevent="onMouseDown"
-    >
-      <hr class="resize-handle--hover">
-    </div>
+    <resize-handle @mousedown.prevent="onMouseDown" :style="{ cursor: isDragging ? 'grabbing' : 'grab' }" />
 
-    <div style="flex: 1; min-width: 0; overflow: hidden;">
-      <main-wrapper>
-          <slot name="center"/>
-      </main-wrapper>
-    </div>
+    <main-wrapper class="resize-wrapper__center-panel">
+        <slot name="center" />
+    </main-wrapper>
     
-    <div
-      class="resize-handle"
-      :style="{ cursor: isDraggingRight ? 'grabbing' : 'grab' }"
-      @mousedown.prevent="onMouseDownRight"
-    >
-      <hr class="resize-handle--hover">
-    </div>
+    <resize-handle 
+      v-if="showRightPanle" 
+      :style="{ cursor: isDragging ? 'grabbing' : 'grab' }" 
+      @mousedown.prevent="onMouseDown" 
+    />
 
-    <template v-if="layout.showRight && layout.rightComponent">
-      <main-wrapper :style="{ width: rightWidth + 'px' }">
+    <main-wrapper v-if="showRightPanle" :style="{ width: rightWidth + 'px' }">
+      <scroll-container>
         <slot name="right"/>
-      </main-wrapper>
-
-    </template>
+      </scroll-container>
+    </main-wrapper>
   </div>
 </template>
 
 <script setup lang="ts">
-import { layoutStore } from '~/store/layoutStore'
-
-const layout = layoutStore()
-
-const leftWidth = ref<number>(300)
-const rightWidth = ref<number>(250)
-const isDragging = ref<boolean>(false)
-const isDraggingRight = ref<boolean>(false)
 
 let startX = 0
 let startWidth = 0
@@ -53,14 +34,15 @@ let startWidth = 0
 let startXRight = 0
 let startWidthRight = 0
 
-const MIN_WIDTH = 200
-const MAX_WIDTH = 350
+const MIN_WIDTH = 250
+const MAX_WIDTH = 450
 
-onMounted(() => {
-  if (layout.showRight && layout.rightComponent) {
-    // Layout prêt, slot right peut s'afficher
-  }
-})
+const showRightPanle = useState('showRightPanel', () => false)
+
+const leftWidth = ref<number>(350)
+const rightWidth = ref<number>(350)
+const isDragging = ref<boolean>(false)
+const isDraggingRight = ref<boolean>(false)
 
 function onMouseDown(e: MouseEvent) {
   isDragging.value = true
@@ -74,6 +56,8 @@ function onMouseMove(e: MouseEvent) {
   if (!isDragging.value) return
   const dx = e.clientX - startX
   leftWidth.value = Math.min(MAX_WIDTH, Math.max(MIN_WIDTH, startWidth + dx))
+  console.log(leftWidth.value);
+  
 }
 
 function onMouseUp() {
@@ -107,24 +91,16 @@ function onMouseUpRight() {
   $--navbar: 58px;
   $--playbar: 100px;
 
-  .resize-wrapper{
+  .resize-wrapper {
     display: flex;
-    width: 100%;
+    width: 100vw;
     padding: 5px;
     height: calc(100dvh - $--navbar - $--playbar);
     background-color: $dark-background;
-  }
-
-  .resize-handle{
-    padding: 5px 2px 5px 3px;
-    &--hover{
-      height: 100%;
-      width: 1px;
-      border: solid 1px transparent;
-      transition: 0.3s;
-    }
-    &:hover  .resize-handle--hover {
-      border-left: solid 1px $light-background;
+    &__center-panel {
+      flex: 2; 
+      min-width: 0; 
+      overflow: hidden;
     }
   }
 </style>

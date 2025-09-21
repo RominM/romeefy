@@ -1,5 +1,5 @@
 <template>
-  <div class='main-wrapper custom-scrollbar'>
+  <div class='main-wrapper'>
     <slot />
   </div>
 </template>

@@ -17,6 +17,7 @@ defineProps({
 
 <style lang='scss' scoped>
 .artist-content {
-  height: 100%;
+  height: calc(100% - 75px);
+  box-sizing: border-box;
 }
 </style>

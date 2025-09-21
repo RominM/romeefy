@@ -1,5 +1,5 @@
 <template>
-  <div class="scroller-container" ref="scroller">
+  <div class="scroller-container" :class="{ 'is-scrollable': isScrollable }" ref="scroller">
     <div class="scroller-container__content" ref="content" @scroll="onScroll">
       <slot />
     </div>
@@ -40,17 +40,24 @@ function clamp(v: number, a = 0, b = 1) {
   return Math.min(Math.max(v, a), b)
 }
 
+const isScrollable = ref(false)
+
 function updateThumb() {
   if (!content.value || !track.value || !thumb.value) return
   const el = content.value
+  isScrollable.value = el.scrollHeight > el.clientHeight
+  if (!isScrollable.value) return
+
   const trackH = track.value.clientHeight
-  const thumbH = Math.max((el.clientHeight / el.scrollHeight) * trackH, 20) // min height
+  const thumbH = Math.max((el.clientHeight / el.scrollHeight) * trackH, 20)
   const scrollRatio = el.scrollTop / Math.max(el.scrollHeight - el.clientHeight, 1)
   const top = scrollRatio * (trackH - thumbH)
 
   thumb.value.style.height = `${thumbH}px`
   thumb.value.style.transform = `translateY(${top}px)`
 }
+
+
 
 function onScroll(event: Event) {
   const target = event.target as HTMLElement
@@ -92,10 +99,12 @@ $--global-padding: 20px;
 
 .scroller-container {
   position: relative;
+  height: 100%; 
   z-index: 99;
+  // outline: 2px solid red;
 
   &__content {
-    max-height: calc(100dvh - $--global-padding - $--navbar - $--playbar);
+    height: 100%; 
     overflow-y: auto;
     scrollbar-width: none;
     &::-webkit-scrollbar {
@@ -107,13 +116,13 @@ $--global-padding: 20px;
     position: absolute;
     top: 8px;
     bottom: 8px;
-    right: 6px;
-    width: 8px;
+    right: 5px;
+    display: none;
+    width: 20px;
     opacity: 0;
     transition: 0.3s;
     z-index: 99;
     &__overlay-thumb {
-      width: 20px;
       background: grey;
       min-height: 20px;
       cursor: pointer;
@@ -125,8 +134,15 @@ $--global-padding: 20px;
     }
   }
 
+
+
   &:hover &__overlay-track {
     opacity: 1;
   }
+}
+
+  .scroller-container.is-scrollable:hover .scroller-container__overlay-track {
+  display: block;
+  opacity: 1;
 }
 </style>

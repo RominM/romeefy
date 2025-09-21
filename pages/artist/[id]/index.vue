@@ -1,7 +1,9 @@
 <template>
-  <!-- <main-wrapper class='artist'> -->
-    <artist-page :artist-id="artistId"/>
-  <!-- </main-wrapper> -->
+  <resize-wrapper>
+    <template #center>
+      <artist-page :artist-id="artistId"/>
+    </template>
+  </resize-wrapper>
 </template>
 
 <script setup lang='ts'>

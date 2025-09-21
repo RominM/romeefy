@@ -1,15 +1,17 @@
 <template>
-    <scroll-container>
-      <home-content />
-    </scroll-container>
+  <resize-wrapper>
+    <template #center>
+      <scroll-container>
+        <home-content />
+      </scroll-container>
+    </template>
+  </resize-wrapper>
 </template>
 
 <script setup lang='ts'>
-
+/* this component has no script */
 </script>
 
 <style lang='scss' scoped>
-.index {
-  padding: 10px;
-}
+/* this component has no style */
 </style>

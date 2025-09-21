@@ -109,7 +109,7 @@ function mappingChatPodcats(podcasts: IPodcast[]): TCoverCard[]  {
 <style lang='scss' scoped>
 .home-content {
   position: relative;
-  height: 100%;
+  // height: 100%;
   width: 100%;
   padding: 20px;
   &--all-chart {
