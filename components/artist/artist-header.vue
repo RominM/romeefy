@@ -36,8 +36,8 @@ const numFan = computed(() => new Intl.NumberFormat().format(props.artist.nb_fan
     gap: 10px;
   }
   &__name {
-    font-size: 80px;
-    font-weight: 800;
+    font-size: 85px;
+    font-weight: 700;
   }
 }
 </style>

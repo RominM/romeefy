@@ -17,7 +17,13 @@ export default defineNuxtConfig({
       }
     }
   },
-  modules: ['@pinia/nuxt'],
+  modules: ['@pinia/nuxt', '@nuxtjs/google-fonts'],
+  googleFonts: {
+    families: {
+      'Work+Sans': [400, 600, 700, 800, 900]
+    },
+    display: 'swap'
+  },
   components: [
     { path: '~/components', pathPrefix: false } 
   ]
