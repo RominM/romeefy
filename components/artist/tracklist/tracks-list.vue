@@ -15,10 +15,10 @@
 </template>
 
 <script setup lang='ts'>
-import { computed, ref } from 'vue'
+import { computed, ref, type PropType } from 'vue'
 
 const props = defineProps({
-  trackList: { type: Array, required: true },
+  trackList: { type: Array as PropType<IAlbum[]>, required: true },
   viewAll: { type: Boolean, defautl: false },
   showCover: { type: Boolean, defautl: false }
 })

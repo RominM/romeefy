@@ -47,8 +47,6 @@ const isPlayingThisTrack = computed(() => isCurrentTrackPlaying(undefined, props
 function togglePlay() {
   byPreview(props.track.preview)
 }
-
-
 </script>
 
 <style lang='scss' scoped>
@@ -56,6 +54,7 @@ function togglePlay() {
   display: flex;
   align-items: center;
   gap: 16px;
+  height: 53px;
   color: $light-text-primary;
   padding: 7px 15px;
   border-radius: 5px;

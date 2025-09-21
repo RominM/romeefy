@@ -86,12 +86,16 @@ function stopDrag() {
 </script>
 
 <style lang="scss" scoped>
+$--navbar: 58px;
+$--playbar: 100px;
+$--global-padding: 20px;
+
 .scroller-container {
   position: relative;
   z-index: 99;
 
   &__content {
-    max-height: 100dvh;
+    max-height: calc(100dvh - $--global-padding - $--navbar - $--playbar);
     overflow-y: auto;
     scrollbar-width: none;
     &::-webkit-scrollbar {

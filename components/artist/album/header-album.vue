@@ -2,15 +2,17 @@
   <div class="header-album">
     <img class="header-album__cover" :src="liteAlbum.cover" alt="">
     <div class="header-album__artist">
-      <h2 class="header-album__artist__name">{{ liteAlbum.title }}</h2>
-      <div class="header-album__artist__describe">
+      <div class="header-album__artist__details">
+        <h2 class="header-album__artist__details__name">{{ liteAlbum.title }}</h2>
+        <div class="header-album__artist__details__describe">
+      </div>
         <span>{{ liteAlbum.type[0].toUpperCase() + liteAlbum.type.slice(1) }}</span>
         &bull;
         <span>{{ useDate().getYearFromStr(liteAlbum.release_date) }}</span>
         &bull;
         <span>{{ nmbTrack }} titres</span>
       </div>
-      <div>coucou</div>
+      <album-player />
     </div>
   </div>
 </template>
@@ -30,14 +32,22 @@ defineProps({
   gap: 20px;
   padding-left: 50px;
   &__cover {
+    width: 140px;
+    height: 140px;
     border-radius: 8px;
+    object-fit: cover;
   }
   &__artist {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     color: #ccc;
-    font-size: 14px;
-    &__name {
-      color: #fff;
-      font-size: 32px;
+    &__details {
+      font-size: 14px;
+      &__name {
+        color: #fff;
+        font-size: 32px;
+      }
     }
   }
 }

@@ -20,10 +20,12 @@ const props = defineProps({
 })
 
 const route = useRoute()
+const artist = useArtist()
+
+const currentAlbum = ref<HTMLElement[]>([])
 const loading = ref<boolean>(false)
 const target = ref<number>(0)
 const trackId = ref<number>()
-const artist = useArtist()
 
 onMounted(async () => {
   if (!artist.value) {

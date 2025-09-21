@@ -1,7 +1,7 @@
 <template>
-  <!-- <main-wrapper class='index'> -->
-    <home-content />
-  <!-- </main-wrapper> -->
+    <scroll-container>
+      <home-content />
+    </scroll-container>
 </template>
 
 <script setup lang='ts'>
