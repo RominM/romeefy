@@ -3,48 +3,16 @@
     <player-banner v-if="trackId" :color-secondary="colorSecondary" :track-id="trackId"/>
     
     <div class='artist-main__content'>
-      <section-tracks :artist-id="artist.id" />
-      <section-discography :artist-id="artist.id" />
+      <loader v-if="loading" style="margin: auto;"/>
       <section-track v-if="topTrack" :track-list="topTrack" title="Populaires"  />
-      <section-cards title-section="Discographie" :cover-card-list="albumList" :source-redirect="`/artist/${artist.id}/discography`"/>
+      <section-discography :artist-id="artist.id" @genre-id="genreIds = $event" />
+      <section-realated :artist-id="artist.id" />
+      <!-- get live & event of this artist -->
+       <more-artist-info :name="artist.name" :picture="artist.picture_big"/>
+      <!-- more info of this artist -->
+      <section-playlist :artist-id="artist.id" :title="`Avec ${artist.name}`" />
+      <section-genre v-if="genreIds" :genre-ids="genreIds" title="Découvert sur" />
     </div>
-
-    <p style="padding: 20px;">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus soluta vero suscipit assumenda culpa, adipisci distinctio. Veritatis temporibus suscipit, beatae distinctio nobis dolor, molestias omnis maiores iure vitae sit ducimus!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus soluta vero suscipit assumenda culpa, adipisci distinctio. Veritatis temporibus suscipit, beatae distinctio nobis dolor, molestias omnis maiores iure vitae sit ducimus!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus soluta vero suscipit assumenda culpa, adipisci distinctio. Veritatis temporibus suscipit, beatae distinctio nobis dolor, molestias omnis maiores iure vitae sit ducimus!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus soluta vero suscipit assumenda culpa, adipisci distinctio. Veritatis temporibus suscipit, beatae distinctio nobis dolor, molestias omnis maiores iure vitae sit ducimus!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus soluta vero suscipit assumenda culpa, adipisci distinctio. Veritatis temporibus suscipit, beatae distinctio nobis dolor, molestias omnis maiores iure vitae sit ducimus!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus soluta vero suscipit assumenda culpa, adipisci distinctio. Veritatis temporibus suscipit, beatae distinctio nobis dolor, molestias omnis maiores iure vitae sit ducimus!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus soluta vero suscipit assumenda culpa, adipisci distinctio. Veritatis temporibus suscipit, beatae distinctio nobis dolor, molestias omnis maiores iure vitae sit ducimus!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus soluta vero suscipit assumenda culpa, adipisci distinctio. Veritatis temporibus suscipit, beatae distinctio nobis dolor, molestias omnis maiores iure vitae sit ducimus!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus soluta vero suscipit assumenda culpa, adipisci distinctio. Veritatis temporibus suscipit, beatae distinctio nobis dolor, molestias omnis maiores iure vitae sit ducimus!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus soluta vero suscipit assumenda culpa, adipisci distinctio. Veritatis temporibus suscipit, beatae distinctio nobis dolor, molestias omnis maiores iure vitae sit ducimus!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus soluta vero suscipit assumenda culpa, adipisci distinctio. Veritatis temporibus suscipit, beatae distinctio nobis dolor, molestias omnis maiores iure vitae sit ducimus!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus soluta vero suscipit assumenda culpa, adipisci distinctio. Veritatis temporibus suscipit, beatae distinctio nobis dolor, molestias omnis maiores iure vitae sit ducimus!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus soluta vero suscipit assumenda culpa, adipisci distinctio. Veritatis temporibus suscipit, beatae distinctio nobis dolor, molestias omnis maiores iure vitae sit ducimus!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus soluta vero suscipit assumenda culpa, adipisci distinctio. Veritatis temporibus suscipit, beatae distinctio nobis dolor, molestias omnis maiores iure vitae sit ducimus!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus soluta vero suscipit assumenda culpa, adipisci distinctio. Veritatis temporibus suscipit, beatae distinctio nobis dolor, molestias omnis maiores iure vitae sit ducimus!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus soluta vero suscipit assumenda culpa, adipisci distinctio. Veritatis temporibus suscipit, beatae distinctio nobis dolor, molestias omnis maiores iure vitae sit ducimus!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus soluta vero suscipit assumenda culpa, adipisci distinctio. Veritatis temporibus suscipit, beatae distinctio nobis dolor, molestias omnis maiores iure vitae sit ducimus!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus soluta vero suscipit assumenda culpa, adipisci distinctio. Veritatis temporibus suscipit, beatae distinctio nobis dolor, molestias omnis maiores iure vitae sit ducimus!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus soluta vero suscipit assumenda culpa, adipisci distinctio. Veritatis temporibus suscipit, beatae distinctio nobis dolor, molestias omnis maiores iure vitae sit ducimus!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus soluta vero suscipit assumenda culpa, adipisci distinctio. Veritatis temporibus suscipit, beatae distinctio nobis dolor, molestias omnis maiores iure vitae sit ducimus!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus soluta vero suscipit assumenda culpa, adipisci distinctio. Veritatis temporibus suscipit, beatae distinctio nobis dolor, molestias omnis maiores iure vitae sit ducimus!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus soluta vero suscipit assumenda culpa, adipisci distinctio. Veritatis temporibus suscipit, beatae distinctio nobis dolor, molestias omnis maiores iure vitae sit ducimus!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus soluta vero suscipit assumenda culpa, adipisci distinctio. Veritatis temporibus suscipit, beatae distinctio nobis dolor, molestias omnis maiores iure vitae sit ducimus!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus soluta vero suscipit assumenda culpa, adipisci distinctio. Veritatis temporibus suscipit, beatae distinctio nobis dolor, molestias omnis maiores iure vitae sit ducimus!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus soluta vero suscipit assumenda culpa, adipisci distinctio. Veritatis temporibus suscipit, beatae distinctio nobis dolor, molestias omnis maiores iure vitae sit ducimus!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus soluta vero suscipit assumenda culpa, adipisci distinctio. Veritatis temporibus suscipit, beatae distinctio nobis dolor, molestias omnis maiores iure vitae sit ducimus!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus soluta vero suscipit assumenda culpa, adipisci distinctio. Veritatis temporibus suscipit, beatae distinctio nobis dolor, molestias omnis maiores iure vitae sit ducimus!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus soluta vero suscipit assumenda culpa, adipisci distinctio. Veritatis temporibus suscipit, beatae distinctio nobis dolor, molestias omnis maiores iure vitae sit ducimus!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus soluta vero suscipit assumenda culpa, adipisci distinctio. Veritatis temporibus suscipit, beatae distinctio nobis dolor, molestias omnis maiores iure vitae sit ducimus!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus soluta vero suscipit assumenda culpa, adipisci distinctio. Veritatis temporibus suscipit, beatae distinctio nobis dolor, molestias omnis maiores iure vitae sit ducimus!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus soluta vero suscipit assumenda culpa, adipisci distinctio. Veritatis temporibus suscipit, beatae distinctio nobis dolor, molestias omnis maiores iure vitae sit ducimus!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus soluta vero suscipit assumenda culpa, adipisci distinctio. Veritatis temporibus suscipit, beatae distinctio nobis dolor, molestias omnis maiores iure vitae sit ducimus!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus soluta vero suscipit assumenda culpa, adipisci distinctio. Veritatis temporibus suscipit, beatae distinctio nobis dolor, molestias omnis maiores iure vitae sit ducimus!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus soluta vero suscipit assumenda culpa, adipisci distinctio. Veritatis temporibus suscipit, beatae distinctio nobis dolor, molestias omnis maiores iure vitae sit ducimus!
-    </p>
   </main>
 </template>
 
@@ -57,15 +25,16 @@ const props = defineProps({
   colorSecondary: { type: String, required: true}
 })
 
-const topTrack = ref()
+const topTrack = ref<ITrack[]>([])
+const genreIds = ref<number[]>()
 const trackId = ref<number>()
 const loading = ref<boolean>(false)
 
 onMounted(() => {
   getTopTracks()
-  getAlbums()
 })
 
+/* move this call in section tracks */
 async function getTopTracks() {
   loading.value = true
   const { data, error } = await useAPI().artist.getTopTracks(props.artist.id, { limit: 10, order: 'RATING_DESC' })
@@ -78,15 +47,6 @@ async function getTopTracks() {
 
   emit('track-id', trackId.value)
 }
-
-async function getAlbums() {
-  loading.value = true
-  const { data, error } = await useAPI().artist.getAlbums(props.artist.id)
-  console.log({ data, error });
-  
-  loading.value = false
-}
-
 </script>
 
 <style lang='scss' scoped>
@@ -94,6 +54,9 @@ async function getAlbums() {
   background: linear-gradient(307deg, rgba(20, 19, 19, 1) 64%, rgba(38, 38, 38, 1) 100%);
   &__content {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
     padding: 10px 20px;
     z-index: 10;
   }

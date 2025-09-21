@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed } from 'vue';
 
 const props = defineProps({
   size: { type: Number, default: 40 },
@@ -22,7 +22,7 @@ const loaderStyle = computed(() => ({
 
 <style scoped lang="scss">
 .loader-wrapper {
-  display: inline-block; /* important pour garder la translation parent */
+  display: inline-block;
 }
 
 .loader {

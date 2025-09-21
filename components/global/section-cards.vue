@@ -21,20 +21,19 @@
         </li>
       </ul>
 
-      <div class='section-card__list-container__carousel-arrow'>
+      <!-- <div class='section-card__list-container__carousel-arrow'>
         <h-icon
           :icon="CircleArrowRight01Icon" 
           class='section-card__list-container__carousel-arrow--icon-right' 
           size="55px" 
           @click="scrollRight"
         />
-      </div>
+      </div> -->
     </div>
   </section>
 </template>
 
 <script setup lang='ts'>
-import { CircleArrowRight01Icon } from '@hugeicons/core-free-icons';
 import type { PropType } from 'vue';
 
 defineProps({
@@ -62,7 +61,7 @@ function scrollRight() {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 15px;
+      padding-right: 20px;
       color: #fff;
       &__title {
         font-weight: 700;

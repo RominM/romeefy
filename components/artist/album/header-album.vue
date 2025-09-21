@@ -6,7 +6,7 @@
         <h2 class="header-album__artist__details__name">{{ liteAlbum.title }}</h2>
         <div class="header-album__artist__details__describe">
       </div>
-        <span>{{ liteAlbum.type[0].toUpperCase() + liteAlbum.type.slice(1) }}</span>
+        <span>{{ liteAlbum.record_type[0].toUpperCase() + liteAlbum.record_type.slice(1) }}</span>
         &bull;
         <span>{{ useDate().getYearFromStr(liteAlbum.release_date) }}</span>
         &bull;

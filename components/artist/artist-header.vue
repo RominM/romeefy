@@ -5,7 +5,7 @@
       Artiste vérifié
     </p>
     <h1 class='artist-header__name'>{{ artist.name }}</h1>
-    <p>{{ numFan}} auditeurs mensuels</p>
+    <p>{{ numFan }} auditeurs mensuels</p>
   </header>
 </template>
 
