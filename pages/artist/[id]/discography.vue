@@ -5,10 +5,6 @@
         <discography-page :artist-id="artistId" />
       </scroll-container>
     </template>
-
-    <template #right>
-      <artist-details />
-    </template>
   </resize-wrapper>
 </template>
 

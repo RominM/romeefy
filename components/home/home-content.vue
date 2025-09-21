@@ -37,6 +37,7 @@
 
 <script setup lang='ts'>
 import { useAPI } from '~/composables/api/useApi'
+// import type { IArtist } from '~/types/interfaces/artists'
 
 const artistsList = ref<TCoverCard[] | null>(null)
 const playlistList = ref<TCoverCard[] | null>(null)
@@ -81,10 +82,10 @@ function mappingChatArtist(artists: IArtist[]): TCoverCard[] {
   })
 }
 
-
-
-function mappingChatTracks(tracks: ITracks[]): TCoverCard[]  {
-  return tracks.map((track: ITracks) => {
+function mappingChatTracks(tracks: ITrack[]): TCoverCard[] {
+  console.log({tracks});
+  
+  return tracks.map((track: ITrack) => {
     return {
       id: track.id,
       coverMedium: track.album.cover_medium,
@@ -109,7 +110,7 @@ function mappingChatPodcats(podcasts: IPodcast[]): TCoverCard[]  {
 <style lang='scss' scoped>
 .home-content {
   position: relative;
-  // height: 100%;
+  height: 100%;
   width: 100%;
   padding: 20px;
   &--all-chart {
