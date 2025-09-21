@@ -2,14 +2,12 @@
   <div class='error'>
     <h1>404</h1>
     <p>Oups, la page que vous cherchez n'existe pas</p>
-    <call-to-action @click="backToHome" label="Accueil"/>
+    <nuxt-link to="/" label="Accueil">Accueil</nuxt-link>
   </div>
 </template>
 
 <script setup lang='ts'>
-const backToHome = () => {
-    window.history.back()
-}   
+   
 </script>
 
 <style lang='scss' scoped>
