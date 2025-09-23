@@ -16,7 +16,7 @@ defineProps({
   position: absolute;
   top: 0;
   width: 100%;
-  height: 32vh;
+  height: 55vh;
   padding: 20px;
   filter: brightness(70%);
   overflow: hidden;

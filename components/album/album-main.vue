@@ -17,5 +17,6 @@ defineProps({
 .album-main {
   position: relative;
   z-index: 999;
+  background-color: $dark-surface;
 }
 </style>
