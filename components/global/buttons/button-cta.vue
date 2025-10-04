@@ -5,10 +5,7 @@
 </template>
 
 <script setup lang="ts">
-enum EVariant {
-  NEUTRAL = 'neutral',
-  SOLID = 'solid'
-}
+import { EVariant } from '~/types/enum/global/button';
 
 defineProps({
   label: { type: String, default: '' },
@@ -21,6 +18,9 @@ defineProps({
   border: solid $light-text-primary 1px;
   border-radius: 18px;
   padding: 0 12px;
+  font-size: 14px;
+  font-weight: 600;
+  width: fit-content;
 }
 
 .button-cta {

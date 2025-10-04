@@ -9,7 +9,10 @@
     <resize-handle @mousedown.prevent="onMouseDown" :style="{ cursor: isDragging ? 'grabbing' : 'grab' }" />
 
     <main-wrapper class="resize-wrapper__center-panel">
-        <slot name="center" />
+      <scroll-container v-if="_searchStore.isActive">
+        <search-result-page />
+      </scroll-container>
+      <slot name="center" />
     </main-wrapper>
     
     <resize-handle 
@@ -27,6 +30,8 @@
 </template>
 
 <script setup lang="ts">
+import { useSearchStore } from '~/store/searchStore'
+
 
 let startX = 0
 let startWidth = 0
@@ -37,6 +42,7 @@ let startWidthRight = 0
 const MIN_WIDTH = 250
 const MAX_WIDTH = 450
 
+const _searchStore = useSearchStore()
 const showRightPanle = useState('showRightPanel', () => false)
 
 const leftWidth = ref<number>(350)
