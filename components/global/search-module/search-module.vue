@@ -1,35 +1,46 @@
 <template>
-    <div class='search-module'>
-      <h-icon :icon="Search01Icon" color="#b3b3b3"/>
-      <input class='search-module__input' type="text" placeholder="Que souhaitez-vous écouter ou regarder ?"/>
+  <div class="search-module">
+    <div :class="['main-nav', { '--active': showDropdown }]">
+      <input-search @is-focus="handleFocus"/>
       <nuxt-link to="/parcourir">
         <h-icon :icon="DeliveryBox01Icon" color="#b3b3b3"/>
       </nuxt-link>
     </div>
+    <dropdown-result v-model="showDropdown" />
+  </div>
 </template>
 
 <script setup lang='ts'>
-import { DeliveryBox01Icon, Search01Icon } from '@hugeicons/core-free-icons';
+import { DeliveryBox01Icon } from '@hugeicons/core-free-icons';
 
+const showDropdown = defineModel<boolean>()
+
+function handleFocus(isActive: boolean) {
+  console.log('coucou', isActive);
+  
+  showDropdown.value = isActive
+}
     
 </script>
 
 <style lang='scss' scoped>
-    .search-module{
+.search-module {
+  position: relative;
+      width: 100%;
+
+}
+
+    .main-nav {
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 10px;
-      width: 100%;
-      height: stretch;
+      padding:6px;
       border-radius: 24px;
       background-color: $dark-surface;
-      &__input {
-        width: 100%;
-        border-right: solid 1px $light-text-secondary;
-        &::placeholder {
-          color: $light-text-secondary;
-        }
+      border: solid 2px $dark-surface;
+      transition: 0.3s;
+      &.--active {
+        border: solid 2px #fff;
       }
     }
 </style>
