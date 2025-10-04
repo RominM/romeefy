@@ -6,3 +6,8 @@ export enum ButtonType {
   DESTRUCTIVE = 'destructive',
   FAB = 'fab'
 }
+
+export enum EVariant {
+  NEUTRAL = 'neutral',
+  SOLID = 'solid'
+}

@@ -5,6 +5,8 @@
       class='input-search__input' 
       type="text" 
       placeholder="Que souhaitez-vous écouter ou regarder ?"
+      v-model="searchValue"
+      @input="handleInput"
       @focus="emit('is-focus', true)"
       @blur="emit('is-focus', false)"
     />
@@ -13,8 +15,36 @@
 
 <script setup lang="ts">
 import { Search01Icon } from '@hugeicons/core-free-icons';
+import { useAPI } from '~/composables/api/useApi';
+import { useSearchStore } from '~/store/searchStore';
 
 const emit = defineEmits(['is-focus'])
+
+const _searchStore = useSearchStore()
+const searchValue = ref<string>('')
+
+async function handleInput() {
+  const value = searchValue.value.trim()
+
+ _searchStore.setActive(value.length > 0)
+
+  if (value.length === 0) {
+    _searchStore.clearResults()
+    return
+  }
+
+  _searchStore.setLoading(true)
+  // pass the value to the store
+  // move this call in search-result-page
+  const { data, error } = await useAPI().search.global(value)
+  _searchStore.setLoading(false)
+
+  if (!data || error) {
+  }
+  _searchStore.setResults(data)
+  console.log({ data, error });
+  
+}
 </script>
 
 <style scoped lang="scss">

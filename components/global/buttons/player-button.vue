@@ -1,12 +1,14 @@
 <template>
-  <h-icon 
+  <button>
+    <h-icon 
     class="player-button"
     :icon="isPlayingThisTrack ? PauseCircleIcon : PlayCircleIcon" 
     size="55px"
     color="#1db954"
     :title="isPlayingThisTrack ? 'Pause' : 'Lecture'" 
     @click="togglePlay"
-  />
+    />
+  </button>
 </template>
 
 <script setup lang="ts">
