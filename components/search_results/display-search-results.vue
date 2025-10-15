@@ -10,7 +10,7 @@ const props = defineProps({
   results: { type:  Object, default: () => {} }
 })
 
-const bestArtistResult = computed<IArtist | undefined>(() => {
+const bestArtistResult = computed<TBestResult | undefined>(() => {
   const artists = props.results.artists as IArtist[] | undefined
   if (!artists || !artists.length) return
 
