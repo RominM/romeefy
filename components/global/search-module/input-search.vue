@@ -34,16 +34,14 @@ async function handleInput() {
   }
 
   _searchStore.setLoading(true)
-  // pass the value to the store
-  // move this call in search-result-page
   const { data, error } = await useAPI().search.global(entered)
   _searchStore.setLoading(false)
 
   if (!data || error) {
+    return
   }
+
   _searchStore.setResults(data)
-  console.log({ data, error });
-  
 }
 </script>
 

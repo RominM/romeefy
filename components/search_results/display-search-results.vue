@@ -1,16 +1,27 @@
 <template>
   <div class="display-search-results">
     <tags-list />
-    <best-result v-if="bestArtistResult" :best-result="bestArtistResult"/>
+    <div class="display-search-results__top-result">
+      <best-result v-if="mostFamousArtist" :best-result="mostFamousArtist"/>
+      <best-tracks v-if="trackList" :track-list="trackList"/>
+    </div>
+    <section-cards
+      v-if="trackList" 
+      title-section="Morceaux du moment" 
+      source-redirect="chart"
+      :cover-card-list="trackList" 
+     />
   </div>
 </template>
 
 <script setup lang="ts">
+import { useMapper } from '~/composables/mappers/useMapper'
+
 const props = defineProps({
   results: { type:  Object, default: () => {} }
 })
 
-const bestArtistResult = computed<TBestResult | undefined>(() => {
+const mostFamousArtist = computed<TBestResult | undefined>(() => {
   const artists = props.results.artists as IArtist[] | undefined
   if (!artists || !artists.length) return
 
@@ -18,34 +29,21 @@ const bestArtistResult = computed<TBestResult | undefined>(() => {
     return current.nb_fan > max.nb_fan ? current : max
   })
 
-  return mappedArtistToBestResult(bestArtist)
+  return useMapper().bestResult.fromArtist(bestArtist)
 })
 
-type TBestResult = {
-  id: number,
-  name: string,
-  type: string,
-  picture: string,
-  trackId: number
-}
-
-function mappedArtistToBestResult(artist: IArtist): TBestResult {
-  return {
-    id: artist.id,
-    name: artist.name,
-    type: artist.type,
-    picture: artist.picture_medium,
-    trackId: 1
-  }
-}
-
-function getTrack() {
-
-}
+const trackList = computed(() => {
+  const tracks = props.results.tracks as ITrack[] | undefined
+  if (!tracks || !tracks.length) return
+  return tracks
+})
 </script>
 
 <style scoped lang="scss">
 .display-search-results {
-  
+  &__top-result {
+    display: flex;
+    gap: 20px;
+  }
 }
 </style>

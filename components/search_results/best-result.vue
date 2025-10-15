@@ -1,7 +1,6 @@
 <template>
   <div class="best-result">
     <h2>Meilleur résultat</h2>
-
     <playing-card :track-id="bestResult.trackId" :redirect="`${bestResult.type}/${bestResult.id}`">
         <img class="best-result__card__picture" :src="bestResult.picture" :alt="`picture of ${bestResult.name}`">
         <h1 class="best-result__card__name">{{ bestResult.name }}</h1>
@@ -11,15 +10,6 @@
 </template>
 
 <script setup lang="ts">
-type TBestResult = {
-  id: number,
-  name: string,
-  type: string,
-  picture: string,
-  trackId: number
-}
-
-
 const props = defineProps({
   bestResult: { type: Object as PropType<TBestResult>, required: true }
 })
