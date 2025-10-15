@@ -1,7 +1,7 @@
 <template>
   <nuxt-link :to="`${sourceRedirect}/${coverCard.id}`" class='cover-card'>
     <div class='cover-card__img-wrapper'>
-      <img class='cover-card__img-wrapper__img' :src="coverCard.coverMedium" :alt="coverCard.alt">
+      <img :class='["cover-card__img-wrapper__img", { circular }]' :src="coverCard.coverMedium" :alt="coverCard.alt">
       <div v-if="trackId" class="cover-card__img-wrapper--show-play" @click.prevent.stop="usePlay().byTrackId(trackId)">
         <h-icon :icon="PlayCircleIcon" size="40px"/>
       </div>
@@ -18,7 +18,8 @@ import type { PropType } from 'vue';
 defineProps({
   coverCard: { type: Object as PropType<TCoverCard>, required: true},
   sourceRedirect: { type: String, require: true },
-  trackId: { type: Number, default: 0 }
+  trackId: { type: Number, default: 0 },
+  circular: { type: Boolean, default: false }
 })
 </script>
 
@@ -39,6 +40,9 @@ defineProps({
         width: 100%;
         aspect-ratio: 1;
         border-radius: 7px;
+        &.circular{
+          border-radius: 50%;
+        }
       }
       &--show-play {
         position: absolute;

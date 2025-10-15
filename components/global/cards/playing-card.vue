@@ -18,6 +18,7 @@ defineProps({
 
 <style scoped lang="scss">
 .playing-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 5px;

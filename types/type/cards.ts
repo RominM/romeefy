@@ -8,4 +8,12 @@ declare global {
     title: string
     describe?: string
   }
+
+  type TBestResult = {
+    id: number,
+    name: string,
+    type: string,
+    picture: string,
+    trackId: number
+  }
 }
