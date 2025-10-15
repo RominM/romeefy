@@ -10,6 +10,8 @@ declare global {
     picture_small: string
     picture_xl: string
     position: number
+    nb_fan: number
+    nb_album: number
     radio: boolean
     tracklist: string
     type: string
