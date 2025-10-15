@@ -24,11 +24,11 @@ const _searchStore = useSearchStore()
 const searchValue = ref<string>('')
 
 async function handleInput() {
-  const value = searchValue.value.trim()
+  const entered = searchValue.value.trim()
 
- _searchStore.setActive(value.length > 0)
+ _searchStore.setActive(entered.length > 0)
 
-  if (value.length === 0) {
+  if (entered.length === 0) {
     _searchStore.clearResults()
     return
   }
@@ -36,7 +36,7 @@ async function handleInput() {
   _searchStore.setLoading(true)
   // pass the value to the store
   // move this call in search-result-page
-  const { data, error } = await useAPI().search.global(value)
+  const { data, error } = await useAPI().search.global(entered)
   _searchStore.setLoading(false)
 
   if (!data || error) {

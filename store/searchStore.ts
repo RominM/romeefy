@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+import { defineStore } from 'pinia';
 
 export const useSearchStore = defineStore('search', {
   state: () => ({
@@ -15,6 +15,8 @@ export const useSearchStore = defineStore('search', {
 
     setResults(results: ISearchResult | undefined) {
       this.searchResults = results
+      console.log(this.searchResults);
+      
     },
 
     setLoading(loading: boolean) {
@@ -34,13 +36,13 @@ export const useSearchStore = defineStore('search', {
   },
 
   getters: {
-    hasResults(state): boolean {
-      return state.searchResults !== undefined && Object.keys(state.searchResults).length > 0
+    getResults(state) {
+      return state.searchResults
     },
-    isLoadingState(state): boolean {
+    getLoadingState(state): boolean {
       return state.isLoading
     },
-    isActive(state): boolean {
+    getActiveState(state): boolean {
       return state.isActive
     }
   }

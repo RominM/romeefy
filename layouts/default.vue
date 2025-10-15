@@ -7,8 +7,6 @@
 </template>
 
 <script setup lang='ts'>
-
-// const layout = layoutStore()
 </script>
 
 <style lang='scss' scoped>
