@@ -1,15 +1,21 @@
 <template>
-  <div class='artist-track' @click="togglePlay">
-    <div class='artist-track__index-icon'>
+  <div class='artist-track' @click="!variant ? togglePlay() : null">
+    <div v-if="!variant" class='artist-track__index-icon'>
       <h-icon :icon="!isPlayingThisTrack ? PlayIcon : PauseFreeIcons" class='artist-track__index-icon--icon' size="25px"/>
       <span class='artist-track__index-icon--index'>{{  index  }}</span>
     </div>
-    <img v-if="showCover" class='artist-track__album-cover' :src="track.album.cover_small" alt="">
+
+    <img v-if="showCover" class='artist-track__album-cover' :src="track.album.cover_small" alt="" @click="variant ? togglePlay() : null">
+    <h-icon v-if="variant" class='artist-track__album-cover--icon' :icon="!isPlayingThisTrack ? PlayIcon : PauseFreeIcons"  size="25px" @click="variant ? togglePlay() : null"/>
+
     <p class='artist-track__title'>
-      <span> {{ track.title }}</span>
-      <span v-if="track.explicit_lyrics" class='artist-track__title--is-explicit'>E</span>
+      <span class='artist-track__title__main'> {{ track.title }}</span>
+      <nuxt-link v-if="variant" :to="`/artist/${track.artist.id}`" class='artist-track__title--artist'>{{ track.artist.name }}</nuxt-link>
+      <span v-else-if="track.explicit_lyrics" class='artist-track__title--is-explicit'>E</span>
     </p>
-    <p class='artist-track__listen'>{{ listenRandom }}</p>
+
+    <p class='artist-track__listen' :hidden="variant">{{ listenRandom }}</p>
+
     <div class='artist-track__duration'>
       <h-icon class='artist-track__duration--icons' :icon="AddCircleIcon" size="22px" />
       <p class='artist-track__duration__duration-track'>{{ duration }}</p>
@@ -24,7 +30,8 @@ import { AddCircleIcon, MoreHorizontalIcon, PauseFreeIcons, PlayIcon } from '@hu
 const props = defineProps({
   track: { type: Object, required: true },
   index: { type: Number, default: null },
-  showCover: { type: Boolean, defautl: false }
+  showCover: { type: Boolean, defautl: false },
+  variant: { type: Boolean, defautl: false }
 })
 
 
@@ -51,6 +58,7 @@ function togglePlay() {
 
 <style lang='scss' scoped>
 .artist-track {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 16px;
@@ -87,14 +95,34 @@ function togglePlay() {
     width: 45px;
     height: 45px;
     border-radius: 5px;
+    
+    &--icon {
+      position: absolute;
+      top: 13px;
+      left: 26px;
+      opacity: 0;
+    }
   }
 
   &__title {
     display: flex;
     flex-direction: column;
     font-weight: 600;
+    // white-space: nowrap;
+    // overflow: hidden;
+    // text-overflow: ellipsis;
     color: #fff;
     width: 100%;
+    &--artist {
+      color: #ccc;
+      font-size: 12px;
+      font-weight: 300;
+      width: fit-content;
+      text-decoration: underline transparent;
+      &:hover{
+        text-decoration: underline;
+      }
+    }
     &--is-explicit {
       width: fit-content;
       padding: 5px;
@@ -127,6 +155,12 @@ function togglePlay() {
   &:hover {
     background-color: rgba(66, 66, 66, 0.5);
     .artist-track {
+      &__album-cover {
+        filter: brightness(0.4);
+        &--icon {
+          opacity: 1;
+        }
+      }
       &__index-icon {
         &--icon {
           opacity: 1;
@@ -135,6 +169,9 @@ function togglePlay() {
         &--index {
           opacity: 0;
         }
+      }
+      &__title--artist {
+        color: #fff;
       }
       &__duration--icons {
         opacity: 1;

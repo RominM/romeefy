@@ -17,7 +17,7 @@
 
       <ul class='section-card__list-container__ul' >
         <li v-for="(coverCard, index) in coverCardList" :key="`cover-card-${index}`" class='section-card__list-container__ul__li'>
-          <cover-card :cover-card="coverCard" :source-redirect="sourceRedirect" :track-id="Number(coverCard.id)" />
+          <cover-card :cover-card="coverCard" :source-redirect="sourceRedirect" :track-id="Number(coverCard.id)" :circular="circular" />
         </li>
       </ul>
 
@@ -39,7 +39,8 @@ import type { PropType } from 'vue';
 defineProps({
   titleSection: { type: String, defaut: '' },
   coverCardList: { type: Array as PropType<TCoverCard[] | null>, required: true },
-  sourceRedirect: { type: String, require: true }
+  sourceRedirect: { type: String, require: true },
+  circular: { type: Boolean, default: false }
 })
 
 const listRef = ref<HTMLElement | null>(null);

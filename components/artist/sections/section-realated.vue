@@ -7,6 +7,7 @@
 
 <script setup lang="ts">
 import { useAPI } from '~/composables/api/useApi'
+import { useMapper } from '~/composables/mappers/useMapper'
 
 const props = defineProps({
   artistId: { type: Number, required: true }
@@ -26,18 +27,7 @@ async function getRealatedArtists() {
 
   if(!data || error) return
 
-  related.value = mappingChatArtist(data)
-}
-
-function mappingChatArtist(artists: IArtist[]): TCoverCard[] {  
-  return artists.map((artist: IArtist) => {
-    return {   
-      id: artist.id,
-      title: artist.name,
-      coverMedium: artist.picture_medium,
-      alt: `playlist ${artist.name}`,
-    }
-  })
+  related.value = useMapper().coverCard.fromArtist(data)
 }
 </script>
 

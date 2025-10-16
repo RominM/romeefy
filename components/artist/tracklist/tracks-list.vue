@@ -5,7 +5,7 @@
       :key="`track-${index}`" 
       class='track-list__el'
     >
-      <artist-track :track="track" :index="index + 1" :show-cover="showCover"/>
+      <artist-track :track="track" :index="index + 1" :show-cover="showCover" :variant="variant"/>
     </li>
   </ul>
 
@@ -20,7 +20,8 @@ import { computed, ref, type PropType } from 'vue'
 const props = defineProps({
   trackList: { type: Array as PropType<IAlbum[]>, required: true },
   viewAll: { type: Boolean, defautl: false },
-  showCover: { type: Boolean, defautl: false }
+  showCover: { type: Boolean, defautl: false },
+  variant: { type: Boolean, defautl: false }
 })
 
 const defaultLimit = 5

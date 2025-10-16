@@ -1,14 +1,15 @@
 <template>
   <section class='section-track'>
     <h3 class='section-track__title'>{{ title }}</h3>
-    <tracks-list :track-list="trackList" show-cover/>
+    <tracks-list :track-list="trackList" show-cover :variant="variant" />
   </section>
 </template>
 
 <script setup lang='ts'>
 defineProps({
   title: { type: String, default: ''},
-  trackList: { type: Object, required: true }
+  trackList: { type: Object, required: true },
+  variant: { type: Boolean, defautl: false }
 })
 </script>
 

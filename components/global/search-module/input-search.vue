@@ -19,6 +19,12 @@ import { useAPI } from '~/composables/api/useApi';
 import { useSearchStore } from '~/store/searchStore';
 
 const emit = defineEmits(['is-focus'])
+const router = useRouter()
+
+router.afterEach(() => {
+  _searchStore.clearResults()
+  searchValue.value = ''
+})
 
 const _searchStore = useSearchStore()
 const searchValue = ref<string>('')
