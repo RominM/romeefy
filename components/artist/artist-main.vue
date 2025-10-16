@@ -4,7 +4,7 @@
     
     <div class='artist-main__content'>
       <loader v-if="loading" style="margin: auto;"/>
-      <section-track v-if="topTrack" :track-list="topTrack" title="Populaires"  />
+      <section-track v-if="topTrack" :track-list="topTrack" title="Populaires" />
       <section-discography :artist-id="artist.id" @genre-id="genreIds = $event" />
       <section-realated :artist-id="artist.id" />
       <!-- get live & event of this artist -->

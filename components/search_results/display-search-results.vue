@@ -2,24 +2,60 @@
   <div class="display-search-results">
     <tags-list />
     <div class="display-search-results__top-result">
-      <best-result v-if="mostFamousArtist" :best-result="mostFamousArtist"/>
-      <best-tracks v-if="trackList" :track-list="trackList"/>
+      <best-result 
+        v-if="mostFamousArtist" 
+        class="display-search-results__top-result__first" 
+        :best-result="mostFamousArtist"
+      />
+      <section-track
+        v-if="trackListTitle"
+        class="display-search-results__top-result__second"  
+        :track-list="trackListTitle" 
+        title="Titres" 
+        variant 
+      />
     </div>
+
     <section-cards
-      v-if="trackList" 
-      title-section="Morceaux du moment" 
-      source-redirect="chart"
-      :cover-card-list="trackList" 
+      v-if="famoustrackList.length" 
+      :title-section="`Avec ${mostFamousArtist?.name}`" 
+      source-redirect="/playlist"
+      :cover-card-list="famoustrackList" 
      />
+
+    <section-cards
+      v-if="artistsList.length" 
+      title-section="Artistes" 
+      source-redirect="/artist"
+      :cover-card-list="artistsList"
+      circular
+    />
+
+    <section-cards
+      v-if="albumsList.length" 
+      title-section="Albums" 
+      source-redirect="/album"
+      :cover-card-list="albumsList"
+    />
+
+    <section-cards
+      v-if="playlistList.length" 
+      title-section="Playlists" 
+      source-redirect="/playlist"
+      :cover-card-list="playlistList"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
+import { useAPI } from '~/composables/api/useApi'
 import { useMapper } from '~/composables/mappers/useMapper'
 
 const props = defineProps({
   results: { type:  Object, default: () => {} }
 })
+
+const famoustrackList = ref<TCoverCard[]>([])
 
 const mostFamousArtist = computed<TBestResult | undefined>(() => {
   const artists = props.results.artists as IArtist[] | undefined
@@ -32,18 +68,56 @@ const mostFamousArtist = computed<TBestResult | undefined>(() => {
   return useMapper().bestResult.fromArtist(bestArtist)
 })
 
-const trackList = computed(() => {
+const trackListTitle = computed(() => {
   const tracks = props.results.tracks as ITrack[] | undefined
   if (!tracks || !tracks.length) return
   return tracks
 })
+
+const artistsList = computed(() => {
+  return useMapper().coverCard.fromArtist(props.results.artists)
+})
+
+const playlistList = computed(() => {
+  return useMapper().coverCard.fromPlaylist(props.results.playlists)
+})
+
+const albumsList = computed(() => {
+  return useMapper().coverCard.fromAlbum(props.results.albums)
+})
+
+onMounted(() => {
+  getPlaylistWhithFamous()
+})
+
+async function getPlaylistWhithFamous() {
+  if (!mostFamousArtist.value) return
+
+  const { data, error } = await useAPI().playlist.getByArtistId(mostFamousArtist.value.id)
+
+  if (!data || error) return
+
+  famoustrackList.value = useMapper().coverCard.fromPlaylist(data)
+}
 </script>
 
 <style scoped lang="scss">
 .display-search-results {
+  padding: 20px;
   &__top-result {
     display: flex;
     gap: 20px;
+    width: 100%;
+    &__first {
+      flex: 4;
+    }
+    &__second {
+      flex: 6;
+      gap: 5px;
+      &:deep(.track-list) {
+        gap: 0;
+      }
+    }
   }
 }
 </style>

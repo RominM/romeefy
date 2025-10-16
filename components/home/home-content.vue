@@ -36,6 +36,7 @@
 
 <script setup lang='ts'>
 import { useAPI } from '~/composables/api/useApi'
+import { useMapper } from '~/composables/mappers/useMapper'
 
 const artistsList = ref<TCoverCard[] | null>(null)
 const playlistList = ref<TCoverCard[] | null>(null)
@@ -63,57 +64,10 @@ async function getAllChart() {
 async function setupSections() {
   if(!allChart.value || !allChart.value.artists) return
 
-  artistsList.value = mappingChatArtist(allChart.value.artists.data)
-  playlistList.value = mappingChatPlaylist(allChart.value.playlists.data)
-  trackList.value = mappingChatTracks(allChart.value.tracks.data)
-  podcastList.value = mappingChatPodcats(allChart.value.podcasts.data)
-}
-
-function mappingChatArtist(artists: IArtist[]): TCoverCard[] {  
-  return artists.map((artist: IArtist) => {
-    return {   
-      id: artist.id,
-      title: artist.name, 
-      coverMedium: artist.picture_medium,
-      alt: `playlist ${artist.name}`,
-    }
-  })
-}
-
-function mappingChatPlaylist(playlists: IPlaylist[]): TCoverCard[] {
-  return playlists.map((playlist: IPlaylist) => {
-    return {   
-      id: playlist.id,
-      title: playlist.title, 
-      coverMedium: playlist.picture_medium,
-      alt: `playlist ${playlist.title}`,
-      describe: `${playlist.nb_tracks} titres`,
-    }
-  })
-}
-
-function mappingChatTracks(tracks: ITrack[]): TCoverCard[] {
-  return tracks.map((track: ITrack) => {
-    return {
-      id: track.id,
-      title: track.title,
-      coverMedium: track.album.cover_medium,
-      alt: `titre ${track.title}`,
-      describe: track.artist.name
-    }
-  })
-}
-
-function mappingChatPodcats(podcasts: IPodcast[]): TCoverCard[] {
-  return podcasts.map((podcast: IPodcast) => {
-    return {
-      id: podcast.id,
-      coverMedium: podcast.picture_medium,
-      alt: podcast.title,
-      title: podcast.description,
-      describe: podcast.title
-    }
-  })
+  artistsList.value = useMapper().coverCard.fromArtist(allChart.value.artists.data)
+  playlistList.value = useMapper().coverCard.fromPlaylist(allChart.value.playlists.data)
+  trackList.value = useMapper().coverCard.fromTracks(allChart.value.tracks.data)
+  podcastList.value = useMapper().coverCard.fromPodcast(allChart.value.podcasts.data)
 }
 </script>
 

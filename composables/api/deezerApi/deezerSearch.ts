@@ -7,13 +7,13 @@ export const deezerSearch = () => {
     track: (artistId: string) => fetchDeezer(`/search/track`, { artistId }).fetchData(),
     playlist: (artistId: string) => fetchDeezer(`/search/playlist`, { artistId }).fetchData(),
     global: async (query: string) => {
-      const searchParams = { q: query, limit: 5 }
+      // const searchParams = { q: query, limit: 4 }
       try {
         const [tracksRes, albumsRes, artistsRes, playlistsRes] = await Promise.all([
-          fetchDeezer('/search/track', searchParams).fetchData(),
-          fetchDeezer('/search/album', searchParams).fetchData(),
-          fetchDeezer('/search/artist', searchParams).fetchData(),
-          fetchDeezer('/search/playlist', searchParams).fetchData(),
+          fetchDeezer('/search/track', { q: query, limit: 4 }).fetchData(),
+          fetchDeezer('/search/album', { q: query, limit: 7 }).fetchData(),
+          fetchDeezer('/search/artist', { q: query, limit: 7 }).fetchData(),
+          fetchDeezer('/search/playlist', { q: query, limit: 7 }).fetchData(),
         ])
       
         const errors = [tracksRes.error, albumsRes.error, artistsRes.error, playlistsRes.error].filter(Boolean)

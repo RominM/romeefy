@@ -1,9 +1,9 @@
 <template>
-  <HugeiconsIcon class='h-icon' :icon="icon" :style="{ color: color, width: size }" :title="title"/>
+  <HugeiconsIcon class='h-icon' :icon="icon" :style="{ color: color, width: size, minWidth: size }" :title="title"/>
 </template>
 
 <script setup lang='ts'>
-import { HugeiconsIcon } from '@hugeicons/vue'
+import { HugeiconsIcon } from '@hugeicons/vue';
 import type { IconSvgObject } from '~/types/type/icon';
 
 defineProps({

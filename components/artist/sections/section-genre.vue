@@ -8,6 +8,7 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import { useAPI } from '~/composables/api/useApi'
+import { useMapper } from '~/composables/mappers/useMapper'
 
 const props = defineProps({
   genreIds: { type: Array as PropType<number[]>, required: true },
@@ -36,16 +37,7 @@ async function getGenre(genreId: number) {
 
   if(!data || error) return
 
-  return mappingChatArtist(data)
-}
-
-function mappingChatArtist(genre: IGenre): TCoverCard {
-  return {   
-    id: genre.id,
-    title: genre.name,
-    coverMedium: genre.picture_medium,
-    alt: `genre ${genre.name}`,
-  }
+  return useMapper().coverCard.fromArtist(data)
 }
 </script>
 
