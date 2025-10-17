@@ -1,12 +1,12 @@
 <template>
   <section class="album-display">
     <header-album v-if="showHeader" :lite-album="liteAlbum" :nmb-track="trackLength"/>
-    <div class="sticky" >
+    <!-- <div class="sticky" >
       <span>#</span>
       <span class="sticky--title">Titre</span>
       <span class="sticky--playing">Lecture</span>
       <span>Durée</span>
-    </div>
+    </div> -->
     <album-track-list :album-id="liteAlbum.id" @tracks-length="trackLength = $event"/>
   </section>
 </template>
