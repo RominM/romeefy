@@ -16,6 +16,7 @@
       />
     </div>
 
+    <cards-list-loader v-if="isLoading" :length="10"/>
     <section-cards
       v-if="famoustrackList.length" 
       :title-section="`Avec ${mostFamousArtist?.name}`" 
@@ -56,6 +57,8 @@ const props = defineProps({
 })
 
 const famoustrackList = ref<TCoverCard[]>([])
+const isLoading = ref<boolean>(false)
+
 
 const mostFamousArtist = computed<TBestResult | undefined>(() => {
   const artists = props.results.artists as IArtist[] | undefined
@@ -93,7 +96,10 @@ onMounted(() => {
 async function getPlaylistWhithFamous() {
   if (!mostFamousArtist.value) return
 
+  isLoading.value = true
   const { data, error } = await useAPI().playlist.getByArtistId(mostFamousArtist.value.id)
+  isLoading.value = false
+console.log('coucou');
 
   if (!data || error) return
 
