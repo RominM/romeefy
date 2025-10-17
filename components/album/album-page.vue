@@ -37,11 +37,8 @@ async function getArtist() {
   loading.value = false
 
   if(!data || error) return
-  console.log({data});
-  
 
   album.value = data
-console.log(album.value);
 
   if (!album.value) return
   const colors = await useColors().extractTopColors(album.value.cover_xl)
@@ -57,9 +54,8 @@ function onScroll(top: number) {
 
   const alpha = 0.3 + scrollRatio * 0.7
   currentColor.value = `rgba(${baseRgb[0]}, ${baseRgb[1]}, ${baseRgb[2]}, ${alpha})`
-  console.log(currentColor.value);
-
-}</script>
+}
+</script>
 
 <style lang='scss' scoped>
 $--navbar: 58px;

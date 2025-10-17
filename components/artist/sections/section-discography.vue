@@ -1,7 +1,7 @@
 <template>
   <div class="section-discography">
     <loader v-if="loading" style="margin: auto;"/>
-    <section-cards v-else title-section="Discographie" :cover-card-list="discography" :source-redirect="`${artistId}/discography`"/>
+    <section-cards v-else title-section="Discographie" :cover-card-list="discography" :source-redirect="`/artist/${artistId}/discography`"/>
   </div>
 </template>
 

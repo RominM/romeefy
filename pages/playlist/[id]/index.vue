@@ -1,7 +1,7 @@
 <template>
-    <resize-wrapper class='parcouris'>
-        <template #center>
-        <not-exist />
+  <resize-wrapper class='chart'>
+    <template #center>
+      <not-exist />
     </template>
   </resize-wrapper>
 </template>
@@ -10,7 +10,7 @@
 </script>
 
 <style lang='scss' scoped>
-.parcouris{
+.chart{
     height: 100dvh;
 }
 </style>
