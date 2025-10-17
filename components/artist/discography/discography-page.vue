@@ -5,7 +5,7 @@
     <scroll-container @target="target = $event">
       <fetch-wrapper :fetch="(index, limit) => getDiscography(index, limit)" :page-size="25">
         <template #item="{ item }">
-          <album-display :lite-album="item"/>
+          <album-display :lite-album="item" show-header/>
         </template>
       </fetch-wrapper>
     </scroll-container>
