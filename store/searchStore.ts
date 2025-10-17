@@ -6,6 +6,7 @@ export const useSearchStore = defineStore('search', {
     searchResults: {} as ISearchResult | undefined,
     isLoading: false as boolean,
     isActive: false as boolean,
+    history: [] as TSearchItem[]
   }),
 
   actions: {
@@ -15,8 +16,6 @@ export const useSearchStore = defineStore('search', {
 
     setResults(results: ISearchResult | undefined) {
       this.searchResults = results
-      console.log(this.searchResults);
-      
     },
 
     setLoading(loading: boolean) {
@@ -32,7 +31,16 @@ export const useSearchStore = defineStore('search', {
       this.searchQuery = ''
       this.isActive = false
       this.isLoading = false
+    },
+    addToHistory(lastResult: TSearchItem) {
+      const exists = this.history.some(item => item.id === lastResult.id)
+    
+      if (!exists) {
+        this.history.unshift(lastResult)
+        if (this.history.length > 10) this.history.pop()
+      }
     }
+
   },
 
   getters: {

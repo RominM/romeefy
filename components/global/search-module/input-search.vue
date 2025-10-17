@@ -22,7 +22,6 @@ const emit = defineEmits(['is-focus'])
 const router = useRouter()
 
 router.afterEach(() => {
-  _searchStore.clearResults()
   searchValue.value = ''
 })
 
