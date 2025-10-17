@@ -6,7 +6,6 @@
 </template>
 
 <script setup lang="ts">
-import type { PropType } from 'vue'
 import { useAPI } from '~/composables/api/useApi'
 import { useMapper } from '~/composables/mappers/useMapper'
 
@@ -18,17 +17,22 @@ const props = defineProps({
 const genres = ref<TCoverCard[]>([])
 const loading = ref<boolean>(false)
 
-onMounted(async () => {
+onMounted(() => {
   if (!props.genreIds.length) return
 
- const genreCards = await Promise.all(
-    props.genreIds.map((id) => getGenre(id))
-  )
-
-  genres.value = genreCards.filter(
-    (g): g is TCoverCard => g !== null && g !== undefined
-  )
+  loadGenres()
 })
+
+async function loadGenres() {
+  const results: TCoverCard[] = []
+
+  for (const id of props.genreIds) {
+    const genreCard = await getGenre(id)
+    if (genreCard) results.push(genreCard)
+  }
+
+  genres.value = results
+}
 
 async function getGenre(genreId: number) {
   loading.value = true
@@ -37,7 +41,7 @@ async function getGenre(genreId: number) {
 
   if(!data || error) return
 
-  return useMapper().coverCard.fromArtist(data)
+  return useMapper().coverCard.fromGenre(data)
 }
 </script>
 
