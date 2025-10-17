@@ -9,11 +9,9 @@
 import { EGlobalEvent } from '~/types/enum/global/globalEvent';
 
 useGlobalEvents().subscribeTo(EGlobalEvent.LISTEN_TRACK_PREVIEW, (preview: string | undefined) => {
-  if (!preview) return;
-  source.value = preview; // juste pour mettre à jour le timeline
-  console.log(source.value);
-  
-});
+  if (!preview) return
+  source.value = preview
+})
 
 const source = ref<string>('')
 </script>

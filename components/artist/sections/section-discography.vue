@@ -30,7 +30,6 @@ async function getDiscography() {
 
   discography.value = mappingChatAlbums(data)
   const genreIds = Array.from(new Set(data.map((album: IAlbum) => album.genre_id).filter(Boolean)))
-  console.log(genreIds);
   
   emit('genre-id', genreIds)
 }

@@ -19,7 +19,7 @@ export const useCoverCard = () => {
     },
 
     mapPlaylist(playlist: IPlaylist): TCoverCard {
-      return {   
+      return {
         id: playlist.id,
         title: playlist.title, 
         coverMedium: playlist.picture_medium,

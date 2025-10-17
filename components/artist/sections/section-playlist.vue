@@ -23,11 +23,12 @@ onMounted(() => {
 
 async function getPlaylistAppearsIn() {
   loading.value = true
-  const res = await useAPI().playlist.getByArtistId(props.artistId)
+  const {data, error} = await useAPI().playlist.getByArtistId(props.artistId)
   loading.value = false
-  console.log({res});
+
+  if(!data || error) return
   
-  playlistCards.value = mappingChatAlbums(res.data)
+  playlistCards.value = mappingChatAlbums(data)
 }
 
 function mappingChatAlbums(playlists: IPlaylist[]): TCoverCard[] {  

@@ -62,8 +62,6 @@ function onMouseMove(e: MouseEvent) {
   if (!isDragging.value) return
   const dx = e.clientX - startX
   leftWidth.value = Math.min(MAX_WIDTH, Math.max(MIN_WIDTH, startWidth + dx))
-  console.log(leftWidth.value);
-  
 }
 
 function onMouseUp() {

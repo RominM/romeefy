@@ -49,7 +49,6 @@ function scrollRight() {
   if (!listRef.value) return;
   const container = listRef.value;
   const scrollAmount = container.clientWidth * 0.8;
-  console.log({scrollAmount});
   
   container.scrollBy({ left: scrollAmount, behavior: "smooth" });
 }

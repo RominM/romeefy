@@ -2,7 +2,7 @@
   <div class="display-search-results">
     <tags-list />
     <div class="display-search-results__top-result">
-      <best-result 
+      <best-result
         v-if="mostFamousArtist" 
         class="display-search-results__top-result__first" 
         :best-result="mostFamousArtist"
@@ -99,7 +99,6 @@ async function getPlaylistWhithFamous() {
   isLoading.value = true
   const { data, error } = await useAPI().playlist.getByArtistId(mostFamousArtist.value.id)
   isLoading.value = false
-console.log('coucou');
 
   if (!data || error) return
 
