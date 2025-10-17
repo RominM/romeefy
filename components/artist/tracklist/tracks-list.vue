@@ -39,9 +39,11 @@ function toggleLimit() {
 
 <style scoped lang='scss'>
 .track-list {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  z-index: 99;
 
   &__el {
     &__bullet {

@@ -39,7 +39,9 @@ router.afterEach((to) => {
 
 async function getArtist(id: number) {
   const { data, error } = await useAPI().artist.getById(id)
-  console.log({ data });
+
+  if (!data || error) return null
+  
   return useMapper().searchItem.mapArtist(data)
   
 }
@@ -51,7 +53,6 @@ async function getDataFromPath(type: string, id: string) {
 
   switch (type) {
     case 'artist':
-      console.log(type, id)
       result = await getArtist(nmbId)
       break
   }

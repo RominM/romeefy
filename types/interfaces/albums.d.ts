@@ -14,6 +14,7 @@ declare global {
     record_type: string,
     md5_image: string;
     tracklist: string;
+    tracks: ITrack[];
     type: string;
   }
 }
