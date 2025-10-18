@@ -4,11 +4,15 @@
     <sidebar v-if="isTablet" @action-nav="handleAction" />
     <slot />
     <player-section v-if="isDesktop" />
-    <bottom-bar v-if="isMobile" />
+    <bottom-bar v-if="isMobile" @action-nav="handleAction" />
 
-    <modal v-model:is-open="isOpen" dismisable>
+    <modal v-if="isTablet" v-model:is-open="isOpen" dismisable>
       <component :is="component" @close="isOpen = false" />
     </modal>
+
+    <dropup-content v-if="isMobile">
+      <component :is="component" @close="isOpen = false" />
+    </dropup-content>
   </div>
 </template>
 

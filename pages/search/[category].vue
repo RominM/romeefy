@@ -1,7 +1,7 @@
 <template>
   <div class="dynamic-search">
-    <p>dynamic-search</p>
-    <pre>{{ category }}</pre>
+    <pre style="color: #fff;">{{ category }}</pre>
+    <not-exist />
   </div>
 </template>
 
@@ -12,6 +12,7 @@ const category = route.params.category as String
 
 <style scoped lang="scss">
 .dynamic-search {
-  
+  background-color: $dark-surface;
+  height: 100dvh;
 }
 </style>
