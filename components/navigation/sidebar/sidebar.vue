@@ -1,6 +1,6 @@
 <template>
   <nav class="sidebar">
-    <sidebar-menu @action-nav="$emit('action-nav', $event)"/>
+    <navigation-list @action-nav="$emit('action-nav', $event)"/>
     <sidebar-player />
   </nav>
 </template>

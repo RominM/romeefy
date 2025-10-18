@@ -1,10 +1,10 @@
 <template>
-  <ul class="sidebar-menu">
-    <li v-for="(button, index) in buttons" :key="index">
+  <ul class="navigation-list">
+    <li v-for="(button, index) in buttons" class="navigation-list__li" :key="index">
       <nuxt-link v-if="button.link" :to="button.link">
-        <sidebar-button :button="button" />
+        <navigation-button :button="button" />
       </nuxt-link>
-      <sidebar-button v-if="button.action" :button="button" @click="$emit('action-nav', button.action)" />
+      <navigation-button v-if="button.action" :button="button" @click="$emit('action-nav', button.action)" />
     </li>
   </ul>
 </template>
@@ -43,11 +43,22 @@ const buttons: TSideNav[] = [
 </script>
 
 <style scoped lang="scss">
-.sidebar-menu {
+.navigation-list {
   display: flex;
   flex-direction: column;
   gap: 15px;
   height: 100%;
   padding: 10px;
+}
+
+@media screen and (max-width: 540px ) {
+  .navigation-list {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+    &__li {
+      flex: 1;
+    }
+  }
 }
 </style>

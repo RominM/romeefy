@@ -1,9 +1,10 @@
 <template>
-  <div :class="['default-layout', {'--flex': !isDesktop}]">
+  <div :class="['default-layout', {'--flex': isTablet}]">
     <navbar v-if="isDesktop" />
     <sidebar v-if="isTablet" @action-nav="handleAction" />
     <slot />
     <player-section v-if="isDesktop" />
+    <bottom-bar v-if="isMobile" />
 
     <modal v-model:is-open="isOpen" dismisable>
       <component :is="component" @close="isOpen = false" />
@@ -16,7 +17,7 @@ import CreatePlaylistModule from '~/components/playlist/create-playlist-module.v
 import { useDevice } from '~/composables/device/useDevice'
 import { ENavAction } from '~/types/enum/global/nav'
 
-const { isDesktop, isTablet } = useDevice()
+const { isDesktop, isTablet, isMobile } = useDevice()
 
 const isOpen = ref<boolean>(false)
 const component = shallowRef()

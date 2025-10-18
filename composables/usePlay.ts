@@ -5,6 +5,7 @@ import { useAPI } from './api/useApi'
 const currentTrackId = ref<number | null>(null)
 const currentPreview = ref<string | null>(null)
 const isPlaying = ref<boolean>(false)
+const currentColor = ref<string>('rgba(0,0,0,1)')
 
 export const usePlay = () => {
 
@@ -68,7 +69,16 @@ export const usePlay = () => {
     return false
   }
 
+  // Gestion couleur
+  const setColor = (color: string) => {
+    currentColor.value = color
+  }
+
+  const getColor = computed(() => currentColor.value)
+
   return {
+    setColor,
+    getColor,
     currentTrackId,
     currentPreview,
     isPlaying,

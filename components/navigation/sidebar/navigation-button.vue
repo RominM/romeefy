@@ -1,7 +1,7 @@
 <template>
-  <button class="sidebar-button">
+  <button class="navigation-button">
     <h-icon :icon="button.icon" size="18" />
-    <p class="sidebar-button__label">{{ button.label }}</p>
+    <p class="navigation-button__label">{{ button.label }}</p>
   </button>
 </template>
 
@@ -12,11 +12,19 @@ defineProps({
 </script>
 
 <style scoped lang="scss">
-.sidebar-button {
+.navigation-button {
   display: flex;
   align-items: center;
   gap: 8px;
   color: #fff;
   font-size: 12px;
+}
+
+@media screen and (max-width: 540px ) {
+  .navigation-button {
+    flex-direction: column;
+    font-size: 10px;
+    margin: auto;
+  }
 }
 </style>

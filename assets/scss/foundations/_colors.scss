@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // DARK
 $dark-background: #100f0f;
 $dark-surface: #262525;
@@ -23,3 +25,11 @@ $warning: #F59E0B;
 $warning-hover: #d17a0a;
 $error: #EF4444;
 $error-hover: #dc2626;
+
+// functions
+@function color-alpha($color, $alpha) {
+  $r: color.red($color);
+  $g: color.green($color);
+  $b: color.blue($color);
+  @return rgba($r, $g, $b, $alpha);
+}
