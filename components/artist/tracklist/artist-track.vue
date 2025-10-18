@@ -52,7 +52,7 @@ const { byPreview, isCurrentTrackPlaying } = usePlay()
 const isPlayingThisTrack = computed(() => isCurrentTrackPlaying(undefined, props.track.preview))
 
 function togglePlay() {
-  byPreview(props.track.preview)
+  usePlay().byTrackId(props.track.id)
 }
 </script>
 

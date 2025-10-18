@@ -1,6 +1,7 @@
 <template>
   <div class="sidebar-player">
-    
+    <on-listen />
+    <player />
   </div>
 </template>
 
@@ -9,7 +10,9 @@
 
 <style scoped lang="scss">
 .sidebar-player {
-  border: solid 1px #fff;
-  height: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border-top: solid #ccc 1px;
 }
 </style>
