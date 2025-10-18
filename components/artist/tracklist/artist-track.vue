@@ -1,5 +1,5 @@
 <template>
-  <div class='artist-track' @click="!variant ? togglePlay() : null">
+  <div :class="['artist-track', { isMobile }]" @click="!variant ? togglePlay() : null">
     <div v-if="!variant" class='artist-track__index-icon'>
       <h-icon :icon="!isPlayingThisTrack ? PlayIcon : PauseFreeIcons" class='artist-track__index-icon--icon' size="25px"/>
       <span class='artist-track__index-icon--index'>{{  index  }}</span>
@@ -9,16 +9,16 @@
     <h-icon v-if="variant" class='artist-track__album-cover--icon' :icon="!isPlayingThisTrack ? PlayIcon : PauseFreeIcons"  size="25px" @click="variant ? togglePlay() : null"/>
 
     <p class='artist-track__title'>
-      <span class='artist-track__title__main'> {{ track.title }}</span>
+      <span :class="['artist-track__title__main', { '--mobile-play' : isMobile && isPlayingThisTrack}]"> {{ track.title }}</span>
       <nuxt-link v-if="variant" :to="`/artist/${track.artist.id}`" class='artist-track__title--artist'>{{ track.artist.name }}</nuxt-link>
       <span v-else-if="track.explicit_lyrics" class='artist-track__title--is-explicit'>E</span>
     </p>
 
-    <p class='artist-track__listen' :hidden="variant">{{ listenRandom }}</p>
+    <p v-if="!isMobile" class='artist-track__listen' :hidden="variant">{{ listenRandom }}</p>
 
-    <div class='artist-track__duration'>
-      <h-icon class='artist-track__duration--icons' :icon="AddCircleIcon" size="22px" />
-      <p class='artist-track__duration__duration-track'>{{ duration }}</p>
+    <div v-if="!isMobile" class='artist-track__duration'>
+      <h-icon  class='artist-track__duration--icons' :icon="AddCircleIcon" size="22px" />
+      <p  class='artist-track__duration__duration-track'>{{ duration }}</p>
       <h-icon class='artist-track__duration--icons' :icon="MoreHorizontalIcon" size="20px" />
     </div>
   </div>
@@ -26,6 +26,8 @@
 
 <script setup lang='ts'>
 import { AddCircleIcon, MoreHorizontalIcon, PauseFreeIcons, PlayIcon } from '@hugeicons/core-free-icons';
+import { useDevice } from '~/composables/device/useDevice';
+import { playerStore } from '~/store/playerStore';
 
 const props = defineProps({
   track: { type: Object, required: true },
@@ -34,6 +36,7 @@ const props = defineProps({
   variant: { type: Boolean, defautl: false }
 })
 
+const { isMobile } = useDevice()
 
 const listenRandom =  computed(() => {
   const generateNumber = Math.floor(Math.random() * (1_000_000_000 - 100_000 + 1)) + 1_000_000
@@ -47,12 +50,12 @@ const duration = computed(() => {
   return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`
 })
 
-const { byPreview, isCurrentTrackPlaying } = usePlay()
+const { byPreview, isCurrentTrackPlaying, byTrackId } = playerStore()
 
 const isPlayingThisTrack = computed(() => isCurrentTrackPlaying(undefined, props.track.preview))
 
 function togglePlay() {
-  usePlay().byTrackId(props.track.id)
+  byTrackId(props.track.id)
 }
 </script>
 
@@ -68,9 +71,13 @@ function togglePlay() {
   border-radius: 5px;
   transition: 0.3s;
   cursor: pointer;
+  &.isMobile {
+    gap: 5px;
+    padding: 7px 0;
+  }
   &__index-icon {
     position: relative;
-    width: 30px;
+    width: 15px;
     height: 20px;
 
     &--icon,
@@ -108,11 +115,16 @@ function togglePlay() {
     display: flex;
     flex-direction: column;
     font-weight: 600;
-    // white-space: nowrap;
-    // overflow: hidden;
-    // text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     color: #fff;
     width: 100%;
+    &__main {
+      &.--mobile-play{
+        color: green
+      }
+    }
     &--artist {
       color: #ccc;
       font-size: 12px;

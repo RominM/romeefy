@@ -6,7 +6,9 @@
 </template>
 
 <script setup lang="ts">
-const { getColor } = usePlay()
+import { playerStore } from '~/store/playerStore';
+
+const { getColor } = playerStore()
 </script>
 
 <style scoped lang="scss">

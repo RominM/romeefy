@@ -1,5 +1,5 @@
 <template>
-  <ul class='track-list'>
+  <ul class="track-list">
     <li 
       v-for="(track, index) in visibleTracks" 
       :key="`track-${index}`" 
@@ -16,6 +16,7 @@
 
 <script setup lang='ts'>
 import { computed, ref, type PropType } from 'vue'
+import { useDevice } from '~/composables/device/useDevice'
 
 const props = defineProps({
   trackList: { type: Array as PropType<IAlbum[]>, required: true },
@@ -23,6 +24,8 @@ const props = defineProps({
   showCover: { type: Boolean, defautl: false },
   variant: { type: Boolean, defautl: false }
 })
+
+const { isMobile } = useDevice()
 
 const defaultLimit = 5
 const showAll = ref<boolean>(false)
@@ -44,6 +47,9 @@ function toggleLimit() {
   flex-direction: column;
   gap: 10px;
   z-index: 99;
+  .isMobile {
+    gap: 10px;
+  }
 
   &__el {
     &__bullet {

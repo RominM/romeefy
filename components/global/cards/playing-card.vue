@@ -1,7 +1,7 @@
 <template>
   <nuxt-link :to="redirect"  class="playing-card">
     <slot />
-    <div v-if="trackId" class="playing-card--show-play" @click.prevent.stop="usePlay().byTrackId(trackId)">
+    <div v-if="trackId" class="playing-card--show-play" @click.prevent.stop="playerStore().byTrackId(trackId)">
         <h-icon :icon="PlayCircleIcon" size="40px"/>
     </div>
   </nuxt-link>
@@ -9,6 +9,7 @@
 
 <script setup lang="ts">
 import { PlayCircleIcon } from '@hugeicons/core-free-icons';
+import { playerStore } from '~/store/playerStore';
 
 defineProps({
   redirect: { type: String, require: true },

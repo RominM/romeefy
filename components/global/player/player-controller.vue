@@ -15,9 +15,10 @@
 <script setup lang='ts'>
 import { ArrowDataTransferHorizontalIcon, NextIcon, PauseCircleIcon, PlayCircleIcon, PreviousIcon, RepeatIcon, RepeatOne01Icon } from '@hugeicons/core-free-icons';
 import { useDevice } from '~/composables/device/useDevice';
+import { playerStore } from '~/store/playerStore';
 
 const { isMobile } = useDevice()
-const { togglePlayGlobal, isPlaying } = usePlay()
+const { togglePlayGlobal, isPlaying } = playerStore()
 
 const onLoopSong = ref<boolean>(false)
 

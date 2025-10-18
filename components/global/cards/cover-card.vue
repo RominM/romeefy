@@ -2,7 +2,7 @@
   <nuxt-link :to="`${sourceRedirect}/${coverCard.id}`" class='cover-card'>
     <div class='cover-card__img-wrapper'>
       <img :class='["cover-card__img-wrapper__img", { circular }]' :src="coverCard.coverMedium" :alt="coverCard.alt">
-      <div v-if="trackId" class="cover-card__img-wrapper--show-play" @click.prevent.stop="usePlay().byTrackId(trackId)">
+      <div v-if="trackId" class="cover-card__img-wrapper--show-play" @click.prevent.stop="playerStore().byTrackId(trackId)">
         <h-icon :icon="PlayCircleIcon" size="40px"/>
       </div>
     </div>
@@ -14,6 +14,7 @@
 <script setup lang='ts'>
 import { PlayCircleIcon } from '@hugeicons/core-free-icons';
 import type { PropType } from 'vue';
+import { playerStore } from '~/store/playerStore';
 
 defineProps({
   coverCard: { type: Object as PropType<TCoverCard>, required: true},

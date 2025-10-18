@@ -1,8 +1,8 @@
 <template>
-  <main class='artist-main'>
+  <main class="artist-main">
     <player-banner v-if="trackId" :color-secondary="colorSecondary" :track-id="trackId"/>
     
-    <div class='artist-main__content'>
+    <div :class="['artist-main__content', { isMobile }]">
       <loader v-if="loading" style="margin: auto;"/>
       <section-track v-if="topTrack" :track-list="topTrack" title="Populaires" />
       <section-discography :artist-id="artist.id" @genre-id="genreIds = $event" />
@@ -19,12 +19,15 @@
 
 <script setup lang='ts'>
 import { useAPI } from '~/composables/api/useApi';
+import { useDevice } from '~/composables/device/useDevice';
 
 const emit = defineEmits(['track-id'])
 const props = defineProps({
   artist: { type: Object, required: true },
   colorSecondary: { type: String, required: true}
 })
+
+const { isMobile } = useDevice()
 
 const topTrack = ref<ITrack[]>([])
 const genreIds = ref<number[]>()
@@ -60,6 +63,10 @@ async function getTopTracks() {
     gap: 30px;
     padding: 10px 20px;
     z-index: 10;
+    &.isMobile{
+      padding: 10px;
+    }
+    
   }
 }
 </style>

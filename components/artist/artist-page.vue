@@ -1,7 +1,7 @@
 <template>
   <div class='artist-page'>
     <loader v-if="loading" class='artist-page--loader' />
-    <div v-else-if="artist" :class="['artist-page--wrapper', { isTablet }]">
+    <div v-else-if="artist" :class="['artist-page--wrapper', { '--full': !isDesktop }]">
       <player-top-fixed v-if="trackId" :scroll-top="scrollTop" :color="currentColor" :name="artist.name" :track-id="trackId" />
       <banner :banner="artist.picture_xl" :color="currentColor" :scale="currentScale"/>
       <artist-content :artist="artist" :color-secondary="colorSecondary" @scroll="onScroll" @track-id="trackId = $event"/>
@@ -20,7 +20,7 @@ const props = defineProps({
 })
 
 const loading = ref<boolean>(true)
-const { isTablet } = useDevice()
+const { isDesktop } = useDevice()
 const artist = useArtist()
 
 const currentColor = ref<string>('transparent')
@@ -44,7 +44,7 @@ async function getArtist() {
   artist.value = data
 
   if (!artist.value) return
-  const colors = await useColors().extractTopColors(artist.value.picture_xl)
+  const colors = await useColors().extractTopColors(artist.value.picture_small)
   colorSecondary.value = colors[0].rgb
 }
 
@@ -54,7 +54,7 @@ function onScroll(top: number) {
   const maxScroll = 200
   const opacity = Math.min(scrollTop.value / maxScroll, 1)
 
-  const baseRgb = useColors().rgbStringToArray(colorSecondary.value) 
+  const baseRgb = useColors().rgbStringToArray(colorSecondary.value)
   currentColor.value = `rgba(${baseRgb[0]}, ${baseRgb[1]}, ${baseRgb[2]}, ${opacity})`
 
   // scale
@@ -68,6 +68,7 @@ function onScroll(top: number) {
 $--navbar: 58px;
 $--playbar: 100px;
 $--global-padding: 10px;
+$--bottom: 115px;
 
 .artist-page {
   position: relative;
@@ -75,11 +76,11 @@ $--global-padding: 10px;
   width: 100%;
   &--wrapper {
     position: relative;
-    height: 500px;
     overflow: hidden;
     height: calc(100dvh - $--navbar - $--playbar - $--global-padding);
-    &.isTablet {
+    &.--full {
       height: 100dvh;
+      padding-bottom: $--bottom;
     }
   }
   &--loader,
