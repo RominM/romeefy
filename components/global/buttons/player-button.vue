@@ -25,10 +25,7 @@ const isPlayingThisTrack = computed(() => isCurrentTrackPlaying(props.trackId))
 function togglePlay() {
   byTrackId(props.trackId)
 }
-
 </script>
 
 <style scoped lang="scss">
-.player-button {
-}
 </style>

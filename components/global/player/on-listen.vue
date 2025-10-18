@@ -1,7 +1,7 @@
 <template>
   <div class="on-listen">
-    <img v-if="track" :class="['on-listen__cover', { isTablet }]" :src="track.album.cover_small" alt="" />
-    <div :class="['on-listen__artist', {isTablet}]">
+    <img v-if="track" :class="['on-listen__cover', { isTablet, isMobile }]" :src="track.album.cover_small" alt="" />
+    <div :class="['on-listen__artist', { isTablet, isMobile }]">
       <p
         ref="titleRef"
         :class="{ isTablet }"
@@ -25,7 +25,7 @@ import { nextTick, reactive, ref } from 'vue';
 import { useDevice } from '~/composables/device/useDevice';
 import { EGlobalEvent } from '~/types/enum/global/globalEvent';
 
-const { isTablet } = useDevice()
+const { isTablet, isMobile } = useDevice()
 
 const track = ref<any>();
 const titleRef = ref<HTMLElement | null>(null);
@@ -78,6 +78,11 @@ function updateScroll(el: HTMLElement | null, styleObj: any, key: 'title' | 'art
       width: 40px;
       height: 40px;
     }
+    &.isMobile {
+      width: 40px;
+      height: 40px;
+      border-radius: 5px;
+    }
   }
 
   &__artist {
@@ -90,6 +95,9 @@ function updateScroll(el: HTMLElement | null, styleObj: any, key: 'title' | 'art
     &.isTablet{
       gap: 0;
     }
+    &.isMobile {
+      gap: 0;
+    }
 
     :first-child {
       font-size: 14px;
@@ -99,6 +107,7 @@ function updateScroll(el: HTMLElement | null, styleObj: any, key: 'title' | 'art
         font-size: 12px;
         font-weight: 300;
       }
+
     }
 
     :nth-child(2) {
@@ -108,6 +117,7 @@ function updateScroll(el: HTMLElement | null, styleObj: any, key: 'title' | 'art
       &.isTablet {
         font-size: 10px;
       }
+
     }
   }
 }
