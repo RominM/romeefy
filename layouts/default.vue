@@ -6,7 +6,7 @@
     <player-section v-if="isDesktop" />
 
     <modal v-model:is-open="isOpen" dismisable>
-      <component :is="component" />
+      <component :is="component" @close="isOpen = false" />
     </modal>
   </div>
 </template>

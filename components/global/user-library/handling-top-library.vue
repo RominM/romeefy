@@ -6,7 +6,7 @@
       title="Gérez un dossier, une playlist ou un Jam"
       @click="toggleDropdown"
     >
-      <h-icon :icon="Add01Icon" size="18"/>
+      <h-icon :class="['handling-top-library__create__icon', { isOpen }]" :icon="Add01Icon" size="18"/>
       Créer
     </button>
     
@@ -26,7 +26,7 @@
         class="handling-top-library__dropdown" 
         :style="dropdownStyle"
       >
-        <create-playlist-module />
+        <create-playlist-module @close="isOpen = false"/>
       </div>  
     </teleport>
   </div>
@@ -108,6 +108,13 @@ onBeforeUnmount(() => {
     padding: 8px 12px;
     background-color: $dark-surface;
     font-size: 14px;
+    &__icon {
+      transition: 0.3s ease;
+      &.isOpen {
+        transform: rotate(45deg);
+        transition: 0.3s ease;
+      }
+    }
   }
 
   &__expand-shrink {

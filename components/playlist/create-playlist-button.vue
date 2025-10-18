@@ -39,7 +39,7 @@ defineProps({
     align-items: center;
     width: 50px;
     height: 50px;
-    background-color: $dark-surface-secondary;
+    background-color: $dark-text-primary;
     border-radius: 50%;
     &__icon{
       transition: 0.3s;
@@ -57,7 +57,7 @@ defineProps({
   }
 
   &:hover {
-    background-color: $dark-surface-secondary;
+    background-color: $dark-surface-tercary;
     .crate-playlist-button__wrapper-icon__icon {
       transform: rotate(15deg) scale(1.1);
       color: $primary !important;
