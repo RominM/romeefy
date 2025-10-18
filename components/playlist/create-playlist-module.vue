@@ -2,8 +2,8 @@
   <div class="create-playlist-module">
     <ul class="create-playlist-module__list">
       <li v-for="(playlistButton, index) in playlistButtons" :key="index">
-        <nuxt-link :to="playlistButton.link">
-          <crate-playlist-button :playlist-button="playlistButton"/>
+        <nuxt-link @click.prevent="handleClick(playlistButton.link)">
+          <create-playlist-button :playlist-button="playlistButton"/>
         </nuxt-link>
       </li>
     </ul>
@@ -14,6 +14,8 @@
 import { DashboardCircleEditIcon, Folder01Icon, MusicNote03Icon, UserGroup02Icon } from '@hugeicons/core-free-icons'
 import { useDevice } from '~/composables/device/useDevice'
 
+const emit = defineEmits(['close'])
+
 const { isDesktop } = useDevice()
 
 const playlistButtons = computed<TPlaylistButton[]>(() => {
@@ -23,20 +25,20 @@ const playlistButtons = computed<TPlaylistButton[]>(() => {
 function formatedPlaylistButtons(): TPlaylistButton[] {
   const buttons: TPlaylistButton[] = [
     {
-      link:'',
+      link:'/my-playlist',
       icon: MusicNote03Icon,
       title: 'Playlist',
       subtitle: 'Créez une playlist de titre ou d\'épisode.'
     },
     {
-      link:'',
+      link:'/shared-playlists',
       icon: DashboardCircleEditIcon,
       title: 'Mix à plusieurs',
       subtitle: 'Combinez les goûts de vos proches dans une playlist.'
     }
   ]
 
-  if (!isDesktop) {
+  if (isDesktop) {
     buttons.push({
       link:'',
       icon: Folder01Icon,
@@ -55,6 +57,12 @@ function formatedPlaylistButtons(): TPlaylistButton[] {
   return buttons
 }
 
+const router = useRouter()
+
+function handleClick(link: string) {
+  emit('close')
+  if (link) router.push(link)
+}
 </script>
 
 <style scoped lang="scss">
