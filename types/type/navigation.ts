@@ -1,4 +1,4 @@
-import type { ESideAction } from "../enum/global/button"
+import type { ENavAction } from "../enum/global/nav"
 
 export { }
 
@@ -7,6 +7,6 @@ declare global {
     icon: IconSvgObject,
     label: string,
     link?: string,
-    action?: ESideAction
+    action?: ENavAction
   } 
 }

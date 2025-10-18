@@ -1,7 +1,7 @@
 <template>
   <div class="bottom-bar">
     <bottom-player />
-    <navigation-list />
+    <navigation-list @action-nav="$emit('action-nav', $event)" />
   </div>
 </template>
 
