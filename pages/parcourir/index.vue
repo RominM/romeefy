@@ -1,5 +1,5 @@
 <template>
-    <resize-wrapper class='parcouris'>
+    <resize-wrapper class='parcourir'>
         <template #center>
         <not-exist />
     </template>
@@ -10,7 +10,7 @@
 </script>
 
 <style lang='scss' scoped>
-.parcouris{
+.parcourir{
     height: 100dvh;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class='artist-page'>
     <loader v-if="loading" class='artist-page--loader' />
-    <div v-else-if="artist" class='artist-page--wrapper'>
+    <div v-else-if="artist" :class="['artist-page--wrapper', { isTablet }]">
       <player-top-fixed v-if="trackId" :scroll-top="scrollTop" :color="currentColor" :name="artist.name" :track-id="trackId" />
       <banner :banner="artist.picture_xl" :color="currentColor" :scale="currentScale"/>
       <artist-content :artist="artist" :color-secondary="colorSecondary" @scroll="onScroll" @track-id="trackId = $event"/>
@@ -13,12 +13,14 @@
 <script setup lang='ts'>
 import { useAPI } from '~/composables/api/useApi'
 import { useColors } from '~/composables/colors/useColors'
+import { useDevice } from '~/composables/device/useDevice'
 
 const props = defineProps({
   artistId: { type: Number, required: true }
 })
 
 const loading = ref<boolean>(true)
+const { isTablet } = useDevice()
 const artist = useArtist()
 
 const currentColor = ref<string>('transparent')
@@ -76,6 +78,9 @@ $--global-padding: 10px;
     height: 500px;
     overflow: hidden;
     height: calc(100dvh - $--navbar - $--playbar - $--global-padding);
+    &.isTablet {
+      height: 100dvh;
+    }
   }
   &--loader,
   &--error {
