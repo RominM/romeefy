@@ -4,22 +4,32 @@
     <sidebar v-if="isTablet" @action-nav="handleAction" />
     <slot />
     <player-section v-if="isDesktop" />
+
+    <modal v-model:is-open="isOpen" dismisable>
+      <component :is="component" />
+    </modal>
   </div>
 </template>
 
 <script setup lang='ts'>
-import { useDevice } from '~/composables/device/useDevice';
-import type { ENavAction } from '~/types/enum/global/nav';
+import CreatePlaylist from '~/components/playlist/create-playlist.vue'
+import { useDevice } from '~/composables/device/useDevice'
+import { ENavAction } from '~/types/enum/global/nav'
 
 const { isDesktop, isTablet } = useDevice()
 
-function handleAction(action: ENavAction) {
-console.log({action});
+const isOpen = ref<boolean>(false)
+const component = shallowRef()
 
+function handleAction(action: ENavAction) {
+  if (action === ENavAction.CREATE_PLAYLIST) {
+    component.value = CreatePlaylist
+  }
+  isOpen.value = true
 }
 </script>
 
-<style lang='scss' scoped>
+<style scoped lang='scss'>
 .default-layout {
   &.--flex {
     display: flex;
