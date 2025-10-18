@@ -5,6 +5,7 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({ middleware: ['authorized-device'], ssr: false })
 </script>
 
 <style scoped lang="scss">
