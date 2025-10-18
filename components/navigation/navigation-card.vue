@@ -1,9 +1,9 @@
 <template>
-  <nuxt-link :to="redirect" :class="['navigation-card', { small }]" :style="{ background: color }">
+  <nuxt-link :to="card.redirect" :class="['navigation-card', { 'small' : card.small }]" :style="{ background: card.color }">
     <h3 class="navigation-card__title">{{ capitalized }}</h3>
     <div
-      :class="['navigation-card__img', { small }]"
-      :style="{ backgroundImage: `url(${picture})` }"
+      :class="['navigation-card__img', { 'small' : card.small }]"
+      :style="{ backgroundImage: `url(${card.picture})` }"
     ></div>
   </nuxt-link>
 </template>
@@ -11,15 +11,11 @@
 <script setup lang="ts">
 
 const props = defineProps({
-  title: { type: String, required: true },
-  picture: { type: String, required: true },
-  color: { type: String, required: true },
-  redirect: { type: String, required: true },
-  small: { type: Boolean, default: false },
+  card: { type: Object as PropType<TSearchCard>, required: true },
 })
 
 const capitalized = computed(
-  () => props.title.charAt(0).toLocaleUpperCase() + props.title.slice(1)
+  () => props.card.title.charAt(0).toLocaleUpperCase() + props.card.title.slice(1)
 )
 </script>
 
