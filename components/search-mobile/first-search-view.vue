@@ -19,13 +19,7 @@ import { UserCircle02Icon } from '@hugeicons/core-free-icons';
 
 const picture = new URL('@/assets/237-250x250.jpg', import.meta.url).href
 
-type TSearchCard = {
-  title: string,
-  picture: string,
-  color: string,
-  redirect: string,
-  small: boolean
-}
+
 
 const cardsMain: TSearchCard[] = [
   {

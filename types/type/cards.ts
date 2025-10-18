@@ -16,4 +16,12 @@ declare global {
     picture: string,
     trackId: number
   }
+
+  type TSearchCard = {
+    title: string,
+    picture: string,
+    color: string,
+    redirect: string,
+    small: boolean
+  }
 }

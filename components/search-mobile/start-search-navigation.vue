@@ -3,22 +3,14 @@
     <h2-custom :title="title" />
     
     <div class="start-search-navigation__grid">
-      <navigation-card 
-        v-for="(card, index) in cards" 
-        :key="index" 
-        :title="card.title" 
-        :picture="card.picture"
-        :color="card.color"
-        :redirect="card.redirect"
-        :small="card.small"
-        />
+      <navigation-card v-for="(card, index) in cards" :key="index" :card="card" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 defineProps({
-  cards: { Array, required: true },
+  cards: { type: Array as PropType<TSearchCard[]>, required: true },
   title: {type: String, default: '' }
 })
 </script>
