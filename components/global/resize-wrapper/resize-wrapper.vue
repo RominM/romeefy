@@ -1,12 +1,12 @@
 <template>
-  <div class="resize-wrapper">
-    <main-wrapper class="resize-wrapper__left-panel" :style="{ width: leftWidth + 'px' }">
+  <div :class="['resize-wrapper', { isDesktop }]">
+    <main-wrapper v-if="isDesktop" class="resize-wrapper__left-panel" :style="{ width: leftWidth + 'px' }">
       <scroll-container>
         <user-library />
       </scroll-container>
     </main-wrapper>
 
-    <resize-handle @mousedown.prevent="onMouseDown" :style="{ cursor: isDragging ? 'grabbing' : 'grab' }" />
+    <resize-handle v-if="isDesktop" @mousedown.prevent="onMouseDown" :style="{ cursor: isDragging ? 'grabbing' : 'grab' }" />
 
     <main-wrapper class="resize-wrapper__center-panel">
       <scroll-container v-if="_searchStore.isActive">
@@ -30,6 +30,7 @@
 </template>
 
 <script setup lang="ts">
+import { useDevice } from '~/composables/device/useDevice'
 import { useSearchStore } from '~/store/searchStore'
 
 
@@ -44,6 +45,7 @@ const MAX_WIDTH = 450
 
 const _searchStore = useSearchStore()
 const showRightPanle = useState('showRightPanel', () => false)
+const { isDesktop } = useDevice()
 
 const leftWidth = ref<number>(350)
 const rightWidth = ref<number>(350)
@@ -97,10 +99,14 @@ function onMouseUpRight() {
 
   .resize-wrapper {
     display: flex;
-    width: 100vw;
     padding: 5px;
-    height: calc(100dvh - $--navbar - $--playbar);
     background-color: $dark-background;
+    width: calc(100% - 23dvw);
+    height: 100dvh;
+    &.isDesktop{
+      width: 100vw;
+      height: calc(100dvh - $--navbar - $--playbar);
+    }
     &__center-panel {
       flex: 2; 
       min-width: 0; 
