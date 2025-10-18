@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang='ts'>
-import CreatePlaylist from '~/components/playlist/create-playlist.vue'
+import CreatePlaylistModule from '~/components/playlist/create-playlist-module.vue'
 import { useDevice } from '~/composables/device/useDevice'
 import { ENavAction } from '~/types/enum/global/nav'
 
@@ -23,7 +23,7 @@ const component = shallowRef()
 
 function handleAction(action: ENavAction) {
   if (action === ENavAction.CREATE_PLAYLIST) {
-    component.value = CreatePlaylist
+    component.value = CreatePlaylistModule
   }
   isOpen.value = true
 }
