@@ -13,12 +13,13 @@
 
 <script setup lang="ts">
 import { PauseCircleIcon, PlayCircleIcon } from '@hugeicons/core-free-icons';
+import { playerStore } from '~/store/playerStore';
 
 const props = defineProps({
   trackId: { type: Number, required: true}
 })
 
-const { byTrackId, isCurrentTrackPlaying } = usePlay()
+const { byTrackId, isCurrentTrackPlaying } = playerStore()
 
 const isPlayingThisTrack = computed(() => isCurrentTrackPlaying(props.trackId))
 

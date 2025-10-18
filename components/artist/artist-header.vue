@@ -1,11 +1,11 @@
 <template>
-  <header class='artist-header'>
-    <p v-if="!isTablet" hidden class='artist-header__is-verified'>
+  <header :class="['artist-header', { '--lite': !isDesktop}]">
+    <p v-if="isDesktop" hidden class='artist-header__is-verified'>
       <h-icon :icon="CheckmarkBadge01Icon" color="#3B82F6"/>
       Artiste vérifié
     </p>
     <h1 class='artist-header__name'>{{ artist.name }}</h1>
-    <p v-if="!isTablet">{{ numFan }} auditeurs mensuels</p>
+    <p v-if="isDesktop">{{ numFan }} auditeurs mensuels</p>
   </header>
 </template>
 
@@ -17,7 +17,7 @@ const props = defineProps({
   artist: { type: Object, required: true },
 })
 
-const { isTablet } = useDevice()
+const { isDesktop } = useDevice()
 
 const numFan = computed(() => new Intl.NumberFormat().format(props.artist.nb_fan))
 </script>
@@ -32,6 +32,11 @@ const numFan = computed(() => new Intl.NumberFormat().format(props.artist.nb_fan
   height: calc(40vh - 20px);
   padding: 0 20px 20px;
   color: #fff;
+
+  &.--lite{
+    height: 20dvh;
+    padding: 0 10px;
+  }
 
   &__is-verified {
     display: flex;
