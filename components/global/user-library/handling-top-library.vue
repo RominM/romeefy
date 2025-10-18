@@ -26,7 +26,7 @@
         class="handling-top-library__dropdown" 
         :style="dropdownStyle"
       >
-        <dropdown-add-playlist />
+        <create-playlist-module />
       </div>  
     </teleport>
   </div>

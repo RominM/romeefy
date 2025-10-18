@@ -1,7 +1,11 @@
 <template>
   <div class="crate-playlist-button">
     <div class="crate-playlist-button__wrapper-icon">
-      <h-icon :icon="playlistButton.icon" size="22" />
+      <h-icon 
+        class="crate-playlist-button__wrapper-icon__icon" 
+        :icon="playlistButton.icon" 
+        size="22" 
+      />
     </div>
 
     <div>
@@ -24,7 +28,11 @@ defineProps({
   display: flex;
   align-items: center;
   gap: 10px;
+  padding: 5px;
+  border-radius: 5px;
   color: #fff;
+  cursor: pointer;
+  transition: 0.3s;
   &__wrapper-icon {
     display: flex;
     justify-content: center;
@@ -33,6 +41,9 @@ defineProps({
     height: 50px;
     background-color: $dark-surface-secondary;
     border-radius: 50%;
+    &__icon{
+      transition: 0.3s;
+    }
   }
 
   &__title {
@@ -43,6 +54,15 @@ defineProps({
   &__subtitle {
     font-size: 12px;
     font-weight: 300;
+  }
+
+  &:hover {
+    background-color: $dark-surface-secondary;
+    .crate-playlist-button__wrapper-icon__icon {
+      transform: rotate(15deg) scale(1.1);
+      color: $primary !important;
+      transition: 0.3s ease;
+    }
   }
 }
 </style>
