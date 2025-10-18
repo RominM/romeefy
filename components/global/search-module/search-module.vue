@@ -1,7 +1,7 @@
 <template>
   <div class="search-module">
     <div :class="['search-module__main', { '--active': showDropdown }]">
-      <input-search @is-focus="showDropdown = $event"/>
+      <input-search @is-focus="showDropdown = $event" show-icon/>
       <nuxt-link to="/parcourir">
         <h-icon :icon="DeliveryBox01Icon" color="#b3b3b3"/>
       </nuxt-link>
