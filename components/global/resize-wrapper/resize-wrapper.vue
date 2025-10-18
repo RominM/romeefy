@@ -1,5 +1,5 @@
 <template>
-  <div :class="['resize-wrapper', { isDesktop }]">
+  <div v-if="isReady" :class="['resize-wrapper', { isDesktop }]">
     <main-wrapper v-if="isDesktop" class="resize-wrapper__left-panel" :style="{ width: leftWidth + 'px' }">
       <scroll-container>
         <user-library />
@@ -33,7 +33,6 @@
 import { useDevice } from '~/composables/device/useDevice'
 import { useSearchStore } from '~/store/searchStore'
 
-
 let startX = 0
 let startWidth = 0
 
@@ -45,7 +44,7 @@ const MAX_WIDTH = 450
 
 const _searchStore = useSearchStore()
 const showRightPanle = useState('showRightPanel', () => false)
-const { isDesktop } = useDevice()
+const { isReady, isDesktop } = useDevice()
 
 const leftWidth = ref<number>(350)
 const rightWidth = ref<number>(350)
@@ -104,6 +103,7 @@ function onMouseUpRight() {
     width: calc(100% - 23dvw);
     height: 100dvh;
     &.isDesktop{
+      flex-direction: row;
       width: 100vw;
       height: calc(100dvh - $--navbar - $--playbar);
     }
