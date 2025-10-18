@@ -1,15 +1,17 @@
 <template>
   <div class="on-listen">
-    <img v-if="track" class="on-listen__cover" :src="track.album.cover_small" alt="" />
-    <div class="on-listen__artist">
+    <img v-if="track" :class="['on-listen__cover', { isTablet }]" :src="track.album.cover_small" alt="" />
+    <div :class="['on-listen__artist', {isTablet}]">
       <p
         ref="titleRef"
+        :class="{ isTablet }"
         :style="scrollStyles.title"
       >
         {{ track?.title }}
       </p>
       <p
         ref="artistRef"
+        :class="{ isTablet }"
         :style="scrollStyles.artist"
       >
         {{ track?.artist.name }}
@@ -19,11 +21,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, nextTick } from 'vue';
+import { nextTick, reactive, ref } from 'vue';
+import { useDevice } from '~/composables/device/useDevice';
 import { EGlobalEvent } from '~/types/enum/global/globalEvent';
 
-const track = ref<any>();
+const { isTablet } = useDevice()
 
+const track = ref<any>();
 const titleRef = ref<HTMLElement | null>(null);
 const artistRef = ref<HTMLElement | null>(null);
 
@@ -45,7 +49,7 @@ function updateScroll(el: HTMLElement | null, styleObj: any, key: 'title' | 'art
 
   if (textWidth > parentWidth) {
     const distance = textWidth - parentWidth;
-    const duration = distance / 30; // ajustable: plus grand = plus lent
+    const duration = distance / 4030;
     styleObj[key] = {
       display: 'inline-block',
       whiteSpace: 'nowrap',
@@ -69,6 +73,10 @@ function updateScroll(el: HTMLElement | null, styleObj: any, key: 'title' | 'art
     width: 72px;
     height: 72px;
     object-fit: cover;
+    &.isTablet {
+      width: 40px;
+      height: 40px;
+    }
   }
 
   &__artist {
@@ -78,21 +86,31 @@ function updateScroll(el: HTMLElement | null, styleObj: any, key: 'title' | 'art
     gap: 5px;
     width: 100%;
     overflow: hidden;
+    &.isTablet{
+      gap: 0;
+    }
 
     :first-child {
       font-size: 14px;
       font-weight: 600;
-      color: $light-background;
+      color:  $light-text-primary;
+      &.isTablet {
+        font-size: 12px;
+        font-weight: 300;
+      }
     }
 
     :nth-child(2) {
       font-size: 12px;
-      color: $light-text-primary;
+      color: $light-background;
+      font-weight: 300;
+      &.isTablet {
+        font-size: 10px;
+      }
     }
   }
 }
 
-// Animation ping-pong dynamique
 @keyframes scrollPingPong {
   0% {
     transform: translateX(0);

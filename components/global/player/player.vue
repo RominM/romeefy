@@ -1,17 +1,20 @@
 <template>
-  <div class='player'>
+  <div class="player">
     <player-controller />
-    <song-timeline :source="source"/>
+    <song-timeline v-show="isDesktop" :source="source"/>
   </div>
 </template>
 
 <script setup lang='ts'>
+import { useDevice } from '~/composables/device/useDevice';
 import { EGlobalEvent } from '~/types/enum/global/globalEvent';
 
 useGlobalEvents().subscribeTo(EGlobalEvent.LISTEN_TRACK_PREVIEW, (preview: string | undefined) => {
   if (!preview) return
   source.value = preview
 })
+
+const { isDesktop } = useDevice()
 
 const source = ref<string>('')
 </script>

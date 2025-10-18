@@ -30,6 +30,8 @@ export const usePlay = () => {
   }
 
   const byTrackId = async (trackId: number) => {
+    console.log({trackId});
+    
     const { data, error } = await useAPI().track.getById(trackId)
     if (error || !data?.preview) return
 
