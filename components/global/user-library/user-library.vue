@@ -1,6 +1,6 @@
 <template>
-  <main-wrapper class='user-library'>
-      <h2 class="user-library__title">Bibliothèque</h2>
+  <main-wrapper class='user-library' @mouseenter="isHovered = true" @mouseleave="isHovered = false">
+    <user-library-header :hovered="isHovered" />
 
       <div class='user-library__bento'>
         <p class='user-library__bento__title'>Créez votre première playlist</p>
@@ -17,6 +17,7 @@
 </template>
 
 <script setup lang='ts'>
+const isHovered = ref<boolean>(false)
 </script>
 
 <style lang='scss' scoped>
