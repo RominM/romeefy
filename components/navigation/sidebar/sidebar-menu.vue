@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { BarCode02Icon, Home09Icon, OpenSourceIcon, Search01Icon } from '@hugeicons/core-free-icons';
+import { Add01Icon, BarCode02Icon, Home09Icon, OpenSourceIcon, Search01Icon } from '@hugeicons/core-free-icons';
 import { ENavAction } from '~/types/enum/global/nav';
 
 const buttons: TSideNav[] = [
@@ -30,9 +30,14 @@ const buttons: TSideNav[] = [
     label: 'Bibliothèque'
   },
   {
-    action: ENavAction.OPEN_PREMIUM,
+    link: '/premium',
     icon: OpenSourceIcon,
     label: 'Premium'
+  },
+  {
+    action: ENavAction.CREATE_PLAYLIST,
+    icon: Add01Icon,
+    label: 'Créer'
   }
 ]
 </script>

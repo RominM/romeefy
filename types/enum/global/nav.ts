@@ -1,3 +1,3 @@
 export enum ENavAction {
-  OPEN_PREMIUM = 'open-premium'
+  CREATE_PLAYLIST = 'create-playlist'
 }

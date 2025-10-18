@@ -49,7 +49,8 @@ function updateScroll(el: HTMLElement | null, styleObj: any, key: 'title' | 'art
 
   if (textWidth > parentWidth) {
     const distance = textWidth - parentWidth;
-    const duration = distance / 4030;
+    
+    const duration = distance / 25;
     styleObj[key] = {
       display: 'inline-block',
       whiteSpace: 'nowrap',
