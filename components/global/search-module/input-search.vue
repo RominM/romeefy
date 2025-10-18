@@ -1,10 +1,11 @@
 <template>
   <div class="input-search">
-    <h-icon :icon="Search01Icon" color="#b3b3b3"/>
-    <input 
+    <h-icon v-if="showIcon" :icon="Search01Icon" color="#b3b3b3"/>
+    <input
+      ref="inputRef"
       class='input-search__input' 
       type="text" 
-      placeholder="Que souhaitez-vous écouter ou regarder ?"
+      placeholder="Que souhaitez-vous écouter ?"
       v-model="searchValue"
       @input="handleInput"
       @focus="emit('is-focus', true)"
@@ -19,14 +20,23 @@ import { useAPI } from '~/composables/api/useApi';
 import { useSearchStore } from '~/store/searchStore';
 
 const emit = defineEmits(['is-focus'])
+defineProps({
+  showIcon: { type: Boolean, default: false }
+})
+
 const router = useRouter()
+const _searchStore = useSearchStore()
 
 router.afterEach(() => {
   searchValue.value = ''
 })
 
-const _searchStore = useSearchStore()
+const inputRef = ref<HTMLInputElement | null>(null)
 const searchValue = ref<string>('')
+
+onMounted(() => {
+  inputRef.value?.focus()
+})
 
 async function handleInput() {
   const entered = searchValue.value.trim()
@@ -52,19 +62,23 @@ async function handleInput() {
 
 <style scoped lang="scss">
 .input-search {
-        display: flex;
-      align-items: center;
-      gap: 10px;
-      width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+    &__input {
+    width: 100%;
+    color: #ccc;
+    border-right: solid 1px $light-text-secondary;
+    &::placeholder {
+      color: $light-text-secondary;
+    }
+  }
+}
 
-        &__input {
-        width: 100%;
-        color: #ccc;
-        border-right: solid 1px $light-text-secondary;
-        &::placeholder {
-          color: $light-text-secondary;
-        }
-      }
-  
+@media screen and (max-width: 540px) {
+  .input-search__input {
+    font-size: 14px;
+  }
 }
 </style>
