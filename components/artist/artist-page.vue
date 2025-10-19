@@ -80,7 +80,6 @@ $--bottom: 115px;
     height: calc(100dvh - $--navbar - $--playbar - $--global-padding);
     &.--full {
       height: 100dvh;
-      padding-bottom: $--bottom;
     }
   }
   &--loader,
