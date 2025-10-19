@@ -3,7 +3,7 @@
     <h-icon 
     class="player-button"
     :icon="isPlayingThisTrack ? PauseCircleIcon : PlayCircleIcon" 
-    size="55px"
+    :size="size"
     color="#1db954"
     :title="isPlayingThisTrack ? 'Pause' : 'Lecture'" 
     @click="togglePlay"
@@ -16,7 +16,8 @@ import { PauseCircleIcon, PlayCircleIcon } from '@hugeicons/core-free-icons';
 import { playerStore } from '~/store/playerStore';
 
 const props = defineProps({
-  trackId: { type: Number, required: true}
+  trackId: { type: Number, required: true },
+  size: { type: String, default: '55px'}
 })
 
 const { byTrackId, isCurrentTrackPlaying } = playerStore()
