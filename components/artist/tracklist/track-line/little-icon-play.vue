@@ -1,5 +1,7 @@
 <template>
-    <h-icon :icon="!isPlayingThisTrack ? PlayIcon : PauseFreeIcons" @click="togglePlay" class="little-icon-play" size="25px"/>
+  <div class="little-icon-play" @click="togglePlay">
+    <h-icon :icon="!isPlayingThisTrack ? PlayIcon : PauseFreeIcons" size="25px"/>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -20,4 +22,10 @@ function togglePlay() {
 </script>
 
 <style scoped lang="scss">
+.little-icon-play{
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  z-index: 999;
+}
 </style>
