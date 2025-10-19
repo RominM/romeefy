@@ -38,14 +38,6 @@ function clearHistory() {
 function deleteItemHistoy(item: TSearchItem) {
   console.log({item});
 }
-
-watch(
-  () => _searchStore.searchResults,
-  () => {
-    console.log(_searchStore.searchResults);
-    
-  }
-)
 </script>
 
 <style scoped lang="scss">
