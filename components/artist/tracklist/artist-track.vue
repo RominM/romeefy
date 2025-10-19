@@ -115,12 +115,13 @@ function togglePlay() {
     display: flex;
     flex-direction: column;
     font-weight: 600;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     color: #fff;
     width: 100%;
+    overflow: hidden;
     &__main {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       &.--mobile-play{
         color: green
       }
