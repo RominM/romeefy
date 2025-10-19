@@ -3,13 +3,12 @@
     :class="['artist-track', { isMobile }]" 
     @mouseenter="isHovered = true"
     @mouseleave="isHovered = false"
-    @click="!variant ? togglePlay() : null"
-  >
+    >
     <dynamic-index v-if="!variant" :index="index" :preview="track.preview" :hovered="isHovered" />
     <mini-album-cover v-if="showCover" :preview="track.preview" :variant="variant" :cover="cover" :hovered="isHovered" />
-    <track-name :artist-name="track.artist.name" :artist-id="track.artist.id" :name="track.title" :is-explicit="track.explicit_lyrics" />
+    <track-name :artists="[track.artist]" :trackName="track.title" :is-explicit="track.explicit_lyrics" />
     <p v-if="isDesktop" class='artist-track__listen' :hidden="variant">{{ listenRandom }}</p>
-    <track-duration :duration="track.duration" />
+    <track-duration :duration="track.duration" :is-hovered="isHovered" />
   </div>
 </template>
 
@@ -40,10 +39,6 @@ const listenRandom = computed(() => {
   const generateNumber = Math.floor(Math.random() * (1_000_000_000 - 100_000 + 1)) + 1_000_000
   return new Intl.NumberFormat().format(generateNumber) 
 })
-
-function togglePlay() {
-  byTrackId(props.track.id)
-}
 </script>
 
 <style lang='scss' scoped>
@@ -57,13 +52,15 @@ function togglePlay() {
   padding: 7px 15px;
   border-radius: 5px;
   transition: 0.3s;
-  cursor: pointer;
   &.isMobile {
     gap: 5px;
     padding: 7px 0;
   }
   &__listen{
-    width: 30%;
+    width: auto;
+    margin-right: 15%;
+    cursor: default;
+    user-select: none;
   }
   &:hover {
     background-color: rgba(66, 66, 66, 0.5);

@@ -1,16 +1,19 @@
 <template>
   <div class="track-name">
-    <span class="track-name__name"> {{ name }}</span>
-    <nuxt-link v-if="variant" :to="`/artist/${artistId}`" class='track-name--artist'>{{ artistName }}</nuxt-link>
-    <span v-else-if="isExplicit" class='track-name--is-explicit'>E</span>
+    <span class="track-name__name"> {{ trackName }}</span>
+    <div class="track-name__artists">
+      <span v-if="isExplicit" class='track-name__artists--is-explicit'>E</span>
+      <nuxt-link @click.stop class='track-name__artists__name' v-for="(artist, index) in artists" :key="index" :to="`/artist/${artist.id}`">{{ artist.name }}</nuxt-link>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import type { PropType } from 'vue';
+
 defineProps({
-  artistId: { type: Number, required: true },
-  name: { type: String, required: true},
-  artistName: { type: String, required: true },
+  artists: { type: Array as PropType<IArtist[]>, required: true},
+  trackName: { type: String, required: true},
   isExplicit: { type: Boolean, default: false },
   variant: { type: Boolean, default: false },
 })
@@ -29,32 +32,37 @@ defineProps({
     overflow: hidden;
     text-overflow: ellipsis;
     color: #fff;
+    cursor: default;
+    user-select: none;
   }
-    &__main {
-      &.--mobile-play{
-        color: green
-      }
-    }
-    &--artist {
-      color: #ccc;
-      font-size: 12px;
-      font-weight: 600;
-      width: fit-content;
-      text-decoration: underline transparent;
-      &:hover{
-        text-decoration: underline;
-      }
-    }
+
+  &__artists {
+    display: flex;
+    align-items: center;
+    gap: 5px;
     &--is-explicit {
       width: fit-content;
-      padding: 5px;
+      height: fit-content;
+      padding: 4px;
       background-color: #fff;
       color: #000;
       border-radius: 3px;
       font-size: 10px;
-      font-weight: 22400;
+      font-weight: 600;
       line-height: 5px;
+      cursor: default;
+      user-select: none;
     }
-
+    &__name {
+      font-size: 12px;
+      font-weight: 300;
+      color: #ccc;
+      text-decoration: underline transparent;
+      transition: 0.2s;
+      &:hover{
+        text-decoration: underline #ccc;
+      }
+    }
+  }
 }
 </style>

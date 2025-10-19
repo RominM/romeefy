@@ -1,7 +1,7 @@
 <template>
   <div class='album-page'>
     <loader v-if="loading" class='album-page--loader' />
-    <div v-else-if="album" class='album-page--wrapper'>
+    <div v-else-if="album" :class="['album-page--wrapper', { '--small-device': !isDesktop }]">
       <banner-album :album="album" :banner="album.cover_xl" :color="currentColor"/>
       <player-top-fixed v-if="album" :scroll-top="scrollTop" :color="currentColor" :name="album.title" :track-id="album.tracks.data[0].id" />
       <album-content :album="album" :color-secondary="colorSecondary" @scroll="onScroll" @track-id="trackId = $event"/>
@@ -13,11 +13,13 @@
 <script setup lang='ts'>
 import { useAPI } from '~/composables/api/useApi'
 import { useColors } from '~/composables/colors/useColors'
+import { useDevice } from '~/composables/device/useDevice'
 
 const props = defineProps({
   albumId: { type: Number, required: true }
 })
 
+const { isDesktop } = useDevice()
 const loading = ref<boolean>(true)
 const album = ref<IAlbum>()
 
@@ -70,6 +72,9 @@ $--global-padding: 10px;
     position: relative;
     overflow: hidden;
     height: calc(100dvh - $--navbar - $--playbar - $--global-padding);
+    &.--small-device {
+      height: 100dvh;
+    }
   }
   &--loader,
   &--error {
@@ -79,5 +84,4 @@ $--global-padding: 10px;
     transform: translate(-50%, -50%);
   }
 }
-
 </style>

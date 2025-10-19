@@ -42,4 +42,10 @@ const trackLength = ref<number>(0)
     }
   }
 }
+
+@media screen and (max-width: 870px) {
+  .album-display {
+    padding: 0;
+  }
+}
 </style>

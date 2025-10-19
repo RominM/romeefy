@@ -1,12 +1,13 @@
 <template>
   <div class="section-discography">
     <loader v-if="loading" style="margin: auto;"/>
-    <section-cards v-else title-section="Discographie" :cover-card-list="discography" :source-redirect="`/artist/${artistId}/discography`"/>
+    <section-cards v-else title-section="Discographie" :cover-card-list="discography" :source-redirect="`/artist/${artistId}/discography`" redirect-card="/album" :flex="!isDesktop ? true : false"/>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useAPI } from '~/composables/api/useApi'
+import { useDevice } from '~/composables/device/useDevice'
 import { useDate } from '~/composables/formats/useDate'
 
 const emit = defineEmits(['genre-id'])
@@ -14,6 +15,7 @@ const props = defineProps({
   artistId: { type: Number, required: true }
 })
 
+const { isDesktop } = useDevice()
 const discography = ref<TCoverCard[]>([])
 const loading = ref<boolean>(false)
 

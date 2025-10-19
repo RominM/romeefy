@@ -3,6 +3,7 @@ export { };
 declare global {
   interface IAlbum {
     id: number;
+    artist: IArtist
     title: string;
     cover: string;
     cover_small: string;

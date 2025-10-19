@@ -58,6 +58,7 @@ const isVisible = computed(() => {
 @media screen and (max-width: 870px) {
   .play-top-fixed {
     padding: 10px;
+    background-color: #0000001f;
     &__content {
       margin-top: 10px;
       &--back {

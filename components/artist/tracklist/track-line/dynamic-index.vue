@@ -18,6 +18,8 @@ const props = defineProps({
   position: relative;
   width: 15px;
   height: 20px;
+  cursor: default;
+  user-select: none;
   &.--hovered {
     .play-icon {
       opacity: 1;
