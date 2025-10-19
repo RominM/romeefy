@@ -1,9 +1,13 @@
 <template>
   <div class="play-top-fixed" :style="{ backgroundColor: color }">
-    <div :class="['play-top-fixed__content', isVisible ? '--is-visible':'']">
-      <player-button v-if="isDesktop" :track-id="trackId"/>
-      <go-back v-else class="play-top-fixed__content--back" />
+    <div v-if="isDesktop" :class="['play-top-fixed__content', isVisible ? '--is-visible':'']">
+      <player-button :track-id="trackId"/>
       <h2 class="play-top-fixed__content__name">{{ name }}</h2>
+    </div>
+
+    <div v-else class="play-top-fixed__content --is-visible">
+      <go-back class="play-top-fixed__content--back" />
+      <h2 :class="['play-top-fixed__content__name',  isVisible ? '--is-visible':'']">{{ name }}</h2>
     </div>
   </div>
 </template>
@@ -51,7 +55,7 @@ const isVisible = computed(() => {
   }
 }
 
-@media screen and (max-width: 540px) {
+@media screen and (max-width: 870px) {
   .play-top-fixed {
     padding: 10px;
     &__content {
@@ -64,6 +68,11 @@ const isVisible = computed(() => {
       &__name {
         margin: auto;
         font-size: 14px;
+        opacity: 0;
+        transition: 0.5s;
+        &.--is-visible{
+          opacity: 1;
+        }
       }
     }
   }

@@ -10,7 +10,7 @@ import { ArrowLeft02Icon } from '@hugeicons/core-free-icons';
 
 <style scoped lang="scss">
 .go-back {
-  background-color: color-alpha($dark-surface, 0.9);
+  background-color: color-alpha($dark-surface, 0.4);
   padding: 5px;
   border-radius: 50%;
 }
