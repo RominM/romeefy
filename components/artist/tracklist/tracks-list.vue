@@ -19,7 +19,7 @@ import { computed, ref, type PropType } from 'vue'
 import { useDevice } from '~/composables/device/useDevice'
 
 const props = defineProps({
-  trackList: { type: Array as PropType<IAlbum[]>, required: true },
+  trackList: { type: Array as PropType<ITrack[]>, required: true },
   viewAll: { type: Boolean, defautl: false },
   showCover: { type: Boolean, defautl: false },
   variant: { type: Boolean, defautl: false }

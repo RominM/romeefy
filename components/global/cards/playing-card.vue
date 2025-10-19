@@ -28,6 +28,7 @@ defineProps({
   border-radius: 7px;
   background-color: $dark-surface;
   transition: 0.3s;
+  overflow: hidden;
   cursor: pointer;
 
   &--show-play {
