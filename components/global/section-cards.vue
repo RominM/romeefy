@@ -1,7 +1,7 @@
 <template>
   <section class='section-card'>
     <div class="section-card__top">
-      <h2 class="section-card__top__title">{{ titleSection }}</h2>
+      <h2-custom v-if="titleSection" :title="titleSection"/>
       <nuxt-link :to="sourceRedirect" class="section-card__top__view-all">Tout afficher</nuxt-link>
     </div>
 
@@ -15,9 +15,14 @@
         />
       </div> -->
 
-      <ul class='section-card__list-container__ul' >
-        <li v-for="(coverCard, index) in coverCardList" :key="`cover-card-${index}`" class='section-card__list-container__ul__li'>
-          <cover-card :cover-card="coverCard" :source-redirect="sourceRedirect" :track-id="Number(coverCard.id)" :circular="circular" />
+      <ul class='section-card__list-container__ul' :class="{flex}">
+        <li v-for="(coverCard, index) in displayedCards" :key="`cover-card-${index}`" class='section-card__list-container__ul__li'>
+          <cover-card 
+            :cover-card="coverCard" 
+            :source-redirect="redirectCard ? redirectCard : sourceRedirect" 
+            :track-id="Number(coverCard.id)" :circular="circular"
+            :flex="flex"  
+          />
         </li>
       </ul>
 
@@ -36,14 +41,25 @@
 <script setup lang='ts'>
 import type { PropType } from 'vue';
 
-defineProps({
+const props = defineProps({
   titleSection: { type: String, defaut: '' },
-  coverCardList: { type: Array as PropType<TCoverCard[] | null>, required: true },
+  coverCardList: { type: Array as PropType<TCoverCard[]>, required: true },
   sourceRedirect: { type: String, require: true },
-  circular: { type: Boolean, default: false }
+  redirectCard: { type: String, default: '' },
+  circular: { type: Boolean, default: false },
+  flex: { type: Boolean, default: false },
 })
 
 const listRef = ref<HTMLElement | null>(null);
+
+const showLimited = ref(true)
+
+const displayedCards = computed(() => {
+  return props.flex
+    ? props.coverCardList.slice(0, 5)
+    : props.coverCardList
+})
+
 
 function scrollRight() {
   if (!listRef.value) return;
@@ -55,8 +71,8 @@ function scrollRight() {
 </script>
 
 <style lang='scss' scoped>
-  .section-card{
-    &__top{
+  .section-card {
+    &__top {
       @include noSelect;
       display: flex;
       justify-content: space-between;
@@ -69,6 +85,7 @@ function scrollRight() {
       &__view-all {
         font-weight: 500;
         font-size: 14px;
+        color: #ccc;
         text-decoration: underline transparent;
         transition: 0.3s;
         &:hover {
@@ -86,6 +103,9 @@ function scrollRight() {
       &__ul {
         display: flex;
         min-width: 0;
+        &.flex {
+          flex-direction: column;
+        }
       }
       &__carousel-arrow {
         display: flex;
@@ -107,4 +127,10 @@ function scrollRight() {
       }
     }
   }
+
+@media screen and (max-width: 870px) {
+  .section-card__top__view-all {
+    font-size: 10px;
+  }
+}
 </style>

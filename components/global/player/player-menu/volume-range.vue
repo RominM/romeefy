@@ -1,7 +1,7 @@
 <template>
   <div class="volume-range">
     <button @click="toggleMute">
-      <h-icon :icon="isMuted ? VolumeOffIcon : VolumeHighIcon" size="18" />  
+      <h-icon :icon="isMuted ? VolumeMute02Icon : VolumeLowIcon" size="18" />  
     </button>
 
     <input
@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import { VolumeHighIcon, VolumeOffIcon } from '@hugeicons/core-free-icons';
+import { VolumeLowIcon, VolumeMute02Icon } from '@hugeicons/core-free-icons';
 import { onMounted, ref } from 'vue';
 
 const volume = ref<number>(0.7);

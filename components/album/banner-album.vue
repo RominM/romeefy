@@ -21,7 +21,6 @@ defineProps({
   filter: brightness(70%);
   overflow: hidden;
   z-index: 0;
-
 }
 
 .banner__overlay {
@@ -29,5 +28,11 @@ defineProps({
   inset: 0;
   z-index: 1;
   transition: background-color 0.2s;
+}
+
+@media screen and (max-width: 870px) {
+  .banner-album {
+    height: 90dvh;
+  }
 }
 </style>

@@ -19,4 +19,10 @@ defineProps({
   height: calc(100% - 75px);
   box-sizing: border-box;
 }
+
+@media screen and (max-width: 870px) {
+.artist-content {
+  height: 100%;
+}
+}
 </style>

@@ -1,16 +1,16 @@
 <template>
-  <HugeiconsIcon class='h-icon' :icon="icon" :style="{ color: color, width: size, minWidth: size }" :title="title"/>
+  <HugeiconsIcon class='h-icon' :icon="icon" :style="{ color: color, width: size, minWidth: size }" :title="title" />
 </template>
 
 <script setup lang='ts'>
 import { HugeiconsIcon } from '@hugeicons/vue';
 import type { IconSvgObject } from '~/types/type/icon';
 
-defineProps({
+const props = defineProps({
   icon: { type: Object as PropType<IconSvgObject>, default: '' },
   color: { type: String, default: '#ccc' },
   size: { type: String, default: '24px' },
-  title: { type: String, default: '#ccc' }
+  title: { type: String, default: '' }
 })
 </script>
 

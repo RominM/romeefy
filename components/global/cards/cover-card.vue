@@ -1,13 +1,16 @@
 <template>
-  <nuxt-link :to="`${sourceRedirect}/${coverCard.id}`" class='cover-card'>
+  <nuxt-link :to="`${sourceRedirect}/${coverCard.id}`" class='cover-card' :class="{flex}">
     <div class='cover-card__img-wrapper'>
       <img :class='["cover-card__img-wrapper__img", { circular }]' :src="coverCard.coverMedium" :alt="coverCard.alt">
       <div v-if="trackId" class="cover-card__img-wrapper--show-play" @click.prevent.stop="playerStore().byTrackId(trackId)">
         <h-icon :icon="PlayCircleIcon" size="40px"/>
       </div>
     </div>
-    <p class='cover-card__title'>{{ coverCard.title }}</p>
-    <p v-if="coverCard.describe" class='cover-card__describe'>{{ coverCard.describe }}</p>
+
+    <div style="width: stretch;">
+      <p class='cover-card__title'>{{ coverCard.title }}</p>
+      <p v-if="coverCard.describe" class='cover-card__describe'>{{ coverCard.describe }}</p>
+    </div>
   </nuxt-link>
 </template>
 
@@ -20,7 +23,8 @@ defineProps({
   coverCard: { type: Object as PropType<TCoverCard>, required: true},
   sourceRedirect: { type: String, require: true },
   trackId: { type: Number, default: 0 },
-  circular: { type: Boolean, default: false }
+  circular: { type: Boolean, default: false },
+  flex: { type: Boolean, default: false }
 })
 </script>
 
@@ -76,6 +80,19 @@ defineProps({
       color: $light-text-secondary;
       font-weight: 500;
 
+    }
+
+    &.flex {
+      flex-direction: row;
+      width: 100%;
+      .cover-card__img-wrapper {
+        width: 150px;
+      &__img {
+        &.circular{
+          border-radius: 50%;
+        }
+      }
+    }
     }
 
     &:hover {

@@ -1,5 +1,5 @@
 <template>
-  <ul class="track-list">
+  <ul class="track-list" :class="showAll || !showCover ? '--show-all' : ''">
     <li 
       v-for="(track, index) in visibleTracks" 
       :key="`track-${index}`" 
@@ -65,5 +65,31 @@ font-size: 12px;
 font-weight: 700;
 margin-left: 20px; 
 cursor: pointer;
+}
+
+@media screen and (max-width: 870px) {
+  .track-list {
+    position: relative;
+    &::after {
+      position: absolute;
+      bottom: 0;
+      content: '';
+      height: 0;
+      width: 100%;
+      box-shadow: 0 -1px 15px 20px #100f0f;
+    }
+    &.--show-all {
+      &::after {
+        display: none;
+      }
+    }
+  }
+  .toggle-btn {
+    margin: auto;
+    padding: 3px 10px;
+    border: solid #fff 1px;
+    border-radius: 12px;
+    z-index: 999;
+  }
 }
 </style>
