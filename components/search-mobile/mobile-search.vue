@@ -1,6 +1,6 @@
 <template>
   <div class="mobile-search">
-    <h-icon :icon="ArrowLeft02Icon" @click="$emit('change-view')" />
+    <h-icon :icon="ArrowLeft02Icon" @click="changeView" />
     <input-search />
   </div>
   <div class="mobile-search__wrapper">
@@ -11,7 +11,16 @@
 
 <script setup lang="ts">
 import { ArrowLeft02Icon } from '@hugeicons/core-free-icons';
+import { useSearchStore } from '~/store/searchStore';
 
+const emit = defineEmits(['change-view'])
+
+const _searchStore = useSearchStore()
+
+function changeView() {
+  _searchStore.setResults(undefined)
+  emit('change-view')
+}
 </script>
 
 <style scoped lang="scss">

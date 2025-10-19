@@ -15,8 +15,6 @@
 </template>
 
 <script setup lang='ts'>
-import { computed, ref, type PropType } from 'vue'
-import { useDevice } from '~/composables/device/useDevice'
 
 const props = defineProps({
   trackList: { type: Array as PropType<ITrack[]>, required: true },
@@ -24,8 +22,6 @@ const props = defineProps({
   showCover: { type: Boolean, defautl: false },
   variant: { type: Boolean, defautl: false }
 })
-
-const { isMobile } = useDevice()
 
 const defaultLimit = 5
 const showAll = ref<boolean>(false)
