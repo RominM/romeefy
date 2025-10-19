@@ -1,5 +1,5 @@
 <template>
-    <h-icon :icon="!isPlayingThisTrack ? PlayIcon : PauseFreeIcons" class="little-icon-play" size="25px"/>
+    <h-icon :icon="!isPlayingThisTrack ? PlayIcon : PauseFreeIcons" @click="togglePlay" class="little-icon-play" size="25px"/>
 </template>
 
 <script setup lang="ts">
@@ -10,9 +10,13 @@ const props = defineProps({
   preview: { type: String, required: true },
 })
 
-const { isCurrentTrackPlaying } = playerStore()
+const { isCurrentTrackPlaying, byPreview } = playerStore()
 
 const isPlayingThisTrack = computed(() => isCurrentTrackPlaying(undefined, props.preview))
+
+function togglePlay() {
+  byPreview(props.preview)
+}
 </script>
 
 <style scoped lang="scss">

@@ -1,7 +1,7 @@
 <template>
     <ul class="search-history">
       <li
-        v-for="(item, index) in _searchStore.history"
+        v-for="(item, index) in formatedResult"
         :key="index"
         @delete="deleteItemHistoy(item)"
       >
@@ -12,9 +12,24 @@
 </template>
 
 <script setup lang="ts">
+import { useMapper } from '~/composables/mappers/useMapper';
 import { useSearchStore } from '~/store/searchStore';
 
 const _searchStore = useSearchStore()
+
+const formatedResult = computed(() => {
+  const results = _searchStore.searchResults
+  if (!results) return []
+
+  _searchStore.setActive(false)
+  
+  const mapper = useMapper().searchItem
+  const artists = results.artists?.length ? mapper.fromArtists(results.artists as IArtist[]) : []
+  const tracks = results.tracks?.length ? mapper.fromTracks(results.tracks as ITrack[]) : []
+
+  return [...artists, ...tracks]
+})
+
 
 function clearHistory() {
   _searchStore.history = []
@@ -23,6 +38,14 @@ function clearHistory() {
 function deleteItemHistoy(item: TSearchItem) {
   console.log({item});
 }
+
+watch(
+  () => _searchStore.searchResults,
+  () => {
+    console.log(_searchStore.searchResults);
+    
+  }
+)
 </script>
 
 <style scoped lang="scss">

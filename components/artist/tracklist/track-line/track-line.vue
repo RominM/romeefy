@@ -3,6 +3,7 @@
     :class="['artist-track', { isMobile }]" 
     @mouseenter="isHovered = true"
     @mouseleave="isHovered = false"
+    @click="togglePlay"
     >
     <dynamic-index v-if="!variant" :index="index" :preview="track.preview" :hovered="isHovered" />
     <mini-album-cover v-if="showCover" :preview="track.preview" :variant="variant" :cover="cover" :hovered="isHovered" />
@@ -39,6 +40,11 @@ const listenRandom = computed(() => {
   const generateNumber = Math.floor(Math.random() * (1_000_000_000 - 100_000 + 1)) + 1_000_000
   return new Intl.NumberFormat().format(generateNumber) 
 })
+
+function togglePlay() {
+  if (isDesktop.value) return
+  byTrackId(props.track.id)
+}
 </script>
 
 <style lang='scss' scoped>
