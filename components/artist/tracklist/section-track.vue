@@ -1,6 +1,6 @@
 <template>
   <section class='section-track'>
-    <h3 class='section-track__title'>{{ title }}</h3>
+    <h2-custom :title="title" />
     <tracks-list :track-list="trackList" show-cover :variant="variant" />
   </section>
 </template>
@@ -8,7 +8,7 @@
 <script setup lang='ts'>
 defineProps({
   title: { type: String, default: ''},
-  trackList: { type: Object, required: true },
+  trackList: { type: Array as PropType<ITrack[]>, required: true },
   variant: { type: Boolean, defautl: false }
 })
 </script>
@@ -22,6 +22,16 @@ defineProps({
       font-size: 22px;
       font-weight: 700;
       color: #fff;
+    }
+  }
+
+  @media screen and (max-width: 870px) {
+    .section-track {
+      margin-top: 20px;
+      gap: 10px;
+      &__title {
+        font-size: 18px;
+      }
     }
   }
 </style>
