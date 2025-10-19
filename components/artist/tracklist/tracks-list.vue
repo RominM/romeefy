@@ -5,7 +5,7 @@
       :key="`track-${index}`" 
       class='track-list__el'
     >
-      <artist-track :track="track" :index="index + 1" :show-cover="showCover" :variant="variant"/>
+      <track-line :track="track" :index="index + 1" :show-cover="showCover" :variant="variant"/>
     </li>
   </ul>
 

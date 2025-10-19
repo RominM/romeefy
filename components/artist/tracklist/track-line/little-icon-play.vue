@@ -16,7 +16,4 @@ const isPlayingThisTrack = computed(() => isCurrentTrackPlaying(undefined, props
 </script>
 
 <style scoped lang="scss">
-.little-icon-play {
-  
-}
 </style>

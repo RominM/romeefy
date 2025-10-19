@@ -26,7 +26,7 @@ const props = defineProps({
 const { isDesktop } = useDevice()
 
 const isVisible = computed(() => {
-  const fortyVhInPixels = isDesktop.value ? window.innerHeight * 0.7 : window.innerHeight * 0.2 
+  const fortyVhInPixels = isDesktop.value ? window.innerHeight * 0.4 : window.innerHeight * 0.2 
   return props.scrollTop >= fortyVhInPixels
 })
 </script>

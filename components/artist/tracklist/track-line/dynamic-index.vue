@@ -20,25 +20,28 @@ const props = defineProps({
   height: 20px;
   &.--hovered {
     .play-icon {
-  opacity: 1;
-}
-.track-index {
-  opacity: 0;
-}
+      opacity: 1;
+    }
+    .track-index {
+      opacity: 0;
+    }
+  }
+  .play-icon,
+  .track-index {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s;
+  }
+  
+  .play-icon {
+    opacity: 0;
+  }
+  
+  .track-index {
+    opacity: 1;
   }
 }
-.play-icon,
-.track-index {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  transition: opacity 0.3s;
-}
-.play-icon {
-  opacity: 0;
-}
-.track-index {
-  opacity: 1;
-}
+
 </style>
