@@ -12,7 +12,7 @@ defineProps({
 
 <style scoped lang="scss">
 .h2-custom {
-  font-size: 16px;
+  font-size: clamp(18px, 3vw, 24px);
   color: #fff;
 }
 </style>
