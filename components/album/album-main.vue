@@ -18,6 +18,6 @@ defineProps({
   position: relative;
   min-height: 550px;
   background-color: $dark-surface;
-  z-index: 999;
+  z-index: 99;
 }
 </style>

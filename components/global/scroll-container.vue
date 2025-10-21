@@ -100,7 +100,7 @@ $--global-padding: 20px;
 .scroller-container {
   position: relative;
   height: 100%; 
-  z-index: 99;
+  z-index: 999;
 
   &__content {
     height: 100%; 
