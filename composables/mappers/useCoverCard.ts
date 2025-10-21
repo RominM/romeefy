@@ -1,3 +1,5 @@
+import { ETypeCoverCard } from "~/types/enum/global/coverCard"
+
 export const useCoverCard = () => {
   return {
     mapAlbum(album: IAlbum): TCoverCard {
@@ -5,7 +7,9 @@ export const useCoverCard = () => {
         id: album.id,
         title: album.title, 
         coverMedium: album.cover_medium,
+        describe: album.artist.name,
         alt: `album ${album.title}`,
+        type: ETypeCoverCard.ALBUM
       }
     },
 
@@ -15,6 +19,7 @@ export const useCoverCard = () => {
         title: artist.name, 
         coverMedium: artist.picture_medium,
         alt: `artist ${artist.name}`,
+        type: ETypeCoverCard.ARTIST
       }
     },
 
@@ -25,16 +30,18 @@ export const useCoverCard = () => {
         coverMedium: playlist.picture_medium,
         alt: `playlist ${playlist.title}`,
         describe: `${playlist.nb_tracks} titres`,
+        type: ETypeCoverCard.PLAYLIST
       }
     },
 
     mapTrack(track: ITrack): TCoverCard {
       return {
-        id: track.id,
+        id: track.album.id,
         title: track.title,
         coverMedium: track.album.cover_medium,
         alt: `titre ${track.title}`,
-        describe: track.artist.name
+        describe: track.artist.name,
+        type: ETypeCoverCard.TRACK
       }
     },
     
@@ -44,7 +51,8 @@ export const useCoverCard = () => {
         coverMedium: podcast.picture_medium,
         alt: podcast.title,
         title: podcast.description,
-        describe: podcast.title
+        describe: podcast.title,
+        type: ETypeCoverCard.PODCAST
       }
     },
 
@@ -54,6 +62,7 @@ export const useCoverCard = () => {
         coverMedium: genre.picture_medium,
         alt: genre.name,
         title: genre.name,
+        type: genre.type
       }
     },
 
