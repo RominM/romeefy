@@ -91,7 +91,7 @@ function deleteItemHistoy(item: TSearchItem) {
   border-radius: 8px;
   opacity: 0;
   transition: 0.3s;
-  z-index: 999;
+  z-index: 9999;
   &__title {
     font-size: 16px;
     line-height: 14px;
