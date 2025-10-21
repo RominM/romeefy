@@ -21,6 +21,8 @@ const genreIds = ref<number[]>()
 
 <style scoped lang="scss">
 .desktop-artist-main {
-  
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 </style>
