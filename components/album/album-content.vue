@@ -9,7 +9,7 @@
 const emits = defineEmits(['scroll', 'track-id'])
 
 defineProps({
-  album: { type: Object, required: true },
+  album: { type: Object as PropType<IAlbum>, required: true },
   colorSecondary: { type: String, required: true}
 })
 </script>

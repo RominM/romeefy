@@ -1,6 +1,6 @@
 <template>
   <div v-if="artist">
-    <discography-header v-if="trackId" :artist-name="artist.name" :target-scroll="target" :track-id="trackId" :current-album="currentAlbum"/>
+    <discography-header v-if="currentAlbum && trackId" :artist-name="artist.name" :target-scroll="target" :track-id="trackId" :current-album="currentAlbum"/>
 
     <scroll-container @target="target = $event">
       <fetch-wrapper :fetch="(index, limit) => getDiscography(index, limit)" :page-size="25">
@@ -22,7 +22,7 @@ const props = defineProps({
 const route = useRoute()
 const artist = useArtist()
 
-const currentAlbum = ref<HTMLElement[]>([])
+const currentAlbum = ref<IAlbum>()
 const loading = ref<boolean>(false)
 const target = ref<number>(0)
 const trackId = ref<number>()

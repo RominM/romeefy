@@ -3,7 +3,13 @@
     <loader v-if="loading" class='album-page--loader' />
     <div v-else-if="album" :class="['album-page--wrapper', { '--small-device': !isDesktop }]">
       <banner-album :album="album" :banner="album.cover_xl" :color="currentColor"/>
-      <player-top-fixed v-if="album" :scroll-top="scrollTop" :color="currentColor" :name="album.title" :track-id="album.tracks.data[0].id" />
+      <player-top-fixed 
+        v-if="album" 
+        :scroll-top="scrollTop" 
+        :color="currentColor" 
+        :name="album.title" 
+        :track-id="Array.isArray(album.tracks) ? album.tracks[0].id : album.tracks.data[0].id" 
+      />
       <album-content :album="album" :color-secondary="colorSecondary" @scroll="onScroll" @track-id="trackId = $event"/>
     </div>
     <error-content v-else class='album-page--error' @retry="getArtist"/>
@@ -20,7 +26,7 @@ const props = defineProps({
 })
 
 const { isDesktop } = useDevice()
-const loading = ref<boolean>(true)
+const loading = ref<boolean>(false)
 const album = ref<IAlbum>()
 
 const scrollTop = ref<number>(0)
@@ -82,6 +88,7 @@ $--global-padding: 10px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    height: 100%;
   }
 }
 </style>
