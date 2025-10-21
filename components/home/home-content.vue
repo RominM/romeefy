@@ -5,8 +5,9 @@
       <section-cards 
         v-if="trackList" 
         title-section="Morceaux du moment" 
-        source-redirect="chart"
+        source-redirect="album"
         :cover-card-list="trackList" 
+        circular
       />
 
       <section-cards 
@@ -59,6 +60,9 @@ async function getAllChart() {
 
   if(!data || error ) return 
   allChart.value = data
+
+  console.log(allChart.value.tracks);
+  
 }
 
 async function setupSections() {

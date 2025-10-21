@@ -6,6 +6,7 @@ declare global {
     coverMedium: string
     alt: string
     title: string
+    type: string
     describe?: string
   }
 
