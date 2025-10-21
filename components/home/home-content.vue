@@ -12,7 +12,7 @@
 
       <section-cards 
         v-if="artistsList" 
-        title-section="Artistes recomandés pour vous" 
+        title-section="Artistes recomandés" 
         source-redirect="artist"
         :cover-card-list="artistsList" 
       />
@@ -92,6 +92,12 @@ async function setupSections() {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+}
+
+@media screen and (max-width: 870px) {
+  .home-content--all-chart {
+    padding-bottom: 130px;
   }
 }
 </style>

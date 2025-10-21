@@ -1,5 +1,5 @@
 <template>
-  <div class="on-listen">
+  <div class="on-listen" >
     <img v-if="track" :class="['on-listen__cover', { isTablet, isMobile }]" :src="track.album.cover_small" alt="" />
     <div :class="['on-listen__artist', { isTablet, isMobile }]">
       <p
@@ -25,7 +25,7 @@ import { nextTick, reactive, ref } from 'vue';
 import { useDevice } from '~/composables/device/useDevice';
 import { EGlobalEvent } from '~/types/enum/global/globalEvent';
 
-const { isTablet, isMobile } = useDevice()
+const { isDesktop, isTablet, isMobile } = useDevice()
 
 const track = ref<any>();
 const titleRef = ref<HTMLElement | null>(null);
@@ -61,6 +61,8 @@ function updateScroll(el: HTMLElement | null, styleObj: any, key: 'title' | 'art
     styleObj[key] = { whiteSpace: 'nowrap', display: 'inline-block' };
   }
 }
+
+
 </script>
 
 <style scoped lang="scss">

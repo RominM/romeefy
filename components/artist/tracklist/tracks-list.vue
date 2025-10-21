@@ -72,7 +72,7 @@ cursor: pointer;
       content: '';
       height: 0;
       width: 100%;
-      box-shadow: 0 -1px 15px 20px #100f0f;
+      box-shadow: 0 -5px 40px 25px $dark-background;
     }
     &.--show-all {
       &::after {

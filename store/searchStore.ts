@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia';
+import { defineStore } from 'pinia'
 
 export const useSearchStore = defineStore('search', {
   state: () => ({
@@ -32,26 +32,40 @@ export const useSearchStore = defineStore('search', {
       this.isActive = false
       this.isLoading = false
     },
+
     addToHistory(lastResult: TSearchItem) {
       const exists = this.history.some(item => item.id === lastResult.id)
-    
       if (!exists) {
         this.history.unshift(lastResult)
         if (this.history.length > 10) this.history.pop()
       }
-    }
+      localStorage.setItem('history', JSON.stringify(this.history))
+    },
 
+    loadHistory() {
+      const data = localStorage.getItem('history')
+      this.history = data ? JSON.parse(data) : []
+    },
+
+    clearHistory() {
+      this.history = []
+      localStorage.removeItem('history')
+    },
+
+    deleteFromHistory(item: TSearchItem) {
+      this.history = this.history.filter(i => i.id !== item.id)
+      localStorage.setItem('history', JSON.stringify(this.history))
+    }
   },
 
   getters: {
-    getResults(state) {
-      return state.searchResults
-    },
-    getLoadingState(state): boolean {
-      return state.isLoading
-    },
-    getActiveState(state): boolean {
-      return state.isActive
+    getResults: (state) => state.searchResults,
+    getLoadingState: (state) => state.isLoading,
+    getActiveState: (state) => state.isActive,
+    getHistory: (state) => {
+      if (state.history.length) return state.history
+      const data = localStorage.getItem('history')
+      return data ? JSON.parse(data) : []
     }
   }
 })

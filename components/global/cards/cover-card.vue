@@ -103,4 +103,10 @@ defineProps({
       opacity: 1;
     }
   }
+
+  @media screen and (max-width: 870px) {
+    .cover-card {
+      width: 150px;
+    }
+  }
 </style>

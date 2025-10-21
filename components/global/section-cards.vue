@@ -17,7 +17,7 @@
 
       <ul class='section-card__list-container__ul' :class="{flex}">
         <li v-for="(coverCard, index) in displayedCards" :key="`cover-card-${index}`" class='section-card__list-container__ul__li'>
-          <cover-card 
+            <cover-card 
             :cover-card="coverCard" 
             :source-redirect="redirectCard ? redirectCard : sourceRedirect" 
             :track-id="Number(coverCard.id)" :circular="circular"

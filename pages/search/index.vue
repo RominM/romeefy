@@ -16,6 +16,8 @@
 definePageMeta({ middleware: ['authorized-device'] })
 
 const currentView = ref<'first' | 'search'>('first')
+console.log(currentView.value);
+
 
 function toggleView(view: 'first' | 'search') {
   currentView.value = view

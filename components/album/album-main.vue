@@ -20,4 +20,10 @@ defineProps({
   background-color: $dark-surface;
   z-index: 99;
 }
+
+@media screen and (max-width: 870px) {
+  .album-main {
+    margin-bottom: 160px;
+  }
+}
 </style>

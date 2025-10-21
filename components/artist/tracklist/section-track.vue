@@ -27,7 +27,6 @@ defineProps({
 
   @media screen and (max-width: 870px) {
     .section-track {
-      margin-top: 20px;
       gap: 10px;
       &__title {
         font-size: 18px;

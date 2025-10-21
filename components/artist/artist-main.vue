@@ -75,6 +75,7 @@ async function getTopTracks() {
     }
     &.isMobile{
       padding: 10px;
+      margin-bottom: 85px;
     }
     
   }

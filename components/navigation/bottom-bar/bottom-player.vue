@@ -1,5 +1,6 @@
 <template>
   <div class="bottom-player" :style="{backgroundColor: getColor}">
+    <pre style="color: #fff;">{{ isCurrentTrackPlaying() }}</pre>
     <on-listen />
     <player />
   </div>
@@ -8,7 +9,7 @@
 <script setup lang="ts">
 import { playerStore } from '~/store/playerStore';
 
-const { getColor } = playerStore()
+const { getColor, isCurrentTrackPlaying } = playerStore()
 </script>
 
 <style scoped lang="scss">

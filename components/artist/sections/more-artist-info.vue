@@ -1,7 +1,7 @@
 <template>
   <section class="more-artist-info">
     <h2 class="more-artist-info__title">{{`Plus d'infos sur ${name}`}}</h2>
-    <img class="more-artist-info__picture" :src="picture" alt="">
+    <img class="more-artist-info__picture" :src="picture" :alt="`album ${name}`">
   </section>
 </template>
 
@@ -31,6 +31,12 @@ defineProps({
     &:hover {
       transform: scale(1.02);
     }
+  }
+}
+
+@media screen and (max-width: 870px) {
+  .more-artist-info__picture {
+    width: 100%;
   }
 }
 </style>
