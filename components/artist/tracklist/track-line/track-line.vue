@@ -42,7 +42,6 @@ const listenRandom = computed(() => {
 })
 
 function togglePlay() {
-  if (isDesktop.value) return
   byTrackId(props.track.id)
 }
 </script>
