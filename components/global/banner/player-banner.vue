@@ -97,9 +97,9 @@ $--color: var(--color);
     position: absolute;
     top: 0;
     display: block;
-    background: linear-gradient($--color 50%, transparent 100%);
+    background: linear-gradient($--color 55%, transparent 100%);
     filter: brightness(70%);
-    height: 180px;
+    height: 155px;
     width: 100%;
     z-index: 8;
   }
