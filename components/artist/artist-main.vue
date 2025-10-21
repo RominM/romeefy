@@ -3,8 +3,7 @@
     <player-banner v-if="trackId" :color-secondary="colorSecondary" :track-id="trackId"/>
     
     <div :class="['artist-main__content', { isMobile }]">
-      
-      <loader v-if="loading" class="artist-main__content--loader" style="margin: auto;" />
+      <loader class="artist-main__content--loader" v-if="loading" style="margin: auto;" />
       
       <div v-else>
         <desktop-artist-main v-if="isDesktop" :artist="artist" :top-tracks="topTracks" />
@@ -63,13 +62,7 @@ async function getTopTracks() {
 
 <style lang='scss' scoped>
 .artist-main{
-  // background: linear-gradient(307deg, rgba(20, 19, 19, 1) 64%, rgba(38, 38, 38, 1) 100%);
-  background: $dark-background;
-  height: 100vh;
-  &--loader{
-    height: 100%;
-    background-color: red;
-  }
+  background: linear-gradient(307deg, rgba(20, 19, 19, 1) 64%, rgba(38, 38, 38, 1) 100%);
   &__content {
     position: relative;
     display: flex;
@@ -77,6 +70,9 @@ async function getTopTracks() {
     gap: 30px;
     padding: 10px 20px;
     z-index: 10;
+    &--loader{
+      height: 100vh;
+    }
     &.isMobile{
       padding: 10px;
     }
