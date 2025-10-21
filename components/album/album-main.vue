@@ -2,7 +2,7 @@
   <div class="album-main">
     <player-banner :color-secondary="colorSecondary" :track-id="album.tracks.data[0].id"/>
     <album-display :lite-album="album"/>
-    <section-discography :artist-id="album.artist.id"/>
+    <section-discography style="padding: 20px;" :artist-id="album.artist.id"/>
   </div>
 </template>
 

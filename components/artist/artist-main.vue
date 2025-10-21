@@ -4,7 +4,7 @@
     
     <div :class="['artist-main__content', { isMobile }]">
       
-      <loader v-if="loading" style="margin: auto;"/>
+      <loader v-if="loading" class="artist-main__content--loader" style="margin: auto;" />
       
       <div v-else>
         <desktop-artist-main v-if="isDesktop" :artist="artist" :top-tracks="topTracks" />
@@ -65,6 +65,11 @@ async function getTopTracks() {
 .artist-main{
   // background: linear-gradient(307deg, rgba(20, 19, 19, 1) 64%, rgba(38, 38, 38, 1) 100%);
   background: $dark-background;
+  height: 100vh;
+  &--loader{
+    height: 100%;
+    background-color: red;
+  }
   &__content {
     position: relative;
     display: flex;
