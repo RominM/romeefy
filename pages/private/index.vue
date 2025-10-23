@@ -1,6 +1,6 @@
 <template>
     <div class='private-test'>
-      TEST
+      <tri-sphere />
     </div>
 </template>
 
