@@ -19,6 +19,5 @@ import { ToolsIcon } from '@hugeicons/core-free-icons';
   width: 100%;
   height: 100dvh;
   color: #fff;
-  background-color: $dark-background;
 }
 </style>

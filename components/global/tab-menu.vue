@@ -39,7 +39,6 @@ const activePanel = ref(props.panels[0])
     gap: 20px;
     padding-top: 10px;
     width: 100%;
-    background-color: $dark-background;
     z-index: 999;
     &__tab {
       display: flex;

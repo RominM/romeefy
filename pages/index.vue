@@ -10,6 +10,9 @@
 
 <script setup lang='ts'>
 /* this component has no script */
+useHead({
+  title: 'Home'
+})
 </script>
 
 <style lang='scss' scoped>

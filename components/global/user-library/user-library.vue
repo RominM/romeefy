@@ -55,7 +55,7 @@ const isHovered = ref<boolean>(false)
       margin-top: 15px;
       border-radius: 25px;
       background-color: $light-surface;
-      color: $dark-background;
+      color: $dark-text;
     }
   }
 }

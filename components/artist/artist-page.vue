@@ -15,6 +15,7 @@ import { useAPI } from '~/composables/api/useApi'
 import { useColors } from '~/composables/colors/useColors'
 import { useDevice } from '~/composables/device/useDevice'
 
+const emit = defineEmits(['artist-name'])
 const props = defineProps({
   artistId: { type: Number, required: true }
 })
@@ -42,6 +43,8 @@ async function getArtist() {
   if(!data || error) return
 
   artist.value = data
+
+  emit('artist-name', artist.value?.name)
 
   if (!artist.value) return
   const colors = await useColors().extractTopColors(artist.value.picture_small)

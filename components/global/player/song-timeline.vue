@@ -94,10 +94,11 @@ watch(
       to right,
       #fff 0%,
       #fff var(--progress, 0%),
-      #555 var(--progress, 0%),
-      #555 100%
+      $dark-surface-secondary var(--progress, 0%),
+      $dark-surface-secondary 100%
     );
     background-repeat: no-repeat;
+    transition: 0.3s;
   }
 
   input[type="range"]::-webkit-slider-thumb {
@@ -110,6 +111,16 @@ watch(
     border: none;
     cursor: pointer;
     transition: transform 0.2s ease, background 0.2s ease;
+  }
+
+  input[type="range"]:hover {
+    background: linear-gradient(
+      to right,
+      $primary 0%,
+      $primary var(--progress, 0%),
+      $dark-surface-secondary var(--progress, 0%),
+      $dark-surface-secondary 100%
+    );
   }
 
   input[type="range"]:hover::-webkit-slider-thumb {
