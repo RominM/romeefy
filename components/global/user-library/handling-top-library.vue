@@ -99,14 +99,14 @@ onBeforeUnmount(() => {
     transition: 0.3s;
     border-radius: 25px;
     cursor: pointer;
+    background-color: $dark-surface-secondary;
     &:hover {
-      background-color: $dark-surface-secondary;
+      background-color: $dark-surface-tercary;
     }
   }
 
   &__create {
-    padding: 8px 12px;
-    background-color: $dark-surface;
+    padding: 7px 12px;
     font-size: 14px;
     &__icon {
       transition: 0.3s ease;
@@ -118,6 +118,7 @@ onBeforeUnmount(() => {
   }
 
   &__expand-shrink {
+    background-color: $dark-surface;
     padding: 5px 10px;
   }
 
