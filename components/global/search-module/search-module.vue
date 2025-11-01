@@ -26,8 +26,8 @@ const showDropdown = defineModel<boolean>()
     gap: 10px;
     padding:6px;
     border-radius: 24px;
-    background-color: $dark-surface;
-    border: solid 2px $dark-surface;
+    background-color: $dark-surface-secondary;
+    border: solid 2px $dark-surface-secondary;
     transition: 0.3s;
     &.--active {
       border: solid 2px #fff;
