@@ -20,19 +20,20 @@
 import { useAPI } from '~/composables/api/useApi'
 import { useColors } from '~/composables/colors/useColors'
 import { useDevice } from '~/composables/device/useDevice'
+import { playerStore } from '~/store/playerStore'
 
 const props = defineProps({
   albumId: { type: Number, required: true }
 })
 
+const _player = playerStore()
 const { isDesktop } = useDevice()
+
 const loading = ref<boolean>(false)
 const album = ref<IAlbum>()
-
 const scrollTop = ref<number>(0)
 const currentColor = ref<string>('')
 const colorSecondary = ref<string>('')
-
 const trackId = ref<number>()
 
 onMounted(async () => {

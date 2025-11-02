@@ -24,13 +24,13 @@
 
     <!-- RIGHT RESIZE HANDLE -->
     <resize-handle 
-      v-if="showRightPanel" 
+      v-if="showRightPanel && isDesktop" 
       @mousedown.prevent="onMouseDownRight" 
       :style="{ cursor: isDraggingRight ? 'grabbing' : 'grab' }" 
     />
 
     <!-- RIGHT PANEL -->
-    <main-wrapper v-if="showRightPanel" :style="{ width: rightWidth + 'px' }">
+    <main-wrapper v-if="showRightPanel && isDesktop" :style="{ width: rightWidth + 'px' }">
       <scroll-container>
         <artist-details />
       </scroll-container>

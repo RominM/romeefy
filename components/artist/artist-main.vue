@@ -19,7 +19,7 @@ import { useDevice } from '~/composables/device/useDevice';
 
 const emit = defineEmits(['track-id'])
 const props = defineProps({
-  artist: { type: Object, required: true },
+  artist: { type: Object as PropType<IArtist>, required: true },
   colorSecondary: { type: String, required: true}
 })
 
@@ -51,7 +51,7 @@ async function getTopTracks() {
 
 <style lang='scss' scoped>
 .artist-main{
-  background: linear-gradient(307deg, rgba(20, 19, 19, 1) 64%, rgba(38, 38, 38, 1) 100%);
+  background-color: $dark-surface;
   &__content {
     position: relative;
     display: flex;
@@ -66,6 +66,12 @@ async function getTopTracks() {
       padding: 10px;
     }
     
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .artist-main {
+    padding-bottom: 100px;
   }
 }
 </style>

@@ -5,7 +5,7 @@
     @mouseleave="isHovered = false"
     @click="togglePlay"
   >
-    <dynamic-index v-if="!variant" :index="index" :preview="track.preview" :hovered="isHovered" :is-playing="isPlayingThisTrack" />
+    <dynamic-index v-if="!variant" :index="index" :preview="track.preview" :hovered="!isMobile && isHovered" :is-playing="isPlayingThisTrack" />
     <mini-album-cover v-if="showCover" :preview="track.preview" :variant="variant" :cover="cover" :hovered="isHovered" />
     <track-name :artists="[track.artist]" :trackName="track.title" :is-explicit="track.explicit_lyrics" :is-playing="isPlayingThisTrack" />
     <p v-if="isDesktop" class='artist-track__listen' :hidden="variant">{{ listenRandom }}</p>
@@ -17,7 +17,6 @@
 import { useDevice } from '~/composables/device/useDevice';
 import { playerStore } from '~/store/playerStore';
 
-const emit = defineEmits(['set-artist'])
 const props = defineProps({
   track: { type: Object as PropType<ITrack>, required: true },
   index: { type: Number, default: null },
@@ -27,9 +26,9 @@ const props = defineProps({
 
 const { byTrackId, isCurrentTrackPlaying } = playerStore()
 const { isMobile, isDesktop } = useDevice()
+const showRightPanel = useState('showRightPanel', () => false)
 
 const isHovered = ref<boolean>(false)
-
 
 const isPlayingThisTrack = computed(() => isCurrentTrackPlaying(props.track.id))
 
@@ -46,9 +45,8 @@ const listenRandom = computed(() => {
 })
 
 function togglePlay() {
-  emit('set-artist')
-  
   byTrackId(props.track.id)
+  showRightPanel.value = true
 }
 </script>
 

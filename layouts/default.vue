@@ -10,9 +10,9 @@
       <component :is="component" @close="isOpen = false" />
     </modal>
 
-    <dropup-content v-if="isMobile">
+    <!-- <dropup-content v-if="isMobile">
       <component :is="component" @close="isOpen = false" />
-    </dropup-content>
+    </dropup-content> -->
   </div>
 </template>
 

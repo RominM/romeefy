@@ -1,22 +1,33 @@
 <template>
-  <album-cover v-if="_album" :album="_album" />
-  <artist-sheet :artist="_artist" />
-  <!-- <pre style="color: antiquewhite;">{{ _player }}</pre> -->
-  <pre style="color: antiquewhite;">_artist : {{ _artist }}</pre>
-  <pre style="color: antiquewhite;">_album : {{ _album }}</pre>
+  <div v-if="artist && album" class="artist-details" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
+    <header-panel :title="artist.name" :hovered="isHovered" />
+    <artist-sheet :artist="artist" :album="album"/>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { playerStore } from '~/store/playerStore';
 
 const _player = playerStore()
-const _album = _player.getCurrentAlbum
-const _artist = _player.getCurrentArtist
+const artist = ref<ILiteArtist>()
+const album = ref<ILiteAlbum>()
+
+const isHovered = ref<boolean>(false)
+
+watch(() => _player.currentArtist, (val) => {
+  artist.value = val
+})
+
+watch(() => _player.currentAlbum, (val) => {
+  album.value = val
+})
+
 </script>
 
 <style scoped lang="scss">
 .artist-details {
+  position: relative;
   overflow: hidden;
-  
+  padding: 14px;
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="home-content">
     <loader v-if="loading" class='home-content--loader' />
     <div v-else-if="allChart" class='home-content--all-chart'>
-      <section-cards 
+      <section-cards
         v-if="trackList" 
         title-section="Morceaux du moment" 
         source-redirect="album"
@@ -60,9 +60,6 @@ async function getAllChart() {
 
   if(!data || error ) return 
   allChart.value = data
-
-  console.log(allChart.value.tracks);
-  
 }
 
 async function setupSections() {

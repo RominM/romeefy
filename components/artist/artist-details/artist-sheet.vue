@@ -1,65 +1,97 @@
 <template>
-    <!-- <top-track-artist v-if="topTrack && artist" :cover="topTrack[0].album.cover_medium" :artist-name="artist.name" :title-track="topTrack[0].title"/> -->
+  <div class="artist-sheet">
+    <section-bento padding-px="0">
+      <img :src="album.cover_xl" />
+    </section-bento>
+
+    <div class="loaded-track" style="display: flex; flex-direction: column; color: #fff;">
+      <nuxt-link :to="`/album/${album.id}`" class="link">{{ album.title }}</nuxt-link>
+      <nuxt-link :to="`/artist/${artist.id}`" class="link">{{ artist.name }}</nuxt-link>
+    </div>
+
+    <section-bento padding-px="0" @click="isOpenArtistModal = true">
+      <p>À propos de l'artiste</p>
+      <img :src="artist.picture_xl" />
+      <div style="padding: 12px;">
+        <nuxt-link :to="`/artist/${artist.id}`" class="link">{{ artist.name }}</nuxt-link>
+        <p class="text">1 275 834 auditeurs mensuels</p>
+        <p class="artist-description text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur, repellat amet ad corrupti ullam ab assumenda nostrum in, architecto voluptatum reprehenderit ipsum asperiores nobis rerum aliquam aspernatur tenetur commodi alias.</p>
+      </div>
+    </section-bento>
     
-  <!-- <pre>{{ artist }}</pre> -->
-  <!-- <pre>{{ topTrack[0] }}</pre> -->
+    <modal v-model:is-open="isOpenArtistModal" max-width="50vw" dismisable show-cross>
+      <img :src="artist.picture_xl" style="height: 40vh; width: 100%; object-fit: cover;" />
+      <div style="display: flex; gap: 50px; padding: 50px;">
+        <aside>
+          <p>
+            298 724 abonnés
+          </p>
+          <p>
+            298 724 auditeurs chaque mois
+          </p>
+
+        </aside>
+        
+        <main>
+          <p style="color: #fff;">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit quo quaerat similique? Et repellat labore, 
+            deserunt dolorem quisquam atque iure autem. Architecto dolore dolor sunt quibusdam placeat vel, nulla eum.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto dolores quaerat, est quam veniam, minus 
+            dignissimos laborum eligendi obcaecati magnam eaque neque a consectetur odit, sunt commodi error debitis quos.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus perferendis in harum, laborum 
+            quisquam totam similique voluptas dicta? Quas dolorem quo quasi consequatur ipsam odit, cumque animi 
+            temporibus deleniti aspernatur? 
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit quo quaerat similique? Et repellat labore, 
+            deserunt dolorem quisquam atque iure autem. Architecto dolore dolor sunt quibusdam placeat vel, nulla eum.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto dolores quaerat, est quam veniam, minus 
+            dignissimos laborum eligendi obcaecati magnam eaque neque a consectetur odit, sunt commodi error debitis quos.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus perferendis in harum, laborum 
+            quisquam totam similique voluptas dicta? Quas dolorem quo quasi consequatur ipsam odit, cumque animi 
+            temporibus deleniti aspernatur?
+          </p>
+
+          <div>
+            <img :src="artist.picture_small"/>
+            <p>Publié par {{ artist.name }}</p>
+          </div>
+        </main>
+      </div>
+    </modal>
+  </div>
 </template>
 
 <script setup lang="ts">
-import type { PropType } from 'vue';
-
-// import { useAPI } from '~/composables/api/useApi'
-
-
 defineProps({
-  artist:{ type: Object as PropType<IArtist>, required: true}
+  artist: { type: Object as PropType<IArtist>, required: true },
+  album:{ type: Object as PropType<IAlbum>, required: true }
 })
-// const route = useRoute()
-// const artist = useArtist()
 
-// const topTrack = ref<ITrack>()
-// const loading = ref<boolean>(false)
-
-// onMounted(async () => {
-//   if (!artist.value) {
-//     getArtist()
-//   } else {
-//     getTopTracks(artist.value.id)
-//   }
-// })
-
-// async function getArtist() {
-//   loading.value = true  
-//   const { data, error } = await useAPI().artist.getById(Number(route.params.id))
-//   loading.value = false
-
-//   if(!data || error) return
-//   artist.value = data
-
-//   if(!artist.value) return
-//   getTopTracks(artist.value.id)
-// }
-
-// async function getTopTracks(artistId: number) {
-  
-//   loading.value = true
-//   const { data, error } = await useAPI().artist.getTopTracks(artistId, { limit: 1, order: 'RATING_DESC' })
-//   loading.value = false
-  
-//   if(!data || error) return
-
-//   topTrack.value = data
-//   // trackId.value = topTrack.value[0].id
-// }
+const isOpenArtistModal = ref<boolean>(false)
 </script>
 
 <style scoped lang="scss">
 .artist-sheet {
-  padding: 0 20px;
-  &__top-album {
-    width: 100%;
-    border-radius: 5px;
-    aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  .link {
+    text-decoration: underline transparent;
+    transition: 0.2s;
+    &:hover {
+      text-decoration: underline #fff;
+    }
   }
+
+  .text {
+    color: $light-text-secondary;
+  }
+}
+
+.artist-description {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* nombre de lignes */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>

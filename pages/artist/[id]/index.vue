@@ -17,12 +17,6 @@ const artistName = ref<string>('')
 useHead({
   title: computed(() => artistName.value ? `Artist - ${artistName.value}` : 'Artist')
 })
-
-// const showRightPanel = useState('showRightPanel', () => false)
-
-// onMounted(() => {
-//   showRightPanel.value = true
-// })
 </script>
 
 <style lang='scss' scoped>

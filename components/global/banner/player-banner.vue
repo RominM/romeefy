@@ -107,16 +107,18 @@ $--color: var(--color);
 
 @media screen and (max-width: 870px) {
   .player-banner {
-    &__content__wrapper__group {
-      .follow {
-        font-size: 12px;
-        border-radius: 4px;
-        margin-right: 10px;
+    &__content{
+      background: linear-gradient($--color 50%, transparent 90%);
+      &__wrapper__group {
+        .follow {
+          font-size: 12px;
+          border-radius: 4px;
+          margin-right: 10px;
+        }
       }
     }
     &::after {
-      background: linear-gradient($--color 80%, transparent 100%);
-      height: 100px;
+      display: none;
     }
   }
 }
