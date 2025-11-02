@@ -9,17 +9,6 @@
         <desktop-artist-main v-if="isDesktop" :artist="artist" :top-tracks="topTracks" />
         <small-devices-artist-main v-else :artist="artist" :top-tracks="topTracks" />
       </div>
-
-      <!-- 
-      <section-track v-if="topTracks" :track-list="topTracks" title="Populaires" />
-      <section-discography :artist-id="artist.id" @genre-id="genreIds = $event" />
-      <section-realated :artist-id="artist.id" /> -->
-      <!-- get live & event of this artist -->
-       <!-- <event-artist :artist-name="artist.name" /> -->
-      <!-- more info of this artist -->
-      <!-- <more-artist-info :name="artist.name" :picture="artist.picture_big"/>
-      <section-playlist :artist-id="artist.id" :title="`Avec ${artist.name}`" />
-      <section-genre v-if="genreIds" :genre-ids="genreIds" title="Découvert sur" /> -->
     </div>
   </main>
 </template>

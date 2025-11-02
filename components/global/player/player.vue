@@ -1,6 +1,6 @@
 <template>
   <div class="player">
-    <player-controller />
+    <player-controller :source-id="source"/>
     <song-timeline v-show="isDesktop" :source="source"/>
   </div>
 </template>

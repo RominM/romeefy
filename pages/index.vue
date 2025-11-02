@@ -1,9 +1,7 @@
 <template>
   <resize-wrapper>
     <template #center>
-      <scroll-container>
-        <home-content />
-      </scroll-container>
+      <home-content />
     </template>
   </resize-wrapper>
 </template>
