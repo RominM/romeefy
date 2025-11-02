@@ -39,7 +39,6 @@ function toggleExpend() {
   justify-content: space-between;
   align-items: center;
   padding: 8px 0 12px 0;
-  color: #fff;
   &__dynamic-title {
     display: flex;
     &__title {

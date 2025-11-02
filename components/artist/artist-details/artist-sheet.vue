@@ -1,6 +1,6 @@
 <template>
   <div class="artist-sheet">
-    <section-bento padding-px="0">
+    <section-bento class="artist-sheet__cover" padding-px="0">
       <img :src="album.cover_xl" />
     </section-bento>
 
@@ -25,6 +25,11 @@ defineProps({
   display: flex;
   flex-direction: column;
   gap: 16px;
+  &__cover{
+    margin: auto;
+    max-height: 30vw;
+    max-width: 30vw;
+  }
   .loaded-track {
     &__title {
       font-size: 18px;
@@ -44,6 +49,5 @@ defineProps({
     }
   }
 }
-
 
 </style>
