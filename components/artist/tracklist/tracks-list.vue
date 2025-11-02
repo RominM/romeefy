@@ -5,7 +5,7 @@
       :key="`track-${index}`" 
       class='track-list__el'
     >
-      <track-line :track="track" :index="index + 1" :show-cover="showCover" :variant="variant" @set-artist="emit('set-artist')" />
+      <track-line :track="track" :index="index + 1" :show-cover="showCover" :variant="variant" />
     </li>
   </ul>
 
@@ -85,7 +85,7 @@ cursor: pointer;
     padding: 3px 10px;
     border: solid #fff 1px;
     border-radius: 12px;
-    z-index: 999;
+    z-index: 99;
   }
 }
 </style>

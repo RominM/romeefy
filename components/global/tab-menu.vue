@@ -40,6 +40,7 @@ const activePanel = ref(props.panels[0])
     padding-top: 10px;
     width: 100%;
     z-index: 999;
+    background-color: $dark-surface;
     &__tab {
       display: flex;
       flex-direction: column;

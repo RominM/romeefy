@@ -1,7 +1,7 @@
 <template>
   <section class='section-track'>
     <h2-custom :title="title" />
-    <tracks-list :track-list="trackList" show-cover :variant="variant" @set-artist="$emit('set-artist')" />
+    <tracks-list :track-list="trackList" show-cover :variant="variant" />
   </section>
 </template>
 

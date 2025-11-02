@@ -6,7 +6,7 @@
       
       <h1 class="album-cover__content__title">{{ album.title }}</h1>
 
-      <div class="album-cover__content__artist">
+      <div v-if="album.artist" class="album-cover__content__artist">
         <img class="album-cover__content__artist__picture" :src="album.artist.picture_small" :alt="`image de profil de ${album.artist.name}`">
         <nuxt-link :to="`/artist/${album.artist.id}`" class="album-cover__content__artist__name">{{ album.artist.name }}</nuxt-link>
         <p v-if="isDesktop" class="album-cover__content__artist--album-data">{{ album.tracks.data.length }} titres, {{useFormatTime(album.duration, true)}}</p>
@@ -20,7 +20,6 @@
 </template>
 
 <script setup lang="ts">
-import type { PropType } from 'vue';
 import { useDevice } from '~/composables/device/useDevice';
 import { useFormatTime } from '~/composables/formats/useFormatTime';
 

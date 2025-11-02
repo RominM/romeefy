@@ -1,14 +1,18 @@
 <template>
   <button class="navigation-button">
-    <h-icon :icon="button.icon" size="18" />
+    <h-icon :icon="button.icon" :size="isMobile ? '22' : '18'" />
     <p class="navigation-button__label">{{ button.label }}</p>
   </button>
 </template>
 
 <script setup lang="ts">
+import { useDevice } from '~/composables/device/useDevice';
+
 defineProps({
   button: { type: Object as PropType<TSideNav>, required: true }
 })
+
+const { isMobile } = useDevice()
 </script>
 
 <style scoped lang="scss">

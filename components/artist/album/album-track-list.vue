@@ -1,13 +1,12 @@
 <template>
   <div v-if="album" class="album-track-list">
     <header-album-track-list />
-    <tracks-list v-if="trackList" :track-list="trackList" view-all @set-artist="setStoredAlbum" />
+    <tracks-list v-if="trackList" :track-list="trackList" view-all />
   </div>
 </template>
 
 <script setup lang="ts">
 import { useAPI } from '~/composables/api/useApi'
-import { playerStore } from '~/store/playerStore'
 
 const emit = defineEmits(['tracks-length'])
 const props = defineProps({
@@ -33,13 +32,6 @@ async function getAlbum() {
   
   trackList.value = album.value?.tracks.data
   emit('tracks-length', trackList.value.length)
-}
-
-function setStoredAlbum() {
-  if (!album.value) return
-  
-  console.log('hy hou', album.value);
-  playerStore().setCurrentAlbum(album.value)
 }
 </script>
 

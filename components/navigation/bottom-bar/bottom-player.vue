@@ -1,5 +1,5 @@
 <template>
-  <div class="bottom-player" :style="{backgroundColor: getColor}">
+  <div class="bottom-player" :style="{backgroundColor: currentColor}">
     <on-listen />
     <player />
   </div>
@@ -8,7 +8,7 @@
 <script setup lang="ts">
 import { playerStore } from '~/store/playerStore';
 
-const { getColor } = playerStore()
+const { currentColor } = storeToRefs(playerStore())
 </script>
 
 <style scoped lang="scss">

@@ -1,11 +1,17 @@
 <template>
-  <button class="go-back">
+  <button class="go-back" @click="goBack">
     <h-icon :icon="ArrowLeft02Icon" color="#fff" />
   </button>
 </template>
 
 <script setup lang="ts">
 import { ArrowLeft02Icon } from '@hugeicons/core-free-icons';
+
+const router = useRouter()
+
+function goBack() {
+  router.back()
+}
 </script>
 
 <style scoped lang="scss">

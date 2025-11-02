@@ -20,15 +20,14 @@ const props = defineProps({
   artistId: { type: Number, required: true }
 })
 
-const loading = ref<boolean>(true)
-const { isDesktop } = useDevice()
 const artist = useArtist()
+const { isDesktop } = useDevice()
 
+const loading = ref<boolean>(true)
 const currentColor = ref<string>('transparent')
 const currentScale = ref<number>(1.2)
 const scrollTop = ref<number>(0)
 const colorSecondary = ref<string>('')
-
 const trackId = ref<number>()
 
 onMounted(async () => {
@@ -93,5 +92,4 @@ $--bottom: 115px;
     transform: translate(-50%, -50%);
   }
 }
-
 </style>

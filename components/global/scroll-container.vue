@@ -57,8 +57,6 @@ function updateThumb() {
   thumb.value.style.transform = `translateY(${top}px)`
 }
 
-
-
 function onScroll(event: Event) {
   const target = event.target as HTMLElement
   emit('target', target)
@@ -143,5 +141,11 @@ $--global-padding: 20px;
   .scroller-container.is-scrollable:hover .scroller-container__overlay-track {
   display: block;
   opacity: 1;
+}
+
+@media screen and (max-width: 870px) {
+  .scroller-container__overlay-track__overlay-thumb {
+    display: none;
+  }
 }
 </style>

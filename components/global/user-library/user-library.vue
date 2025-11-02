@@ -1,6 +1,9 @@
 <template>
   <main-wrapper class='user-library' @mouseenter="isHovered = true" @mouseleave="isHovered = false">
-    <user-library-header :hovered="isHovered" />
+    <header-panel title="Bibliothèque" :hovered="isHovered" >
+      <handling-top-library />
+    </header-panel>
+
 
       <div class='user-library__bento'>
         <p class='user-library__bento__title'>Créez votre première playlist</p>
