@@ -7,7 +7,7 @@
       </div>
 
       <div class="artist-details__short-describe">
-        <nuxt-link :to="`/artist/${artist.id}`" class="artist-details__short-describe__name link">{{ artist.name }}</nuxt-link>
+        <nuxt-link :to="`/artist/${artist.id}`" class="artist-details__short-describe__name">{{ artist.name }}</nuxt-link>
         <p class="text">1 275 834 auditeurs mensuels</p>
         <p class="artist-description text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur, repellat amet ad corrupti ullam ab assumenda nostrum in, architecto voluptatum reprehenderit ipsum asperiores nobis rerum aliquam aspernatur tenetur commodi alias.</p>
       </div>
@@ -36,6 +36,7 @@ const isOpenArtistModal = ref<boolean>(false)
     &__title {
       position: absolute;
       padding: 5px;
+      font-size: 16px;
       z-index: 1;
     }
     &::after {
@@ -52,7 +53,8 @@ const isOpenArtistModal = ref<boolean>(false)
   &__short-describe {
     padding: 12px;
     &__name {
-      font-weight: 700;
+      font-weight: 600;
+      font-size: 16px;
     }
 
     .text {
