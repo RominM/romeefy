@@ -1,27 +1,6 @@
 <template>
-  <div class="artist-sheet">
-    <section-bento padding-px="0">
-      <img :src="album.cover_xl" />
-    </section-bento>
-
-    <div class="loaded-track" style="display: flex; flex-direction: column; color: #fff;">
-      <nuxt-link :to="`/album/${album.id}`" class="link">{{ album.title }}</nuxt-link>
-      <nuxt-link :to="`/artist/${artist.id}`" class="link">{{ artist.name }}</nuxt-link>
-    </div>
-
-    <artist-details :artist="artist" />
-    <!-- <section-bento padding-px="0" @click="isOpenArtistModal = true">
-      <p>À propos de l'artiste</p>
-      <img :src="artist.picture_xl" />
-      <div style="padding: 12px;">
-        <nuxt-link :to="`/artist/${artist.id}`" class="link">{{ artist.name }}</nuxt-link>
-        <p class="text">1 275 834 auditeurs mensuels</p>
-        <p class="artist-description text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur, repellat amet ad corrupti ullam ab assumenda nostrum in, architecto voluptatum reprehenderit ipsum asperiores nobis rerum aliquam aspernatur tenetur commodi alias.</p>
-      </div>
-    </section-bento>
-    
-    <modal v-model:is-open="isOpenArtistModal" max-width="50vw" dismisable show-cross>
-      <img :src="artist.picture_xl" style="height: 40vh; width: 100%; object-fit: cover;" />
+  <div class="artist-details-modal-content">
+    <img :src="artist.picture_xl" style="height: 40vh; width: 100%; object-fit: cover;" />
       <div style="display: flex; gap: 50px; padding: 50px;">
         <aside>
           <p>
@@ -57,34 +36,17 @@
           </div>
         </main>
       </div>
-    </modal> -->
   </div>
 </template>
 
 <script setup lang="ts">
 defineProps({
-  artist: { type: Object as PropType<IArtist>, required: true },
-  album:{ type: Object as PropType<IAlbum>, required: true }
+  artist: { type: Object as PropType<IArtist>, required: true}
 })
-
 </script>
 
 <style scoped lang="scss">
-.artist-sheet {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  .link {
-    text-decoration: underline transparent;
-    transition: 0.2s;
-    &:hover {
-      text-decoration: underline #fff;
-    }
-  }
-
-  .text {
-  }
+.artist-details-modal-content {
+  
 }
-
-
 </style>
