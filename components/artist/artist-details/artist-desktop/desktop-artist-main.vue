@@ -1,6 +1,6 @@
 <template>
   <div class="desktop-artist-main">
-    <section-track :track-list="topTracks" title="Populaires" />
+    <section-track :track-list="topTracks" title="Populaires" @set-artist="setStoredArtist"/>
     <section-discography :artist-id="artist.id" @genre-id="genreIds = $event" />
     <section-realated :artist-id="artist.id" />
     <event-artist :artist-name="artist.name" />
@@ -11,12 +11,22 @@
 </template>
 
 <script setup lang="ts">
+import { playerStore } from '~/store/playerStore';
+
 const props = defineProps({
-  artist: { type: Object, required: true },
+  artist: { type: Object as PropType<IArtist>, required: true },
   topTracks: { type: Array as PropType<ITrack[]>, required: true}
 })
 
 const genreIds = ref<number[]>()
+
+// const showRightPanel = useState('showRightPanel', () => false)
+
+function setStoredArtist() {
+  
+  playerStore().setCurrentArtist(props.artist)
+  // showRightPanel.value = true
+}
 </script>
 
 <style scoped lang="scss">

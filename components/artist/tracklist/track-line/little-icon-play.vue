@@ -1,6 +1,6 @@
 <template>
   <div class="little-icon-play" @click="togglePlay">
-    <h-icon :icon="!isPlayingThisTrack ? PlayIcon : PauseFreeIcons" size="25px"/>
+    <h-icon :icon="!isPlaying ? PlayIcon : PauseFreeIcons" size="25px"/>
   </div>
 </template>
 
@@ -12,12 +12,12 @@ const props = defineProps({
   preview: { type: String, required: true },
 })
 
-const { isCurrentTrackPlaying, byPreview } = playerStore()
-
-const isPlayingThisTrack = computed(() => isCurrentTrackPlaying(undefined, props.preview))
+const _player = playerStore()
+const { isPlaying } = storeToRefs(_player)
+const preview = _player.byPreview
 
 function togglePlay() {
-  byPreview(props.preview)
+  preview(props.preview)
 }
 </script>
 

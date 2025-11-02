@@ -4,12 +4,22 @@ import { EGlobalEvent } from '~/types/enum/global/globalEvent'
 
 export const playerStore = defineStore('player', {
   state: () => ({
+    currentArtist: null as IArtist | null,
+    currentAlbum: null as IAlbum | null,
     currentTrackId: null as number | null,
     currentPreview: null as string | null,
     isPlaying: false,
     currentColor: 'rgba(0,0,0,1)',
   }),
   actions: {
+    setCurrentArtist(artist: IArtist) {
+      this.currentArtist = artist
+    },
+    setCurrentAlbum(album: IAlbum) {
+      console.log({album});
+      
+      this.currentAlbum = album
+    },
     audioEl(): HTMLAudioElement | null {
       return document.querySelector<HTMLAudioElement>('audio')
     },
@@ -55,6 +65,7 @@ export const playerStore = defineStore('player', {
       if (!audio) return
 
       if (audio.paused) {
+        this.isPlaying = true
         audio.play()
           .then(() => {
             this.isPlaying = true
@@ -62,8 +73,8 @@ export const playerStore = defineStore('player', {
           })
           .catch(console.warn)
       } else {
-        audio.pause()
         this.isPlaying = false
+        audio.pause()
         useGlobalEvents().emitEvent(EGlobalEvent.PLAYER_STATE, false)
       }
     },
@@ -78,6 +89,8 @@ export const playerStore = defineStore('player', {
       if (trackId !== undefined) return trackId === state.currentTrackId && state.isPlaying
       if (previewUrl !== undefined) return previewUrl === state.currentPreview && state.isPlaying
       return false
-    }
+    },
+    getCurrentArtist: (state) => state.currentArtist,
+    getCurrentAlbum: (state) => state.currentAlbum,
   }
 })

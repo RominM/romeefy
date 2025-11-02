@@ -1,27 +1,36 @@
 <template>
   <div v-if="isReady" :class="['resize-wrapper', { isDesktop, isMobile }]">
+    <!-- LEFT PANEL -->
     <main-wrapper v-if="isDesktop" class="resize-wrapper__left-panel" :style="{ width: leftWidth + 'px' }">
       <scroll-container>
         <user-library />
       </scroll-container>
     </main-wrapper>
 
-    <resize-handle v-if="isDesktop" @mousedown.prevent="onMouseDown" :style="{ cursor: isDragging ? 'grabbing' : 'grab' }" />
+    <!-- LEFT RESIZE HANDLE -->
+    <resize-handle 
+      v-if="isDesktop" 
+      @mousedown.prevent="onMouseDownLeft" 
+      :style="{ cursor: isDraggingLeft ? 'grabbing' : 'grab' }" 
+    />
 
-    <main-wrapper class="resize-wrapper__center-panel">
+    <!-- CENTER PANEL -->
+    <main-wrapper class="resize-wrapper__center-panel" :style="{ flexBasis: centerWidth + 'px' }">
       <scroll-container v-if="_searchStore.isActive">
         <search-result-page />
       </scroll-container>
       <slot name="center" />
     </main-wrapper>
-    
+
+    <!-- RIGHT RESIZE HANDLE -->
     <resize-handle 
-      v-if="showRightPanle" 
-      :style="{ cursor: isDragging ? 'grabbing' : 'grab' }" 
-      @mousedown.prevent="onMouseDown" 
+      v-if="showRightPanel" 
+      @mousedown.prevent="onMouseDownRight" 
+      :style="{ cursor: isDraggingRight ? 'grabbing' : 'grab' }" 
     />
 
-    <main-wrapper v-if="showRightPanle" :style="{ width: rightWidth + 'px' }">
+    <!-- RIGHT PANEL -->
+    <main-wrapper v-if="showRightPanel" :style="{ width: rightWidth + 'px' }">
       <scroll-container>
         <artist-details />
       </scroll-container>
@@ -30,47 +39,56 @@
 </template>
 
 <script setup lang="ts">
+import { computed, ref } from 'vue'
 import { useDevice } from '~/composables/device/useDevice'
 import { useSearchStore } from '~/store/searchStore'
 
-let startX = 0
-let startWidth = 0
-
-let startXRight = 0
-let startWidthRight = 0
+const _searchStore = useSearchStore()
+const showRightPanel = useState('showRightPanel', () => false)
+const { isReady, isDesktop, isMobile } = useDevice()
 
 const MIN_WIDTH = 250
 const MAX_WIDTH = 450
 
-const _searchStore = useSearchStore()
-const showRightPanle = useState('showRightPanel', () => false)
-const { isReady, isDesktop, isMobile } = useDevice()
+const leftWidth = ref(350)
+const rightWidth = ref(350)
+const isDraggingLeft = ref(false)
+const isDraggingRight = ref(false)
 
-const leftWidth = ref<number>(350)
-const rightWidth = ref<number>(350)
-const isDragging = ref<boolean>(false)
-const isDraggingRight = ref<boolean>(false)
+let startXLeft = 0
+let startWidthLeft = 0
+let startXRight = 0
+let startWidthRight = 0
 
-function onMouseDown(e: MouseEvent) {
-  isDragging.value = true
-  startX = e.clientX
-  startWidth = leftWidth.value
-  document.addEventListener('mousemove', onMouseMove)
-  document.addEventListener('mouseup', onMouseUp)
+// Compute center width dynamically
+const centerWidth = computed(() => {
+  const total = window.innerWidth
+  const right = showRightPanel.value ? rightWidth.value : 0
+  return total - leftWidth.value - right
+})
+
+// LEFT HANDLE EVENTS
+function onMouseDownLeft(e: MouseEvent) {
+  isDraggingLeft.value = true
+  startXLeft = e.clientX
+  startWidthLeft = leftWidth.value
+  document.addEventListener('mousemove', onMouseMoveLeft)
+  document.addEventListener('mouseup', onMouseUpLeft)
 }
 
-function onMouseMove(e: MouseEvent) {
-  if (!isDragging.value) return
-  const dx = e.clientX - startX
-  leftWidth.value = Math.min(MAX_WIDTH, Math.max(MIN_WIDTH, startWidth + dx))
+function onMouseMoveLeft(e: MouseEvent) {
+  if (!isDraggingLeft.value) return
+  const dx = e.clientX - startXLeft
+  leftWidth.value = Math.min(MAX_WIDTH, Math.max(MIN_WIDTH, startWidthLeft + dx))
 }
 
-function onMouseUp() {
-  isDragging.value = false
-  document.removeEventListener('mousemove', onMouseMove)
-  document.removeEventListener('mouseup', onMouseUp)
+function onMouseUpLeft() {
+  isDraggingLeft.value = false
+  document.removeEventListener('mousemove', onMouseMoveLeft)
+  document.removeEventListener('mouseup', onMouseUpLeft)
 }
 
+// RIGHT HANDLE EVENTS
 function onMouseDownRight(e: MouseEvent) {
   isDraggingRight.value = true
   startXRight = e.clientX
@@ -81,7 +99,7 @@ function onMouseDownRight(e: MouseEvent) {
 
 function onMouseMoveRight(e: MouseEvent) {
   if (!isDraggingRight.value) return
-  const dx = startXRight - e.clientX 
+  const dx = startXRight - e.clientX // inversé car on resize depuis la droite
   rightWidth.value = Math.min(MAX_WIDTH, Math.max(MIN_WIDTH, startWidthRight + dx))
 }
 
@@ -91,6 +109,7 @@ function onMouseUpRight() {
   document.removeEventListener('mouseup', onMouseUpRight)
 }
 </script>
+
 
 <style lang='scss' scoped>
   $--navbar: 58px;

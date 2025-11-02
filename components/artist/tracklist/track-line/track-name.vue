@@ -1,6 +1,6 @@
 <template>
   <div class="track-name">
-    <span class="track-name__name"> {{ trackName }}</span>
+    <span class="track-name__name" :class="{'--on-play' : isPlaying}" > {{ trackName }}</span>
     <div class="track-name__artists">
       <span v-if="isExplicit" class='track-name__artists--is-explicit'>E</span>
       <nuxt-link @click.stop class='track-name__artists__name' v-for="(artist, index) in artists" :key="index" :to="`/artist/${artist.id}`">{{ artist.name }}</nuxt-link>
@@ -16,6 +16,7 @@ defineProps({
   trackName: { type: String, required: true},
   isExplicit: { type: Boolean, default: false },
   variant: { type: Boolean, default: false },
+  isPlaying: { type: Boolean, default: false },
 })
 </script>
 
@@ -34,6 +35,9 @@ defineProps({
     color: #fff;
     cursor: default;
     user-select: none;
+    &.--on-play {
+      color: $primary;
+    }
   }
 
   &__artists {

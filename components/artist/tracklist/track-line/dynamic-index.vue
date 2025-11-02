@@ -1,7 +1,7 @@
 <template>
   <div :class="['dynamic-index', { '--hovered': hovered }]">
     <little-icon-play class='play-icon' :preview="preview" />
-    <span class='track-index'>{{  index  }}</span>
+    <span class='track-index' :class="{'--on-play' : isPlaying}">{{  index  }}</span>
   </div>
 </template>
 
@@ -9,7 +9,8 @@
 const props = defineProps({
   index: { type: Number, required: true },
   preview: { type: String, required: true },
-  hovered: { type: Boolean, default: false }
+  hovered: { type: Boolean, default: false },
+  isPlaying: { type: Boolean, default: false },
 })
 </script>
 
@@ -35,6 +36,9 @@ const props = defineProps({
     left: 50%;
     transform: translate(-50%, -50%);
     transition: opacity 0.3s;
+    &.--on-play {
+      color: $primary;
+    }
   }
   
   .play-icon {

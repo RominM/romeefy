@@ -5,6 +5,7 @@ import { useAPI } from './api/useApi'
 const currentTrackId = ref<number | null>(null)
 const currentPreview = ref<string | null>(null)
 const isPlaying = ref<boolean>(false)
+const trackData = ref<ITrack | null>(null)
 const currentColor = ref<string>('rgba(0,0,0,1)')
 
 export const usePlay = () => {
@@ -37,6 +38,8 @@ export const usePlay = () => {
     currentTrackId.value = trackId
     currentPreview.value = data.preview
     playAudio(data.preview)
+
+    trackData.value = data
 
     useGlobalEvents().emitEvent(EGlobalEvent.TRACK_DATA, data)
   }
@@ -84,6 +87,7 @@ export const usePlay = () => {
     isPlaying,
     byTrackId,
     byPreview,
+    trackData,
     togglePlayGlobal,
     isCurrentTrackPlaying
   }

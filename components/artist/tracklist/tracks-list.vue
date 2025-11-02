@@ -5,7 +5,7 @@
       :key="`track-${index}`" 
       class='track-list__el'
     >
-      <track-line :track="track" :index="index + 1" :show-cover="showCover" :variant="variant"/>
+      <track-line :track="track" :index="index + 1" :show-cover="showCover" :variant="variant" @set-artist="emit('set-artist')" />
     </li>
   </ul>
 
@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang='ts'>
-
+const emit = defineEmits(['set-artist'])
 const props = defineProps({
   trackList: { type: Array as PropType<ITrack[]>, required: true },
   viewAll: { type: Boolean, defautl: false },
