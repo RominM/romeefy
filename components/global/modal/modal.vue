@@ -61,7 +61,7 @@ function close() {
 .modal__dialog {
   min-width: 50px;
   min-height: 50px;
-  max-height: 50vw;
+  max-height: 45vw;
   padding: 10px;
   border-radius: 8px;
   background-color: $dark-surface;
