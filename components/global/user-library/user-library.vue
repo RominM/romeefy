@@ -1,6 +1,6 @@
 <template>
   <main-wrapper class='user-library' @mouseenter="isHovered = true" @mouseleave="isHovered = false">
-    <header-panel title="Bibliothèque" :hovered="isHovered" >
+    <header-panel title="Bibliothèque" :hovered="isHovered" @expend="toggleExpendLibrary">
       <handling-top-library />
     </header-panel>
 
@@ -20,7 +20,15 @@
 </template>
 
 <script setup lang='ts'>
+import { EGlobalEvent } from '~/types/enum/global/globalEvent';
+
 const isHovered = ref<boolean>(false)
+const isExpend = ref<boolean>(false)
+
+function toggleExpendLibrary() {
+  isExpend.value = !isExpend.value
+  useGlobalEvents().emitEvent(EGlobalEvent.PANEL_SIZE_UPDATE, {side: 'left', expend: isExpend.value})
+}
 </script>
 
 <style lang='scss' scoped>
