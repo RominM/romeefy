@@ -32,7 +32,7 @@
     <!-- RIGHT PANEL -->
     <main-wrapper v-if="showRightPanel && isDesktop" :style="{ width: rightWidth + 'px' }">
       <scroll-container>
-        <artist-details />
+        <artist-panel />
       </scroll-container>
     </main-wrapper>
   </div>
