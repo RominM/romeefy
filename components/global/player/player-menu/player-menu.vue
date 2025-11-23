@@ -14,7 +14,6 @@
 import { AudioBook01Icon, FullScreenIcon, HeadphonesIcon, MaximizeScreenIcon, Mic02Icon } from '@hugeicons/core-free-icons';
 
 const showRightPanel = useState('showRightPanel', () => false)
-
 </script>
 
 <style scoped lang="scss">

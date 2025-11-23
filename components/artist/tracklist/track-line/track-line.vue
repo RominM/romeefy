@@ -37,8 +37,6 @@ const props = defineProps({
   variant: { type: Boolean, defautl: false }
 })
 const availablePreview = !!props.track.preview
-console.log(availablePreview);
-
 
 const { byTrackId, isCurrentTrackPlaying } = playerStore()
 const { isMobile, isDesktop } = useDevice()

@@ -27,7 +27,7 @@
 import { Add01Icon } from '@hugeicons/core-free-icons'
 import { onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 
-const isOpen = ref(false)
+const isOpen = ref<boolean>(false)
 const buttonRef = ref<HTMLElement | null>(null)
 const dropdownRef = ref<HTMLElement | null>(null)
 

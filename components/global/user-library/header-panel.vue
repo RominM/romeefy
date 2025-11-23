@@ -1,7 +1,7 @@
 <template>
   <header class="header-panel" >
     <div :class="['header-panel__dynamic-title', { '--hovered': hovered }]">
-      <h-icon class="header-panel__dynamic-title--icon" :icon="BarCode02Icon"/>
+      <h-icon class="header-panel__dynamic-title--icon" :icon="BarCode02Icon" @click="toggleCollapse"/>
       <h2 class="header-panel__dynamic-title__title">{{ title }}</h2>
     </div>
     <slot />
@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import { ArrowExpand01Icon, ArrowShrink02Icon, BarCode02Icon } from '@hugeicons/core-free-icons';
 
-const emit = defineEmits(['expend'])
+const emit = defineEmits(['expend', 'collapse'])
 const props = defineProps({
   hovered: { type: Boolean, default: false },
   title: { type: String, default: ''}
@@ -30,6 +30,10 @@ const isExpanded = ref(false)
 function toggleExpend() {
   isExpanded.value = !isExpanded.value
   emit('expend')
+}
+
+function toggleCollapse() {  
+  emit('collapse')
 }
 </script>
 

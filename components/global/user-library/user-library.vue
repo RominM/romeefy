@@ -1,6 +1,6 @@
 <template>
   <main-wrapper class='user-library' @mouseenter="isHovered = true" @mouseleave="isHovered = false">
-    <header-panel title="Bibliothèque" :hovered="isHovered" @expend="toggleExpendLibrary">
+    <header-panel title="Bibliothèque" :hovered="isHovered" @expend="toggleExpendLibrary" @collapse="toggleCollapeLibrary">
       <handling-top-library />
     </header-panel>
 
@@ -28,6 +28,10 @@ const isExpend = ref<boolean>(false)
 function toggleExpendLibrary() {
   isExpend.value = !isExpend.value
   useGlobalEvents().emitEvent(EGlobalEvent.PANEL_SIZE_UPDATE, {side: 'left', expend: isExpend.value})
+}
+
+function toggleCollapeLibrary() {
+  useGlobalEvents().emitEvent(EGlobalEvent.COLLAPSE_LIBRARY, true)
 }
 </script>
 
