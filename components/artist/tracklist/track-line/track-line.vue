@@ -1,13 +1,26 @@
 <template>
   <div 
-    :class="['artist-track', { isMobile }]" 
+    :class="['artist-track', { isMobile, '--no-preview': !availablePreview }]" 
     @mouseenter="isHovered = true"
     @mouseleave="isHovered = false"
     @click="togglePlay"
   >
-    <dynamic-index v-if="!variant" :index="index" :preview="track.preview" :hovered="!isMobile && isHovered" :is-playing="isPlayingThisTrack" />
+    <dynamic-index 
+      v-if="!variant" 
+      :index="index" 
+      :preview="track.preview" 
+      :hovered="!isMobile && isHovered" 
+      :is-available="availablePreview"
+      :is-playing="isPlayingThisTrack" 
+    />
     <mini-album-cover v-if="showCover" :preview="track.preview" :variant="variant" :cover="cover" :hovered="isHovered" />
-    <track-name :artists="[track.artist]" :trackName="track.title" :is-explicit="track.explicit_lyrics" :is-playing="isPlayingThisTrack" />
+    <track-name 
+      :artists="[track.artist]" 
+      :trackName="track.title" 
+      :is-explicit="track.explicit_lyrics" 
+      :is-playing="isPlayingThisTrack" 
+      :is-available="availablePreview"
+    />
     <p v-if="isDesktop" class='artist-track__listen' :hidden="variant">{{ listenRandom }}</p>
     <track-duration :duration="track.duration" :is-hovered="isHovered" />
   </div>
@@ -23,6 +36,9 @@ const props = defineProps({
   showCover: { type: Boolean, defautl: false },
   variant: { type: Boolean, defautl: false }
 })
+const availablePreview = !!props.track.preview
+console.log(availablePreview);
+
 
 const { byTrackId, isCurrentTrackPlaying } = playerStore()
 const { isMobile, isDesktop } = useDevice()
@@ -61,6 +77,9 @@ function togglePlay() {
   padding: 7px 15px;
   border-radius: 5px;
   transition: 0.3s;
+  &.--no-preview {
+    color: grey;
+  }
   &.isMobile {
     gap: 5px;
     padding: 7px 0;

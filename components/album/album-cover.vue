@@ -1,6 +1,7 @@
 <template>
   <div class="album-cover">
-    <img class='album-cover__cover' :src="album.cover_big" :alt="`couverture de l'album ${album.title}`" @click="isOpen = true">
+    <img v-if="album.cover_big" class='album-cover__cover' :src="album.cover_big" :alt="`couverture de l'album ${album.title}`" @click="isOpen = true">
+    <h-icon v-else :icon="Vynil01Icon" size="200px" color="grey"/>
     <div class="album-cover__content">
       <p v-if="isDesktop" class="album-cover__content__type">{{ album.record_type }}</p>
       
@@ -8,9 +9,12 @@
 
       <div v-if="album.artist" class="album-cover__content__artist">
         <img class="album-cover__content__artist__picture" :src="album.artist.picture_small" :alt="`image de profil de ${album.artist.name}`">
-        <nuxt-link :to="`/artist/${album.artist.id}`" class="album-cover__content__artist__name">{{ album.artist.name }}</nuxt-link>
-        <p v-if="isDesktop" class="album-cover__content__artist--album-data">{{ album.tracks.data.length }} titres, {{useFormatTime(album.duration, true)}}</p>
+        <p v-if="!isAvailable">Sortie : {{ formatFrenchDate(new Date(album.release_date)) }}</p>
+        <nuxt-link v-else :to="`/artist/${album.artist.id}`" class="album-cover__content__artist__name">{{ album.artist.name }}</nuxt-link>
+        <p v-if="isDesktop && isAvailable" class="album-cover__content__artist--album-data">{{ album.tracks.data.length }} titres, {{useFormatTime(album.duration, true)}}</p>
       </div>
+
+      <release-counter v-if="!isAvailable" :release-date="new Date(album.release_date)" />
     </div>
 
     <modal v-model:is-open="isOpen" dismisable>
@@ -20,12 +24,28 @@
 </template>
 
 <script setup lang="ts">
+import { Vynil01Icon } from '@hugeicons/core-free-icons';
 import { useDevice } from '~/composables/device/useDevice';
 import { useFormatTime } from '~/composables/formats/useFormatTime';
 
-defineProps({
+const props = defineProps({
   album: { type: Object as PropType<IAlbum>, required: true}
 })
+
+
+const isAvailable = new Date(props.album.release_date) <= new Date()
+console.log({ isAvailable: new Date(props.album.release_date) });
+function formatFrenchDate(date: Date) {
+  return new Intl.DateTimeFormat("fr-FR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  }).format(date)
+}
+
+const d = new Date("Fri Dec 05 2025 01:00:00 GMT+0100")
+console.log(formatFrenchDate(d))
+
 
 const { isDesktop } = useDevice()
 

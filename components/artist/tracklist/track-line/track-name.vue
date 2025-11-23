@@ -1,9 +1,9 @@
 <template>
   <div class="track-name">
-    <span class="track-name__name" :class="{'--on-play' : isPlaying}" > {{ trackName }}</span>
+    <span class="track-name__name" :class="{'--on-play' : isPlaying, '--no-preview': !isAvailable}" > {{ trackName }}</span>
     <div class="track-name__artists">
       <span v-if="isExplicit" class='track-name__artists--is-explicit'>E</span>
-      <nuxt-link @click.stop class='track-name__artists__name' v-for="(artist, index) in artists" :key="index" :to="`/artist/${artist.id}`">{{ artist.name }}</nuxt-link>
+      <nuxt-link @click.stop :class="['track-name__artists__name', {'--no-preview': !isAvailable}]" v-for="(artist, index) in artists" :key="index" :to="`/artist/${artist.id}`">{{ artist.name }}</nuxt-link>
     </div>
   </div>
 </template>
@@ -17,6 +17,7 @@ defineProps({
   isExplicit: { type: Boolean, default: false },
   variant: { type: Boolean, default: false },
   isPlaying: { type: Boolean, default: false },
+  isAvailable: { type: Boolean, default: false },
 })
 </script>
 
@@ -35,6 +36,9 @@ defineProps({
     color: #fff;
     cursor: default;
     user-select: none;
+    &.--no-preview {
+      color: grey;
+    }
     &.--on-play {
       color: $primary;
     }
@@ -65,6 +69,12 @@ defineProps({
       transition: 0.2s;
       &:hover{
         text-decoration: underline #ccc;
+      }
+        &.--no-preview {
+          color: grey;
+        &:hover{
+          text-decoration: underline grey;
+        }
       }
     }
   }

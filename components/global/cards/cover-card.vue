@@ -1,7 +1,8 @@
 <template>
   <nuxt-link :to="`${sourceRedirect}/${coverCard.id}`" class='cover-card' :class="{flex}">
     <div class='cover-card__img-wrapper'>
-      <img :class='["cover-card__img-wrapper__img", { circular }]' :src="coverCard.coverMedium" :alt="coverCard.alt">
+      <img v-if="coverCard.coverMedium" :class='["cover-card__img-wrapper__img", { circular }]' :src="coverCard.coverMedium" :alt="coverCard.alt">
+      <h-icon v-else :icon="Vynil01Icon" size="100%" color="grey"/>
       <div v-if="trackId" class="cover-card__img-wrapper--show-play" @click.prevent.stop="playerStore().byTrackId(trackId)">
         <h-icon :icon="PlayCircleIcon" size="40px"/>
       </div>
@@ -15,7 +16,7 @@
 </template>
 
 <script setup lang='ts'>
-import { PlayCircleIcon } from '@hugeicons/core-free-icons';
+import { PlayCircleIcon, Vynil01Icon } from '@hugeicons/core-free-icons';
 import type { PropType } from 'vue';
 import { playerStore } from '~/store/playerStore';
 
