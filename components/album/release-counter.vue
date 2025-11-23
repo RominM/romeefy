@@ -71,18 +71,17 @@ onBeforeUnmount(() => {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 85px;
+    width: clamp(50px, 70px, 85px);
     padding: 10px;
     &__label {
-      font-size: 26px;
+      font-size: clamp(16px, 2rem, 26px);
       font-weight: 700;
     }
     &__value {
-      font-size: 12px;
+      font-size: clamp(10px, 0.5vw + 8px, 12px);
       font-weight: 300;
       color: grey;
     }
-    
   }
   .separator {
     align-self: center;

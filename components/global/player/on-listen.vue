@@ -69,6 +69,7 @@ function updateScroll(el: HTMLElement | null, styleObj: any, key: 'title' | 'art
   gap: 10px;
   color: #fff;
   width: 100%;
+  max-width: 87%;
 
   &__cover {
     width: 72px;
