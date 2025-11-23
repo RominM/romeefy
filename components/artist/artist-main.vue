@@ -51,7 +51,7 @@ async function getTopTracks() {
 
 <style lang='scss' scoped>
 .artist-main{
-  background-color: $dark-surface;
+  background-color: $dark-surface-secondary;
   &__content {
     position: relative;
     display: flex;

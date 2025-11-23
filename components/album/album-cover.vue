@@ -9,7 +9,7 @@
 
       <div v-if="album.artist" class="album-cover__content__artist">
         <img class="album-cover__content__artist__picture" :src="album.artist.picture_small" :alt="`image de profil de ${album.artist.name}`">
-        <p v-if="!isAvailable">Sortie : {{ formatFrenchDate(new Date(album.release_date)) }}</p>
+        <p v-if="!isAvailable">Sortie : {{ useDate().getPrettyStrFromDate(new Date(album.release_date)) }}</p>
         <nuxt-link v-else :to="`/artist/${album.artist.id}`" class="album-cover__content__artist__name">{{ album.artist.name }}</nuxt-link>
         <p v-if="isDesktop && isAvailable" class="album-cover__content__artist--album-data">{{ album.tracks.data.length }} titres, {{useFormatTime(album.duration, true)}}</p>
       </div>
@@ -26,30 +26,17 @@
 <script setup lang="ts">
 import { Vynil01Icon } from '@hugeicons/core-free-icons';
 import { useDevice } from '~/composables/device/useDevice';
+import { useDate } from '~/composables/formats/useDate';
 import { useFormatTime } from '~/composables/formats/useFormatTime';
 
 const props = defineProps({
   album: { type: Object as PropType<IAlbum>, required: true}
 })
 
-
-const isAvailable = new Date(props.album.release_date) <= new Date()
-console.log({ isAvailable: new Date(props.album.release_date) });
-function formatFrenchDate(date: Date) {
-  return new Intl.DateTimeFormat("fr-FR", {
-    day: "numeric",
-    month: "long",
-    year: "numeric"
-  }).format(date)
-}
-
-const d = new Date("Fri Dec 05 2025 01:00:00 GMT+0100")
-console.log(formatFrenchDate(d))
-
-
 const { isDesktop } = useDevice()
-
 const isOpen = ref<boolean>(false)
+const isAvailable = new Date(props.album.release_date) <= new Date()
+
 </script>
 
 <style scoped lang="scss">

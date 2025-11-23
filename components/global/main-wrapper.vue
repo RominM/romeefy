@@ -13,6 +13,6 @@
     width: 100%;
     border-radius: 8px;
     background: #141313;
-    background-color: $dark-surface;
+    background-color: $dark-surface-secondary;
   }
 </style>
