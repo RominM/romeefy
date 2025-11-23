@@ -6,22 +6,25 @@
         v-if="mostFamousArtist" 
         class="display-search-results__top-result__first" 
         :best-result="mostFamousArtist"
+        @selected-result="setMappingResult"
       />
       <section-track
         v-if="trackListTitle"
         class="display-search-results__top-result__second"  
-        :track-list="trackListTitle" 
         title="Titres" 
         variant 
+        :track-list="trackListTitle" 
+        @selected-result="setMappingResult"
       />
     </div>
 
     <cards-list-loader v-if="isLoading" :length="10"/>
     <section-cards
       v-if="famoustrackList.length" 
-      :title-section="`Avec ${mostFamousArtist?.name}`" 
       source-redirect="/playlist"
-      :cover-card-list="famoustrackList" 
+      :title-section="`Avec ${mostFamousArtist?.name}`" 
+      :cover-card-list="famoustrackList"
+      @selected-result="setMappingResult" 
      />
 
     <section-cards
@@ -30,6 +33,7 @@
       source-redirect="/artist"
       :cover-card-list="artistsList"
       circular
+      @selected-result="setMappingResult"
     />
 
     <section-cards
@@ -37,6 +41,7 @@
       title-section="Albums" 
       source-redirect="/album"
       :cover-card-list="albumsList"
+      @selected-result="setMappingResult"
     />
 
     <section-cards
@@ -44,6 +49,7 @@
       title-section="Playlists" 
       source-redirect="/playlist"
       :cover-card-list="playlistList"
+      @selected-result="setMappingResult"
     />
   </div>
 </template>
@@ -51,6 +57,7 @@
 <script setup lang="ts">
 import { useAPI } from '~/composables/api/useApi'
 import { useMapper } from '~/composables/mappers/useMapper'
+import { ELocalStorageKey } from '~/types/enum/global/localStorageKeys'
 
 const props = defineProps({
   results: { type:  Object, default: () => {} }
@@ -58,7 +65,6 @@ const props = defineProps({
 
 const famoustrackList = ref<TCoverCard[]>([])
 const isLoading = ref<boolean>(false)
-
 
 const mostFamousArtist = computed<TBestResult | undefined>(() => {
   const artists = props.results.artists as IArtist[] | undefined
@@ -103,6 +109,29 @@ async function getPlaylistWhithFamous() {
   if (!data || error) return
 
   famoustrackList.value = useMapper().coverCard.fromPlaylist(data)
+}
+
+enum EDataType {
+  ARTIST = 'artist',
+  ALBUM = 'album',
+  TRACK = 'track',
+  PLAYLIST = 'playlist'
+}
+
+function setMappingResult(result: IArtist | IAlbum | ITrack | IPlaylist, type: EDataType) {
+  console.log({result, type});
+  
+  const mappedSearchResult: TSearchItem | null = null
+  // TODO: set mapped data result to TSearchItem by switch case
+
+  if(!mappedSearchResult) return
+  setSelectedResultToLocalStorage(mappedSearchResult)
+}
+
+function setSelectedResultToLocalStorage(selectedResult: TSearchItem) {
+  console.log({selectedResult});
+  
+  useLocalStorage().set(ELocalStorageKey.SEARCH_RESULT, selectedResult)
 }
 </script>
 

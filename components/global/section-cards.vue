@@ -21,7 +21,8 @@
             :cover-card="coverCard" 
             :source-redirect="redirectCard ? redirectCard : sourceRedirect" 
             :track-id="Number(coverCard.id)" :circular="circular"
-            :flex="flex"  
+            :flex="flex"
+            @click="$emit('selected-result', coverCard)"
           />
         </li>
       </ul>
