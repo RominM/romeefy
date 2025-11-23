@@ -54,6 +54,7 @@
 import { useDevice } from '~/composables/device/useDevice'
 import { useSearchStore } from '~/store/searchStore'
 import { EGlobalEvent } from '~/types/enum/global/globalEvent'
+import { ELocalStorageKey } from '~/types/enum/global/localStorageKeys'
 
 const _searchStore = useSearchStore()
 const showRightPanel = useState('showRightPanel', () => false)
@@ -100,6 +101,11 @@ const centerWidth = computed(() => {
   if (hideCenterPanel.value) return 0
   const right = showRightPanel.value ? rightWidth.value : 0
   return 100 - leftWidth.value - right
+})
+
+onMounted(() => {
+  const collapse = useLocalStorage<boolean>().get(ELocalStorageKey.LIBRARY_COLLAPSE, false)
+  toggleLeft(collapse ?? false)
 })
 
 // --- DRAG LEFT ---
@@ -175,11 +181,14 @@ function onMouseUpRight() {
 
 function collapseLeft() {
   isLeftCollapsed.value = true
+  useLocalStorage().set(ELocalStorageKey.LIBRARY_COLLAPSE, isLeftCollapsed.value)
+
   leftWidth.value = collapsedLeftPercent.value
 }
 
 function expandLeft(clientX?: number) {
   isLeftCollapsed.value = false
+  useLocalStorage().set(ELocalStorageKey.LIBRARY_COLLAPSE, isLeftCollapsed.value)
 
   const defaultExpand = 15
   const safeExpand = Math.max(minLeftWidthPercent.value + 2, defaultExpand)
@@ -191,13 +200,17 @@ function expandLeft(clientX?: number) {
   }
 }
 
+function toggleLeft(payload: boolean) {
+  payload ? collapseLeft() : expandLeft()
+}
+
 watch(() => isLeftCollapsed.value, (collapsed) => {
   if (collapsed) {
     leftWidth.value = collapsedLeftPercent.value
   }
 })
 
-// --- GLOBAL EVENT LISTENER ---
+/* --- GLOBAL EVENT LISTENER --- */
 useGlobalEvents().subscribeTo(
   EGlobalEvent.PANEL_SIZE_UPDATE,
   (payload: { side: 'left' | 'center' | 'right'; expend: boolean } | undefined) => {
@@ -221,7 +234,9 @@ useGlobalEvents().subscribeTo(
   }
 )
 
-useGlobalEvents().subscribeTo(EGlobalEvent.COLLAPSE_LIBRARY, (payload) => payload ? collapseLeft() : expandLeft())
+useGlobalEvents().subscribeTo(EGlobalEvent.COLLAPSE_LIBRARY, (payload: boolean | undefined) => {
+  toggleLeft(payload ?? false)
+})
 </script>
 
 <style scoped lang="scss">
