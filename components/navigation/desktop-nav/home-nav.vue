@@ -16,6 +16,6 @@ import { Home09Icon } from '@hugeicons/core-free-icons';
     padding: 10px;
     border-radius: 50%;
     width: fit-content;
-    background-color: $dark-surface;
+    background-color: $dark-surface-secondary;
   }
 </style>

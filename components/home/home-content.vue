@@ -1,8 +1,10 @@
 <template>
   <div class="home-content">
+    <filter-home-top v-if="isMobile" class="home-content__filters" @update:selected="filterList"/>
     <loader v-if="loading" class='home-content--loader' />
     <div v-else-if="allChart" class='home-content--all-chart'>
-      <section-cards 
+      <section-small-cards v-if="isMobile && artistsList" :cards-list="artistsList" />
+      <section-cards
         v-if="trackList" 
         title-section="Morceaux du moment" 
         source-redirect="album"
@@ -10,12 +12,12 @@
         circular
       />
 
-      <section-cards 
+      <!-- <section-cards 
         v-if="artistsList" 
         title-section="Artistes recomandés" 
         source-redirect="artist"
         :cover-card-list="artistsList" 
-      />
+      /> -->
 
       <section-cards 
       v-if="playlistList" 
@@ -37,7 +39,10 @@
 
 <script setup lang='ts'>
 import { useAPI } from '~/composables/api/useApi'
+import { useDevice } from '~/composables/device/useDevice'
 import { useMapper } from '~/composables/mappers/useMapper'
+
+const { isMobile } = useDevice()
 
 const artistsList = ref<TCoverCard[] | null>(null)
 const playlistList = ref<TCoverCard[] | null>(null)
@@ -60,9 +65,6 @@ async function getAllChart() {
 
   if(!data || error ) return 
   allChart.value = data
-
-  console.log(allChart.value.tracks);
-  
 }
 
 async function setupSections() {
@@ -73,6 +75,10 @@ async function setupSections() {
   trackList.value = useMapper().coverCard.fromTracks(allChart.value.tracks.data)
   podcastList.value = useMapper().coverCard.fromPodcast(allChart.value.podcasts.data)
 }
+
+function filterList(key: string) {
+  console.log('this feature must be created', key);
+}
 </script>
 
 <style lang='scss' scoped>
@@ -81,7 +87,14 @@ async function setupSections() {
   height: 100%;
   width: 100%;
   padding: 20px 0 20px 20px;
+  &__filters {
+    position: fixed;
+    top: 0;
+    z-index: 9;
+    width: calc(100vw - 20px);
+  }
   &--all-chart {
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -95,9 +108,12 @@ async function setupSections() {
   }
 }
 
-@media screen and (max-width: 870px) {
-  .home-content--all-chart {
-    padding-bottom: 130px;
+@media screen and (max-width: 740px) {
+  .home-content {
+    margin-bottom: 400px;
+    &--all-chart {
+      margin-top: 30px;
+    }
   }
 }
 </style>

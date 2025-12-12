@@ -32,7 +32,7 @@ const loaderStyle = computed(() => ({
 
 @keyframes spin {
   to {
-    transform: rotate(360deg); /* agit uniquement sur l’enfant */
+    transform: rotate(360deg);
   }
 }
 </style>

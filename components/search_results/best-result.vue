@@ -1,7 +1,7 @@
 <template>
   <div class="best-result">
     <h2>Meilleur résultat</h2>
-    <playing-card :track-id="bestResult.trackId" :redirect="`/${bestResult.type}/${bestResult.id}`">
+    <playing-card :track-id="bestResult.trackId" :redirect="`/${bestResult.type}/${bestResult.id}`" @click="$emit('selected-result', bestResult)">
         <img class="best-result__card__picture" :src="bestResult.picture" :alt="`picture of ${bestResult.name}`">
         <h1 class="best-result__card__name">{{ bestResult.name }}</h1>
         <p class="best-result__card__type">{{ bestResult.type }}</p>

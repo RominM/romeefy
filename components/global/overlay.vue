@@ -49,6 +49,8 @@ function closeOverlay() {
     transform: translateY(100%);
     transition: transform 0.5s ease, opacity 0.5s ease;
 
+    background-color: #000;
+    color: #fff;
     z-index: 99;
     overflow: auto;
     &__top {

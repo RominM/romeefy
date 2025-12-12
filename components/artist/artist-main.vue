@@ -9,17 +9,6 @@
         <desktop-artist-main v-if="isDesktop" :artist="artist" :top-tracks="topTracks" />
         <small-devices-artist-main v-else :artist="artist" :top-tracks="topTracks" />
       </div>
-
-      <!-- 
-      <section-track v-if="topTracks" :track-list="topTracks" title="Populaires" />
-      <section-discography :artist-id="artist.id" @genre-id="genreIds = $event" />
-      <section-realated :artist-id="artist.id" /> -->
-      <!-- get live & event of this artist -->
-       <!-- <event-artist :artist-name="artist.name" /> -->
-      <!-- more info of this artist -->
-      <!-- <more-artist-info :name="artist.name" :picture="artist.picture_big"/>
-      <section-playlist :artist-id="artist.id" :title="`Avec ${artist.name}`" />
-      <section-genre v-if="genreIds" :genre-ids="genreIds" title="Découvert sur" /> -->
     </div>
   </main>
 </template>
@@ -30,7 +19,7 @@ import { useDevice } from '~/composables/device/useDevice';
 
 const emit = defineEmits(['track-id'])
 const props = defineProps({
-  artist: { type: Object, required: true },
+  artist: { type: Object as PropType<IArtist>, required: true },
   colorSecondary: { type: String, required: true}
 })
 
@@ -62,7 +51,7 @@ async function getTopTracks() {
 
 <style lang='scss' scoped>
 .artist-main{
-  background: linear-gradient(307deg, rgba(20, 19, 19, 1) 64%, rgba(38, 38, 38, 1) 100%);
+  background-color: $dark-surface-secondary;
   &__content {
     position: relative;
     display: flex;
@@ -74,10 +63,15 @@ async function getTopTracks() {
       height: 100vh;
     }
     &.isMobile{
-      padding: 10px;
-      margin-bottom: 85px;
+      padding: 0;
     }
     
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .artist-main {
+    padding-bottom: 100px;
   }
 }
 </style>

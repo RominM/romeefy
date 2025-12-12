@@ -29,7 +29,8 @@ async function getAlbum() {
   if(!data || error) return
 
   album.value = data
-  trackList.value = album.value.tracks.data
+  
+  trackList.value = album.value?.tracks.data
   emit('tracks-length', trackList.value.length)
 }
 </script>

@@ -15,19 +15,19 @@ import { useAPI } from '~/composables/api/useApi'
 import { useColors } from '~/composables/colors/useColors'
 import { useDevice } from '~/composables/device/useDevice'
 
+const emit = defineEmits(['artist-name'])
 const props = defineProps({
   artistId: { type: Number, required: true }
 })
 
-const loading = ref<boolean>(true)
-const { isDesktop } = useDevice()
 const artist = useArtist()
+const { isDesktop } = useDevice()
 
+const loading = ref<boolean>(true)
 const currentColor = ref<string>('transparent')
 const currentScale = ref<number>(1.2)
 const scrollTop = ref<number>(0)
 const colorSecondary = ref<string>('')
-
 const trackId = ref<number>()
 
 onMounted(async () => {
@@ -42,6 +42,8 @@ async function getArtist() {
   if(!data || error) return
 
   artist.value = data
+
+  emit('artist-name', artist.value?.name)
 
   if (!artist.value) return
   const colors = await useColors().extractTopColors(artist.value.picture_small)
@@ -90,5 +92,4 @@ $--bottom: 115px;
     transform: translate(-50%, -50%);
   }
 }
-
 </style>

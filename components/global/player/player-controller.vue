@@ -6,7 +6,7 @@
       :icon="isPlaying ? PauseCircleIcon : PlayCircleIcon" 
       size="40px" 
       :title="isPlaying ? 'Pause' : 'Lecture'" 
-      @click="togglePlay()"/>
+      @click="togglePlay"/>
     <h-icon v-if="!isMobile" :icon="NextIcon" size="20px" title="Suivant"/>
     <h-icon v-if="!isMobile" :icon="onLoopSong ? RepeatOne01Icon : RepeatIcon" size="20px" :title="onLoopSong ? 'Désactiver la répétition' : 'Activer la répétition'"/>
   </div>
@@ -18,13 +18,12 @@ import { useDevice } from '~/composables/device/useDevice';
 import { playerStore } from '~/store/playerStore';
 
 const { isMobile } = useDevice()
-const { togglePlayGlobal, isPlaying } = playerStore()
+
+const _player = playerStore()
+const { isPlaying } = storeToRefs(_player)
+const togglePlay = _player.togglePlayGlobal
 
 const onLoopSong = ref<boolean>(false)
-
-function togglePlay() {
-  togglePlayGlobal()
-}
 </script>
 
 <style lang='scss' scoped>

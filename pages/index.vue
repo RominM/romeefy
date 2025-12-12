@@ -1,15 +1,16 @@
 <template>
   <resize-wrapper>
     <template #center>
-      <scroll-container>
-        <home-content />
-      </scroll-container>
+      <home-content />
     </template>
   </resize-wrapper>
 </template>
 
 <script setup lang='ts'>
 /* this component has no script */
+useHead({
+  title: 'Home'
+})
 </script>
 
 <style lang='scss' scoped>

@@ -1,29 +1,50 @@
 <template>
   <div v-if="isReady" :class="['resize-wrapper', { isDesktop, isMobile }]">
-    <main-wrapper v-if="isDesktop" class="resize-wrapper__left-panel" :style="{ width: leftWidth + 'px' }">
-      <scroll-container>
-        <user-library />
+    <!-- LEFT PANEL -->
+    <main-wrapper 
+      v-if="isDesktop" 
+      class="resize-wrapper__left-panel" 
+      :style="{ width: leftWidth + '%' }"
+    >
+      <scroll-container v-if="!isLeftCollapsed">
+        <user-library  />
       </scroll-container>
+      <library-mini-menu v-else />
     </main-wrapper>
 
-    <resize-handle v-if="isDesktop" @mousedown.prevent="onMouseDown" :style="{ cursor: isDragging ? 'grabbing' : 'grab' }" />
-
-    <main-wrapper class="resize-wrapper__center-panel">
-      <scroll-container v-if="_searchStore.isActive">
-        <search-result-page />
-      </scroll-container>
-      <slot name="center" />
-    </main-wrapper>
-    
-    <resize-handle 
-      v-if="showRightPanle" 
-      :style="{ cursor: isDragging ? 'grabbing' : 'grab' }" 
-      @mousedown.prevent="onMouseDown" 
+    <!-- LEFT HANDLE -->
+    <resize-handle
+      v-if="isDesktop && !hideCenterPanel"
+      @mousedown.prevent="onMouseDownLeft"
+      :style="{ cursor: isDraggingLeft ? 'grabbing' : 'grab' }"
     />
 
-    <main-wrapper v-if="showRightPanle" :style="{ width: rightWidth + 'px' }">
+    <!-- CENTER PANEL -->
+    <main-wrapper 
+      v-if="!hideCenterPanel"
+      class="resize-wrapper__center-panel"
+      :style="{ flexBasis: centerWidth + '%', opacity: hideCenterPanel ? 0 : 1 }"
+    >
+      <scroll-container >
+        <search-result-page v-if="_searchStore.isActive" />
+        <slot name="center" />
+      </scroll-container>
+    </main-wrapper>
+
+    <!-- RIGHT HANDLE -->
+    <resize-handle
+      v-if="showRightPanel && isDesktop"
+      @mousedown.prevent="onMouseDownRight"
+      :style="{ cursor: isDraggingRight ? 'grabbing' : 'grab' }"
+    />
+
+    <!-- RIGHT PANEL -->
+    <main-wrapper
+      v-if="showRightPanel && isDesktop"
+      :style="{ width: rightWidth + '%' }"
+    >
       <scroll-container>
-        <artist-details />
+        <artist-panel />
       </scroll-container>
     </main-wrapper>
   </div>
@@ -32,45 +53,104 @@
 <script setup lang="ts">
 import { useDevice } from '~/composables/device/useDevice'
 import { useSearchStore } from '~/store/searchStore'
+import { EGlobalEvent } from '~/types/enum/global/globalEvent'
+import { ELocalStorageKey } from '~/types/enum/global/localStorageKeys'
 
-let startX = 0
-let startWidth = 0
+const _searchStore = useSearchStore()
+const showRightPanel = useState('showRightPanel', () => false)
 
+const { isReady, isDesktop, isMobile } = useDevice()
+
+const MIN_WIDTH_PX = 350
+const MAX_WIDTH_PX = 450
+const EXPAND_THRESHOLD_PX = 60
+
+const leftWidth = ref<number>(25)
+const rightWidth = ref<number>(25)
+const isDraggingLeft = ref<boolean>(false)
+const isDraggingRight = ref<boolean>(false)
+const hideCenterPanel = ref<boolean>(false)
+const isLeftCollapsed = ref<boolean>(false)
+
+let startXLeft = 0
+let startWidthLeft = 0
 let startXRight = 0
 let startWidthRight = 0
 
-const MIN_WIDTH = 250
-const MAX_WIDTH = 450
+const minLeftWidthPercent = computed(() => {
+  return (MIN_WIDTH_PX / window.innerWidth) * 100
+})
 
-const _searchStore = useSearchStore()
-const showRightPanle = useState('showRightPanel', () => false)
-const { isReady, isDesktop, isMobile } = useDevice()
+const minRightWidthPercent = computed(() => {
+  return (MIN_WIDTH_PX / window.innerWidth) * 100
+})
 
-const leftWidth = ref<number>(350)
-const rightWidth = ref<number>(350)
-const isDragging = ref<boolean>(false)
-const isDraggingRight = ref<boolean>(false)
+const maxRightWidthPercent = computed(() => {
+  return (MAX_WIDTH_PX / window.innerWidth) * 100
+})
 
-function onMouseDown(e: MouseEvent) {
-  isDragging.value = true
-  startX = e.clientX
-  startWidth = leftWidth.value
-  document.addEventListener('mousemove', onMouseMove)
-  document.addEventListener('mouseup', onMouseUp)
+const maxLeftWidthPercent = computed(() => {
+  return (MAX_WIDTH_PX / window.innerWidth) * 100
+})
+
+const collapsedLeftPercent = computed(() => {
+  return (EXPAND_THRESHOLD_PX / window.innerWidth) * 100
+})
+
+const centerWidth = computed(() => {
+  if (hideCenterPanel.value) return 0
+  const right = showRightPanel.value ? rightWidth.value : 0
+  return 100 - leftWidth.value - right
+})
+
+onMounted(() => {
+  const collapse = useLocalStorage<boolean>().get(ELocalStorageKey.LIBRARY_COLLAPSE, false)
+  toggleLeft(collapse ?? false)
+})
+
+// --- DRAG LEFT ---
+function onMouseDownLeft(e: MouseEvent) {
+  isDraggingLeft.value = true
+  startXLeft = e.clientX
+  startWidthLeft = leftWidth.value
+  document.addEventListener('mousemove', onMouseMoveLeft)
+  document.addEventListener('mouseup', onMouseUpLeft)
 }
 
-function onMouseMove(e: MouseEvent) {
-  if (!isDragging.value) return
-  const dx = e.clientX - startX
-  leftWidth.value = Math.min(MAX_WIDTH, Math.max(MIN_WIDTH, startWidth + dx))
+function onMouseMoveLeft(e: MouseEvent) {
+  if (!isDraggingLeft.value) return
+
+  const total = window.innerWidth
+  const dx = e.clientX - startXLeft
+  const deltaPercent = (dx / total) * 100
+
+  if (isLeftCollapsed.value) {
+    if (dx > EXPAND_THRESHOLD_PX) {
+      expandLeft(e.clientX)
+    }
+    return
+  }
+
+  const newVal = startWidthLeft + deltaPercent
+
+  if (newVal <= minLeftWidthPercent.value) {
+    collapseLeft()
+    return
+  }
+
+  leftWidth.value = Math.min(
+    maxLeftWidthPercent.value,
+    Math.max(minLeftWidthPercent.value, newVal)
+  )
 }
 
-function onMouseUp() {
-  isDragging.value = false
-  document.removeEventListener('mousemove', onMouseMove)
-  document.removeEventListener('mouseup', onMouseUp)
+function onMouseUpLeft() {
+  isDraggingLeft.value = false
+  document.removeEventListener('mousemove', onMouseMoveLeft)
+  document.removeEventListener('mouseup', onMouseUpLeft)
 }
 
+// --- DRAG RIGHT ---
 function onMouseDownRight(e: MouseEvent) {
   isDraggingRight.value = true
   startXRight = e.clientX
@@ -81,8 +161,16 @@ function onMouseDownRight(e: MouseEvent) {
 
 function onMouseMoveRight(e: MouseEvent) {
   if (!isDraggingRight.value) return
-  const dx = startXRight - e.clientX 
-  rightWidth.value = Math.min(MAX_WIDTH, Math.max(MIN_WIDTH, startWidthRight + dx))
+  const total = window.innerWidth
+  const dx = startXRight - e.clientX
+  const deltaPercent = (dx / total) * 100
+  const newVal = startWidthRight + deltaPercent
+
+  rightWidth.value = Math.max(
+    minRightWidthPercent.value,
+    Math.min(maxRightWidthPercent.value, newVal)
+  )
+  
 }
 
 function onMouseUpRight() {
@@ -90,32 +178,84 @@ function onMouseUpRight() {
   document.removeEventListener('mousemove', onMouseMoveRight)
   document.removeEventListener('mouseup', onMouseUpRight)
 }
-</script>
 
-<style lang='scss' scoped>
-  $--navbar: 58px;
-  $--playbar: 100px;
-  $--bottombar: 60px;
+function collapseLeft() {
+  isLeftCollapsed.value = true
+  useLocalStorage().set(ELocalStorageKey.LIBRARY_COLLAPSE, isLeftCollapsed.value)
 
-  .resize-wrapper {
-    display: flex;
-    padding: 5px;
-    background-color: $dark-background;
-    width: calc(100% - 23dvw);
-    height: 100dvh;
-    &.isDesktop{
-      flex-direction: row;
-      width: 100vw;
-      height: calc(100dvh - $--navbar - $--playbar);
+  leftWidth.value = collapsedLeftPercent.value
+}
+
+function expandLeft(clientX?: number) {
+  isLeftCollapsed.value = false
+  useLocalStorage().set(ELocalStorageKey.LIBRARY_COLLAPSE, isLeftCollapsed.value)
+
+  const defaultExpand = 15
+  const safeExpand = Math.max(minLeftWidthPercent.value + 2, defaultExpand)
+  leftWidth.value = safeExpand
+
+  startWidthLeft = leftWidth.value
+  if (typeof clientX === 'number') {
+    startXLeft = clientX
+  }
+}
+
+function toggleLeft(payload: boolean) {
+  payload ? collapseLeft() : expandLeft()
+}
+
+watch(() => isLeftCollapsed.value, (collapsed) => {
+  if (collapsed) {
+    leftWidth.value = collapsedLeftPercent.value
+  }
+})
+
+/* --- GLOBAL EVENT LISTENER --- */
+useGlobalEvents().subscribeTo(
+  EGlobalEvent.PANEL_SIZE_UPDATE,
+  (payload: { side: 'left' | 'center' | 'right'; expend: boolean } | undefined) => {
+    
+    if (!payload) return
+
+    if (payload.side === 'left') {
+      leftWidth.value = payload.expend ? 100 : 25
+      hideCenterPanel.value = payload.expend // on cache le center si le left prend tout
     }
-    &.isMobile {
-      width: 100vw;
-      height: 100dvh;
+
+    if (payload.side === 'center') {
+      hideCenterPanel.value = payload.expend
     }
-    &__center-panel {
-      flex: 2; 
-      min-width: 0; 
-      overflow: hidden;
+
+    if (payload.side === 'right') {
+      rightWidth.value = payload.expend ? 100 : 25
+      leftWidth.value = payload.expend ? 0 : 25
+      hideCenterPanel.value = payload.expend
     }
   }
+)
+
+useGlobalEvents().subscribeTo(EGlobalEvent.COLLAPSE_LIBRARY, (payload: boolean | undefined) => {
+  toggleLeft(payload ?? false)
+})
+</script>
+
+<style scoped lang="scss">
+.resize-wrapper {
+  display: flex;
+  background-color: $dark-background;
+  width: 100vw;
+  height: 100dvh;
+
+  &.isDesktop {
+    flex-direction: row;
+    height: calc(100dvh - 58px - 100px);
+  }
+
+  &__center-panel {
+    flex: 2;
+    min-width: 0;
+    overflow: hidden;
+    transition: flex-basis 0.3s ease, opacity 0.3s ease;
+  }
+}
 </style>

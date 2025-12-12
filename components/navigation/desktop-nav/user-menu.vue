@@ -3,7 +3,7 @@
       <button class='user-menu__btn'>Découvrir Premium</button>
       <h-icon :icon="Notification01Icon" />
       <h-icon :icon="UserGroup02Icon" />
-      <user-avatar/>
+      <!-- <user-avatar/> -->
       <native-window-handler />
     </div>
 </template>

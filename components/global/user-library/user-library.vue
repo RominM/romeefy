@@ -1,6 +1,9 @@
 <template>
   <main-wrapper class='user-library' @mouseenter="isHovered = true" @mouseleave="isHovered = false">
-    <user-library-header :hovered="isHovered" />
+    <header-panel title="Bibliothèque" :hovered="isHovered" @expend="toggleExpendLibrary" @collapse="toggleCollapeLibrary">
+      <handling-top-library />
+    </header-panel>
+
 
       <div class='user-library__bento'>
         <p class='user-library__bento__title'>Créez votre première playlist</p>
@@ -17,7 +20,19 @@
 </template>
 
 <script setup lang='ts'>
+import { EGlobalEvent } from '~/types/enum/global/globalEvent';
+
 const isHovered = ref<boolean>(false)
+const isExpend = ref<boolean>(false)
+
+function toggleExpendLibrary() {
+  isExpend.value = !isExpend.value
+  useGlobalEvents().emitEvent(EGlobalEvent.PANEL_SIZE_UPDATE, {side: 'left', expend: isExpend.value})
+}
+
+function toggleCollapeLibrary() {
+  useGlobalEvents().emitEvent(EGlobalEvent.COLLAPSE_LIBRARY, true)
+}
 </script>
 
 <style lang='scss' scoped>
@@ -55,7 +70,7 @@ const isHovered = ref<boolean>(false)
       margin-top: 15px;
       border-radius: 25px;
       background-color: $light-surface;
-      color: $dark-background;
+      color: $dark-text;
     }
   }
 }

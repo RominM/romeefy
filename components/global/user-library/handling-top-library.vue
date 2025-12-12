@@ -10,15 +10,6 @@
       Créer
     </button>
     
-    <button 
-      class="handling-top-library__expand-shrink" 
-      :title="`${isExpanded ? 'Réduire' : 'Agrandir'} la Bibliothèque`" 
-      @click="isExpanded = !isExpanded"
-    >
-      <h-icon v-if="!isExpanded" :icon="ArrowExpand01Icon" size="18"/>
-      <h-icon v-else :icon="ArrowShrink02Icon" size="18"/>
-    </button>
-
     <teleport to="body">
       <div 
         v-if="isOpen" 
@@ -33,11 +24,10 @@
 </template>
 
 <script setup lang="ts">
-import { Add01Icon, ArrowExpand01Icon, ArrowShrink02Icon } from '@hugeicons/core-free-icons'
+import { Add01Icon } from '@hugeicons/core-free-icons'
 import { onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 
-const isExpanded = ref(false)
-const isOpen = ref(false)
+const isOpen = ref<boolean>(false)
 const buttonRef = ref<HTMLElement | null>(null)
 const dropdownRef = ref<HTMLElement | null>(null)
 
@@ -99,14 +89,14 @@ onBeforeUnmount(() => {
     transition: 0.3s;
     border-radius: 25px;
     cursor: pointer;
+    background-color: $dark-surface-secondary;
     &:hover {
-      background-color: $dark-surface-secondary;
+      background-color: $dark-surface-tercary;
     }
   }
 
   &__create {
-    padding: 8px 12px;
-    background-color: $dark-surface;
+    padding: 7px 12px;
     font-size: 14px;
     &__icon {
       transition: 0.3s ease;
@@ -118,6 +108,7 @@ onBeforeUnmount(() => {
   }
 
   &__expand-shrink {
+    background-color: $dark-surface;
     padding: 5px 10px;
   }
 

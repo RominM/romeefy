@@ -13,6 +13,6 @@
     width: 100%;
     border-radius: 8px;
     background: #141313;
-    background: linear-gradient(307deg, rgba(20, 19, 19, 1) 64%, rgba(38, 38, 38, 1) 100%);
+    background-color: $dark-surface-secondary;
   }
 </style>

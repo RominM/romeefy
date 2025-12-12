@@ -5,7 +5,7 @@
       :key="`track-${index}`" 
       class='track-list__el'
     >
-      <track-line :track="track" :index="index + 1" :show-cover="showCover" :variant="variant"/>
+      <track-line :track="track" :index="index + 1" :show-cover="showCover" :variant="variant" @click="emit('selected-result',track)" />
     </li>
   </ul>
 
@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang='ts'>
-
+const emit = defineEmits(['set-artist', 'selected-result'])
 const props = defineProps({
   trackList: { type: Array as PropType<ITrack[]>, required: true },
   viewAll: { type: Boolean, defautl: false },
@@ -85,7 +85,7 @@ cursor: pointer;
     padding: 3px 10px;
     border: solid #fff 1px;
     border-radius: 12px;
-    z-index: 999;
+    z-index: 99;
   }
 }
 </style>

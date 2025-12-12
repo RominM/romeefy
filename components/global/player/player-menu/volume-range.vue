@@ -82,11 +82,11 @@ onMounted(() => {
       border-radius: 50%;
       background: transparent;
       transition: background 0.2s;
-      margin-top: -3px;
+      margin-top: -2px;
     }
 
     &:hover {
-      --fill-color: green;
+      --fill-color: #1db954;
     }
 
     &:hover::-webkit-slider-thumb {

@@ -1,6 +1,7 @@
 <template>
   <div class="header-album" :class="!isDesktop ? '--small-device' : ''">
-    <img class="header-album__cover" :src="liteAlbum.cover" alt="">
+    <img v-if="liteAlbum.cover" class="header-album__cover" :src="liteAlbum.cover" alt="">
+    <h-icon v-else :icon="Vynil01Icon" size="140px" color="grey"/>
     <div class="header-album__artist">
       <div class="header-album__artist__details">
         <h2 class="header-album__artist__details__name">{{ liteAlbum.title }}</h2>
@@ -18,6 +19,7 @@
 </template>
 
 <script setup lang="ts">
+import { Vynil01Icon } from '@hugeicons/core-free-icons';
 import { useDevice } from '~/composables/device/useDevice';
 import { useDate } from '~/composables/formats/useDate';
 

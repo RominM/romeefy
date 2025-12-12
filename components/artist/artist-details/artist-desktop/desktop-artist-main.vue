@@ -11,8 +11,9 @@
 </template>
 
 <script setup lang="ts">
+
 const props = defineProps({
-  artist: { type: Object, required: true },
+  artist: { type: Object as PropType<IArtist>, required: true },
   topTracks: { type: Array as PropType<ITrack[]>, required: true}
 })
 

@@ -99,13 +99,12 @@ function deleteItemHistoy(item: TSearchItem) {
   margin-top: 5px;
   width: 100%;
   padding: 20px 10px;
-  background-color: $dark-surface;
+  background-color: $dark-surface-secondary;
   color: #fff;
   border-radius: 8px;
   opacity: 0;
   transition: 0.3s;
   z-index: 9999;
-
   &__title {
     font-size: 16px;
     line-height: 14px;
