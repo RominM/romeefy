@@ -20,4 +20,10 @@ defineProps({
   background-color: $dark-surface-secondary;
   z-index: 99;
 }
+
+@media screen and (max-width: 740px) {
+  .album-main {
+    padding-bottom: 160px;
+  }
+}
 </style>

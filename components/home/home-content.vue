@@ -111,6 +111,9 @@ function filterList(key: string) {
 @media screen and (max-width: 740px) {
   .home-content {
     margin-bottom: 520px;
+    &--all-chart {
+      margin-top: 30px;
+    }
   }
 }
 </style>

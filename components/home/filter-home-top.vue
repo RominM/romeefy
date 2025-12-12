@@ -44,7 +44,7 @@ const selectTag = (index: number) => {
   overflow: hidden;
   color: #fff;
   background-color: $dark-surface-secondary;
-  padding: 20px 0;
+  padding: 10px 0 5px;
   &__list {
     display: flex;
     gap: 10px;
