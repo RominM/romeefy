@@ -107,4 +107,10 @@ function filterList(key: string) {
     transform: translate(-50%, -50%);
   }
 }
+
+@media screen and (max-width: 740px) {
+  .home-content {
+    margin-bottom: 520px;
+  }
+}
 </style>

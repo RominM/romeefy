@@ -1,7 +1,8 @@
 <template>
   <div class="not-exist">
-    <p>Cette page est en cours de construction</p>
+    <p>This page is under construction</p>
     <h-icon :icon="ToolsIcon"/>
+    <nuxt-link to="/">Back to Home</nuxt-link>
   </div>
 </template>
 
@@ -19,5 +20,6 @@ import { ToolsIcon } from '@hugeicons/core-free-icons';
   width: 100%;
   height: 100dvh;
   color: #fff;
+  background-color: $dark-text-primary;
 }
 </style>
