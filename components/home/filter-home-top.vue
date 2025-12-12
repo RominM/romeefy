@@ -43,6 +43,8 @@ const selectTag = (index: number) => {
   gap: 10px;
   overflow: hidden;
   color: #fff;
+  background-color: $dark-surface-secondary;
+  padding: 20px 0;
   &__list {
     display: flex;
     gap: 10px;

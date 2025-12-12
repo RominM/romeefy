@@ -1,8 +1,9 @@
 <template>
   <div class="home-content">
+    <filter-home-top v-if="isMobile" class="home-content__filters" @update:selected="filterList"/>
     <loader v-if="loading" class='home-content--loader' />
     <div v-else-if="allChart" class='home-content--all-chart'>
-      <filter-home-top @update:selected="filterList"/>
+      <section-small-cards v-if="isMobile && artistsList" :cards-list="artistsList" />
       <section-cards
         v-if="trackList" 
         title-section="Morceaux du moment" 
@@ -11,12 +12,12 @@
         circular
       />
 
-      <section-cards 
+      <!-- <section-cards 
         v-if="artistsList" 
         title-section="Artistes recomandés pour vous" 
         source-redirect="artist"
         :cover-card-list="artistsList" 
-      />
+      /> -->
 
       <section-cards 
       v-if="playlistList" 
@@ -38,7 +39,10 @@
 
 <script setup lang='ts'>
 import { useAPI } from '~/composables/api/useApi'
+import { useDevice } from '~/composables/device/useDevice'
 import { useMapper } from '~/composables/mappers/useMapper'
+
+const { isMobile } = useDevice()
 
 const artistsList = ref<TCoverCard[] | null>(null)
 const playlistList = ref<TCoverCard[] | null>(null)
@@ -83,7 +87,14 @@ function filterList(key: string) {
   height: 100%;
   width: 100%;
   padding: 20px 0 20px 20px;
+  &__filters {
+    position: fixed;
+    top: 0;
+    z-index: 9;
+    width: calc(100vw - 20px);
+  }
   &--all-chart {
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
     gap: 20px;
