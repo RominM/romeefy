@@ -20,8 +20,8 @@
 </template>
 
 <script setup lang="ts">
-import type { PropType } from 'vue'
-import { ref } from 'vue'
+import type { PropType } from 'vue';
+import { ref } from 'vue';
 
 const props = defineProps({
   panels: { type: Array as PropType<string[]>, required: true }
@@ -37,7 +37,7 @@ const activePanel = ref(props.panels[0])
     top: 0;
     display: flex;
     gap: 20px;
-    padding-top: 10px;
+    padding: 10px 20px 0;
     width: 100%;
     z-index: 999;
     background-color: $dark-surface;

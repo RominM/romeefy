@@ -14,7 +14,6 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  background-color: color-alpha($dark-background, 0.95);
   z-index: 999;
 }
 </style>

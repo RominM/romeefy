@@ -108,7 +108,6 @@ $--color: var(--color);
 @media screen and (max-width: 870px) {
   .player-banner {
     &__content{
-      background: linear-gradient($--color 50%, transparent 90%);
       &__wrapper__group {
         .follow {
           font-size: 12px;

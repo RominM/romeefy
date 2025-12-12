@@ -2,6 +2,7 @@
   <div class="home-content">
     <loader v-if="loading" class='home-content--loader' />
     <div v-else-if="allChart" class='home-content--all-chart'>
+      <filter-home-top @update:selected="filterList"/>
       <section-cards
         v-if="trackList" 
         title-section="Morceaux du moment" 
@@ -69,6 +70,10 @@ async function setupSections() {
   playlistList.value = useMapper().coverCard.fromPlaylist(allChart.value.playlists.data)
   trackList.value = useMapper().coverCard.fromTracks(allChart.value.tracks.data)
   podcastList.value = useMapper().coverCard.fromPodcast(allChart.value.podcasts.data)
+}
+
+function filterList(key: string) {
+  console.log('this feature must be created', key);
 }
 </script>
 

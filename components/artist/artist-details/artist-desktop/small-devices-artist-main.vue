@@ -38,4 +38,11 @@ const panels = ref(['Musique', 'Evenements'])
     gap: 25px;
   }
 }
+
+@media screen and (max-width: 740px) {
+  .music-panel {
+    padding: 0 20px;
+    background-color: $dark-surface;
+  }
+}
 </style>

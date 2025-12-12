@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from 'vue';
 
 const props = defineProps({
   artistName: { type: String, required: true }
@@ -41,7 +41,6 @@ const events = ref([
   }
 }
 
-/* Optionnel pour que ce soit responsive */
 @media (max-width: 1024px) {
   .event-artist .event-list {
     grid-template-columns: repeat(2, 1fr);
@@ -49,8 +48,14 @@ const events = ref([
 }
 
 @media (max-width: 600px) {
-  .event-artist .event-list {
+  .event-artist {
+    background-color: $dark-surface;
+    padding: 10px 20px;
+  } 
+  .event-artist
+  .event-list {
     grid-template-columns: 1fr;
+
   }
 }
 </style>
