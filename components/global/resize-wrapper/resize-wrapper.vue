@@ -25,10 +25,10 @@
       class="resize-wrapper__center-panel"
       :style="{ flexBasis: centerWidth + '%', opacity: hideCenterPanel ? 0 : 1 }"
     >
-      <scroll-container v-if="_searchStore.isActive">
-        <search-result-page />
+      <scroll-container >
+        <search-result-page v-if="_searchStore.isActive" />
+        <slot name="center" />
       </scroll-container>
-      <slot name="center" />
     </main-wrapper>
 
     <!-- RIGHT HANDLE -->

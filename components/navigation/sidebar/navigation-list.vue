@@ -49,6 +49,7 @@ const buttons: TSideNav[] = [
   gap: 15px;
   height: 100%;
   padding: 10px;
+  background-color: color-alpha($dark-background, 0.8);
 }
 
 @media screen and (max-width: 540px ) {

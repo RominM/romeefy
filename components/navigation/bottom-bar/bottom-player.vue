@@ -16,7 +16,6 @@ const { currentColor } = storeToRefs(playerStore())
   display: flex;
   padding: 6px;
   padding-top: 8px;
-  margin: 0 10px;
   border-radius: 8px;
 }
 </style>
