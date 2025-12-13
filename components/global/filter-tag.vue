@@ -1,11 +1,11 @@
 <template>
-  <header class="filter-home-top">
+  <header class="filter-tag">
     <h-icon :icon="UserCircle02Icon"/>
-    <ul class="filter-home-top__list">
+    <ul class="filter-tag__list">
       <li 
-        v-for="(tag, index) in filterTags" 
+        v-for="(tag, index) in tags" 
         :key="tag.label" 
-        :class="['filter-home-top__list__el', {active: tag.active}]" 
+        :class="['filter-tag__list__el', {active: tag.active}]" 
         @click="selectTag(index)"
       >
         {{ tag.label }}
@@ -16,29 +16,25 @@
 
 <script setup lang="ts">
 import { UserCircle02Icon } from '@hugeicons/core-free-icons';
-import { ref } from 'vue';
 
 const emit = defineEmits<{
   (e: 'update:selected', key: string): void
 }>();
 
-const filterTags = ref([
-  { label: 'Tout', active: true, key: 'ALL' },
-  { label: 'Musique', active: false, key: 'MUSIC' },
-  { label: 'Podcast', active: false, key: 'PODCAST' },
-  { label: 'Playlist', active: false, key: 'PLAYLIST' },
-]);
+const props = defineProps({
+  tags: { type: Array, required: true }
+})
 
 const selectTag = (index: number) => {
-  filterTags.value.forEach((tag, i) => {
+  props.tags.forEach((tag, i) => {
     tag.active = i === index;
   });
-  emit('update:selected', filterTags.value[index].key);
+  emit('update:selected', props.tags[index].key);
 }
 </script>
 
 <style scoped lang="scss">
-.filter-home-top {
+.filter-tag {
   display: flex;
   gap: 10px;
   overflow: hidden;
@@ -59,6 +55,7 @@ const selectTag = (index: number) => {
       background-color: $dark-text-primary;
       font-size: 12px;
       border-radius: 20px;
+      white-space: nowrap;
       &.active {
         background-color: $primary;
         color: #000;

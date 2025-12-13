@@ -1,6 +1,6 @@
 <template>
   <div class="home-content">
-    <filter-home-top v-if="isMobile" class="home-content__filters" @update:selected="filterList"/>
+    <filter-tag v-if="isMobile" class="home-content__filters" :tags="filterTags" @update:selected="filterList"/>
     <loader v-if="loading" class='home-content--loader' />
     <div v-else-if="allChart" class='home-content--all-chart'>
       <section-small-cards v-if="isMobile && artistsList" :cards-list="artistsList" />
@@ -51,6 +51,13 @@ const podcastList = ref<TCoverCard[] | null>(null)
 
 const loading = ref<boolean>(false)
 const allChart = ref()
+
+const filterTags = ref([
+  { label: 'Tout', active: true, key: 'ALL' },
+  { label: 'Musique', active: false, key: 'MUSIC' },
+  { label: 'Podcast', active: false, key: 'PODCAST' },
+  { label: 'Playlist', active: false, key: 'PLAYLIST' },
+]);
 
 onMounted(async () => {
   await getAllChart()
