@@ -1,10 +1,9 @@
 <template>
   <div class="current-track-overlay" :style="{ background: `linear-gradient(to bottom, ${mainColor}, #000)` }" >
     <img :src="track.album.cover_big" alt="">
-    <!-- this component must be adapted to mobile -->
-    <player-controller />
-    <artist-details :artist="artist"/>
-      <!-- <pre>{{ track }}</pre> -->
+    <on-listen />
+    <player reverse />
+    <artist-details :artist="artist" />
       <pre>{{ artist }}</pre> 
   </div>
 </template>
@@ -18,8 +17,10 @@ defineProps({
 </script>
 
 <style scoped lang="scss">
-
 .current-track-overlay {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
   padding: 22px;
   &__img-artist {
     border-radius: 20px;

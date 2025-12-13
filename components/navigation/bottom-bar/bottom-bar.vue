@@ -15,7 +15,6 @@ import { playerStore } from '~/store/playerStore';
 const {currentArtist, getColor, trackData} = storeToRefs(playerStore())
 
 const isOpen = ref<boolean>(false)
-
 </script>
 
 <style scoped lang="scss">

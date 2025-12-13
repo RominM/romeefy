@@ -1,6 +1,6 @@
 <template>
   <section class='player-section'>
-    <on-listen />
+    <on-listen show-cover />
     <player />
     <player-menu />
   </section>

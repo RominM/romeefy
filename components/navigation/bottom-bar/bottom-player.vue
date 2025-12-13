@@ -1,12 +1,13 @@
 <template>
   <div class="bottom-player" :style="{backgroundColor: currentColor}">
-    <on-listen />
-    <player />
+    <on-listen show-cover />
+    <player :variant="EVaraintPlayer.MINIMAL"  />
   </div>
 </template>
 
 <script setup lang="ts">
 import { playerStore } from '~/store/playerStore';
+import { EVaraintPlayer } from '~/types/enum/global/player';
 
 const { currentColor } = storeToRefs(playerStore())
 </script>

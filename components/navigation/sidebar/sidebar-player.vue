@@ -1,11 +1,13 @@
 <template>
   <div class="sidebar-player">
-    <on-listen />
-    <player />
+    <on-listen show-cover />
+    <player :variant="EVaraintPlayer.LITE" />
   </div>
 </template>
 
 <script setup lang="ts">
+import { EVaraintPlayer } from '~/types/enum/global/player';
+
 </script>
 
 <style scoped lang="scss">

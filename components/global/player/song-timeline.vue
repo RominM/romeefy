@@ -1,7 +1,7 @@
 <template>
-  <div class='song-timeline'>
+  <div :class="['song-timeline', { reverse }]">
     <audio ref="audio" :src="source" @timeupdate="updateProgress" @loadedmetadata="setDuration" />
-    <span class='song-timeline__time'>{{ useFormatTime(currentTime) }}</span>
+    <span class='song-timeline__time --current'>{{ useFormatTime(currentTime) }}</span>
     <input
       type="range"
       min="0"
@@ -11,7 +11,7 @@
       @input="seekAudio"
       :style="{ '--progress': duration ? (currentTime / duration) * 100 + '%' : '0%' }"
     />
-    <span class='song-timeline__time'>{{ duration ? useFormatTime(duration) : '-:--' }}</span>
+    <span class='song-timeline__time --duration'>{{ duration ? useFormatTime(duration) : '-:--' }}</span>
   </div>
 </template>
 
@@ -20,7 +20,8 @@ import { useFormatTime } from '~/composables/formats/useFormatTime'
 import { EGlobalEvent } from '~/types/enum/global/globalEvent'
 
 const props = defineProps({
-  source: { type: String, default: '' }
+  source: { type: String, default: '' },
+  reverse: { type: Boolean, default: false }
 })
 
 const audio = ref<HTMLAudioElement | null>(null)
@@ -140,5 +141,29 @@ watch(
   input[type="range"]:hover::-moz-range-thumb {
     background: #fff;
   }
-}
+
+  &.reverse {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    row-gap: 8px;
+
+    input[type="range"] {
+      grid-column: 1 / -1;
+      grid-row: 1;
+    }
+
+    .song-timeline__time.--current {
+        grid-column: 1 / 2;
+        grid-row: 2;
+        justify-self: start;
+    } 
+
+    .song-timeline__time.--duration {
+      grid-column: 2 / 3;
+        grid-row: 2;
+        justify-self: end;
+    } 
+  }
+}  
 </style>

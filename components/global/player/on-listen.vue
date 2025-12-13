@@ -1,6 +1,10 @@
 <template>
-  <div class="on-listen" >
-    <img v-if="track" :class="['on-listen__cover', { isTablet, isMobile }]" :src="track.album.cover_small" alt="" />
+  <div class="on-listen">
+    <img 
+      v-if="track && showCover" 
+      :class="['on-listen__cover', { isTablet, isMobile }]" 
+      :src="track.album.cover_small" alt="" 
+    />
     <div :class="['on-listen__artist', { isTablet, isMobile }]">
       <p
         ref="titleRef"
@@ -25,22 +29,17 @@ import { nextTick, reactive, ref } from 'vue';
 import { useDevice } from '~/composables/device/useDevice';
 import { EGlobalEvent } from '~/types/enum/global/globalEvent';
 
-const { isDesktop, isTablet, isMobile } = useDevice()
+defineProps({
+  showCover: { type: Boolean, default: false }
+})
+
+const { isTablet, isMobile } = useDevice()
 
 const track = ref<any>();
 const titleRef = ref<HTMLElement | null>(null);
 const artistRef = ref<HTMLElement | null>(null);
 
 const scrollStyles = reactive<{ title: any; artist: any }>({ title: {}, artist: {} });
-
-useGlobalEvents().subscribeTo(EGlobalEvent.TRACK_DATA, (payload) => {
-  track.value = payload;
-
-  nextTick(() => {
-    updateScroll(titleRef.value, scrollStyles, 'title');
-    updateScroll(artistRef.value, scrollStyles, 'artist');
-  });
-});
 
 function updateScroll(el: HTMLElement | null, styleObj: any, key: 'title' | 'artist') {
   if (!el) return;
@@ -62,7 +61,14 @@ function updateScroll(el: HTMLElement | null, styleObj: any, key: 'title' | 'art
   }
 }
 
+useGlobalEvents().subscribeTo(EGlobalEvent.TRACK_DATA, (payload) => {
+  track.value = payload;
 
+  nextTick(() => {
+    updateScroll(titleRef.value, scrollStyles, 'title');
+    updateScroll(artistRef.value, scrollStyles, 'artist');
+  });
+});
 </script>
 
 <style scoped lang="scss">
