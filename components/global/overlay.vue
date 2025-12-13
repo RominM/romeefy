@@ -1,13 +1,15 @@
 <template>
-  <div :class="['overlay mask', { '--is-open': isOpenOverlay }]">
-    <div class="content" >
-      <div class="content__top" @click="closeOverlay" >
+  <div :class="['overlay', { '--is-open': isOpenOverlay }]">
+    <div class="content" :style="{backgroundColor: mainColor}" >
+      <header class="content__top" @click="closeOverlay" >
         <h-icon :icon="ArrowDown01Icon" color="#fff" />
         <p>{{ title }}</p>
         <h-icon :icon="MoreVerticalIcon" color="#fff" @click="emit('more')" />
-      </div>
+      </header>
       
-      <slot />
+      <main class="content__main">
+        <slot />
+      </main>
 
     </div>
   </div>
@@ -15,12 +17,12 @@
 
 <script setup lang="ts">
 import { ArrowDown01Icon, MoreVerticalIcon } from '@hugeicons/core-free-icons';
-import { defineEmits, defineProps } from 'vue';
 
 const emit = defineEmits([ 'update:isOpenOverlay','more'])
 const props = defineProps({
+  mainColor: { type: String, defautl: "#000" },
   isOpenOverlay:{ type: Boolean, default: false },
-  title:{ type: String, default: '' },
+  title: { type: String, default: '' },
 })
 
 function closeOverlay() {
@@ -40,23 +42,21 @@ function closeOverlay() {
   pointer-events: none;
 
   .content {
+    display: flex;
+    flex-direction: column;
     width: 100%;
     height: 100vh;
-    padding: 30px;
     text-align: center;
     opacity: 0;
 
     transform: translateY(100%);
     transition: transform 0.5s ease, opacity 0.5s ease;
 
-    background-color: #000;
+    // background-color: #000; // must be dynamic
     color: #fff;
-    z-index: 99;
     overflow: auto;
+    z-index: 99;
     &__top {
-      position: absolute;
-      inset: 0;
-      height: 70px;
       display: flex;
       justify-content: space-between;
       width: 100%;
@@ -67,7 +67,6 @@ function closeOverlay() {
   }
 
   &.--is-open {
-    // max-height: 100dvh;
     pointer-events: auto;
     .content {
       transform: translateY(0);

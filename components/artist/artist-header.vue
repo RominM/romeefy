@@ -34,7 +34,7 @@ const numFan = computed(() => new Intl.NumberFormat().format(props.artist.nb_fan
   color: #fff;
 
   &.--lite{
-    height: 20dvh;
+    height: 25dvh;
     padding: 0 10px;
   }
 
