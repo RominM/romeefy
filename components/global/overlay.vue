@@ -3,7 +3,10 @@
     <div class="content" :style="{backgroundColor: mainColor}" >
       <header class="content__top" @click="closeOverlay" >
         <h-icon :icon="ArrowDown01Icon" color="#fff" />
-        <p>{{ title }}</p>
+        <div class="content__top__title">
+          <p class="content__top__title__subtitle">lecture en cours</p>
+          <h1 class="content__top__title__name">{{ title }}</h1>
+        </div>
         <h-icon :icon="MoreVerticalIcon" color="#fff" @click="emit('more')" />
       </header>
       
@@ -63,6 +66,16 @@ function closeOverlay() {
       padding: 20px;
       background-color: transparent;
       z-index: 99999;
+      &__title {
+        &__subtitle {
+          text-transform: uppercase;
+          font-size: 10px;
+          font-weight: 300;
+        }
+        &__name {
+          font-size: 14px;
+        }
+      }
     }
   }
 

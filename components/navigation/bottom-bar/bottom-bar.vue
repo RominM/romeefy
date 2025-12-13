@@ -4,7 +4,7 @@
     <navigation-list @action-nav="$emit('action-nav', $event)" />
 
     <overlay v-if="currentArtist" v-model:is-open-overlay="isOpen" :main-color="getColor" :title="currentArtist.name">
-      <current-track-overlay v-if="trackData" :current-track="trackData" :main-color="getColor"/>
+      <current-track-overlay v-if="trackData" :track="trackData" :artist="currentArtist" :main-color="getColor"/>
     </overlay>
   </div>
 </template>
