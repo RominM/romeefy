@@ -1,13 +1,14 @@
 <template>
-  <div v-if="artist">
-    <div v-if="isMobile" style="position: fixed; z-index: 9999; background-color: #232323;padding: 10px 20px;">
-      <go-back/>
+  <div v-if="artist" :class="['discography-page', { isMobile, isTablet }]">
+    <div v-if="!isDesktop" class="responsive" >
+      <go-back title="Sorties" background />
       <filter-tag class="home-content__filters" :tags="filterTags" @update:selected="filterList"/>
     </div>
-    <discography-header v-if="currentAlbum && trackId" :artist-name="artist.name" :target-scroll="target" :track-id="trackId" :current-album="currentAlbum"/>
+    <!-- must be implemented -->
+    <!-- <discography-header v-if="currentAlbum && trackId" :artist-name="artist.name" :target-scroll="target" :track-id="trackId" :current-album="currentAlbum"/> -->
 
-    <scroll-container @target="target = $event">
-      <fetch-wrapper :fetch="(index, limit) => getDiscography(index, limit)" :page-size="25">
+    <scroll-container :class="['discography-page__content', { isMobile, isTablet }]" @target="target = $event" >
+      <fetch-wrapper :key="activeTag" :fetch="(index, limit) => getDiscography(index, limit)" :page-size="5">
         <template #item="{ item }">
           <album-display :lite-album="item" show-header/>
         </template>
@@ -24,27 +25,28 @@ const props = defineProps({
   artistId: { type: Number, required: true }
 })
 
-const { isMobile } = useDevice()
+const { isMobile, isTablet, isDesktop } = useDevice()
 const route = useRoute()
 const artist = useArtist()
 
-const currentAlbum = ref<IAlbum>()
 const loading = ref<boolean>(false)
 const target = ref<number>(0)
-const trackId = ref<number>()
 
 const filterTags = ref([
-  { label: 'Album', active: true, key: 'ALL' },
-  { label: 'Single et EP', active: false, key: 'MUSIC' },
-  { label: 'Compilations', active: false, key: 'PODCAST' },
-  { label: 'Collaborations', active: false, key: 'PLAYLIST' },
+  { label: 'Tout', active: true, key: '' },
+  { label: 'Album', active: false, key: 'album' },
+  { label: 'Single', active: false, key: 'single' },
+  { label: 'EP', active: false, key: 'ep' },
 ]);
 
-onMounted(async () => {
+const activeTag = computed(
+  () => filterTags.value.find(t => t.active)?.key ?? ''
+)
+
+onMounted(() => {
   if (!artist.value) {
     getArtist()
   }
-  getDiscography(1, 25)
 })
 
 async function getArtist() {
@@ -58,20 +60,55 @@ async function getArtist() {
 
 async function getDiscography(index: number, limit: number) {
   loading.value = true
-  const res= await useAPI().artist.getAlbums(props.artistId, { index, limit })
+  const {data, error } = await useAPI().artist.getAlbums(props.artistId, { index, limit })
   loading.value = false
 
- if (!res || res.error || !Array.isArray(res.data)) {
-    return { data: [], error: res?.error ?? null }
+ if (!data || error || !Array.isArray(data)) {
+    return { data: [], error: error ?? null }
   }
 
+  const activeTag = filterTags.value.find(t => t.active)?.key ?? ''
+
   return {
-    data: res.data,
+    data: activeTag === ''
+      ? data
+      : data.filter(d => d.record_type === activeTag),
     error: null
   }
+}
+
+function filterList(selectedKey: string) {
+  filterTags.value.forEach(tag => {
+    tag.active = tag.key === selectedKey
+  })
 }
 </script>
 
 <style scoped lang="scss">
-.discography-page {}
+.discography-page {
+  .responsive {
+    position: fixed; 
+    z-index: 9999; 
+    background-color: $dark-surface-secondary;
+  }
+
+  &.isTablet {
+    .responsive {
+      width: calc(100vw - 170px) !important;
+    }
+  }
+  &.isMobile {
+    .responsive {
+      width: 100vw;
+    }
+  }
+
+  &__content {
+    padding-top: 50px;
+    &.isMobile,
+    &.isTablet {
+      padding-top: 100px;
+    }
+  }
+}
 </style>

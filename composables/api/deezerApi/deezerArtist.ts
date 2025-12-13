@@ -9,7 +9,7 @@ export const deezerArtist = () => {
     getTopTracks: (artistId: number, params: Record<string, any> = {}) =>
       fetchDeezer(_path + `/${artistId}/top`, params).fetchData(),
 
-    getAlbums: (artistId: number, params: Record<string, any> = {}) =>
+    getAlbums: (artistId: number, params: Record<string, any> = {}): Promise<FetchResult<IAlbum[]>> =>
       fetchDeezer(_path + `/${artistId}/albums`, params).fetchData(),
 
     getAllByGenreId: (genreId: number, params: Record<string, any> = {}) =>

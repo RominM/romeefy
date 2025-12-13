@@ -7,7 +7,7 @@
     <div ref="bottomRef" style="height: 1px"></div>
 
     <p v-if="loading">Chargement...</p>
-    <p v-if="!hasMore && !loading">Plus de résultats</p>
+    <p v-if="!hasMore && !loading">Fin de résultats</p>
     <p v-if="error" class="text-red-500">{{ error.message || error }}</p>
   </div>
 </template>

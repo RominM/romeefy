@@ -1,6 +1,6 @@
 <template>
-  <header class="filter-tag">
-    <h-icon :icon="UserCircle02Icon"/>
+  <div class="filter-tag">
+    <!-- <h-icon :icon="UserCircle02Icon"/> -->
     <ul class="filter-tag__list">
       <li 
         v-for="(tag, index) in tags" 
@@ -11,18 +11,18 @@
         {{ tag.label }}
       </li>
     </ul>
-  </header>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { UserCircle02Icon } from '@hugeicons/core-free-icons';
+import type { PropType } from 'vue';
 
 const emit = defineEmits<{
   (e: 'update:selected', key: string): void
 }>();
 
 const props = defineProps({
-  tags: { type: Array, required: true }
+  tags: { type: Array as PropType<TTag[]>, required: true }
 })
 
 const selectTag = (index: number) => {
@@ -40,7 +40,7 @@ const selectTag = (index: number) => {
   overflow: hidden;
   color: #fff;
   background-color: $dark-surface-secondary;
-  padding: 10px 0 5px;
+  padding: 5px 0 10px 10px;
   &__list {
     display: flex;
     gap: 10px;

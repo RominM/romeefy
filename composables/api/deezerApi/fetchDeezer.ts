@@ -1,4 +1,4 @@
-import { useRequest } from "../useRequest"
+import { useRequest } from "../useRequest";
 
 export function fetchDeezer<T = any>(path: string, params: Record<string, any> = {}) {
   const { get } = useRequest()
