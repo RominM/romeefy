@@ -48,7 +48,7 @@ function closeOverlay() {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100vh;
+    height: 100dvh;
     text-align: center;
     border-radius: 16px;
     opacity: 0;
