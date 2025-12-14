@@ -1,5 +1,5 @@
 <template>
-  <div class="on-listen">
+  <div :class="['on-listen', { '--no-img': !showCover }]">
     <img 
       v-if="track && showCover" 
       :class="['on-listen__cover', { isTablet, isMobile }]" 
@@ -126,8 +126,11 @@ useGlobalEvents().subscribeTo(EGlobalEvent.TRACK_DATA, (payload) => {
       &.isTablet {
         font-size: 10px;
       }
-
     }
+  }
+
+  &.--no-img {
+    max-width: 100%;
   }
 }
 

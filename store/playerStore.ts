@@ -83,6 +83,7 @@ export const playerStore = defineStore('player-store', () => {
     if (trackData.value?.id === trackId && trackData.value.preview) {
       currentTrackId.value = trackId
       currentPreview.value = trackData.value.preview
+      
       await playSrc(trackData.value.preview)
       useGlobalEvents().emitEvent(EGlobalEvent.TRACK_DATA, trackData.value)
       return

@@ -50,6 +50,7 @@ function closeOverlay() {
     width: 100%;
     height: 100vh;
     text-align: center;
+    border-radius: 16px;
     opacity: 0;
 
     transform: translateY(100%);

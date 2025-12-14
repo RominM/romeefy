@@ -1,6 +1,6 @@
 <template>
   <div class="bottom-player" :style="{backgroundColor: currentColor}">
-    <on-listen show-cover />
+    <on-listen show-cover @click="$emit('open-overlay')"/>
     <player :variant="EVaraintPlayer.MINIMAL"  />
   </div>
 </template>

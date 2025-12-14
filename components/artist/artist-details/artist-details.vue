@@ -1,6 +1,6 @@
 <template>
   <div class="artist-details">
-    <section-bento padding-px="0" @click="isOpenArtistModal = true">
+    <section-bento padding-px="0" @click="openModal">
       <div class="artist-details__picture">
         <h4 class="artist-details__picture__title">À propos de l'artiste</h4>
         <img :src="artist.picture_xl" />
@@ -20,11 +20,20 @@
 </template>
 
 <script setup lang="ts">
+import { useDevice } from '~/composables/device/useDevice'
+
 defineProps({
   artist: { type: Object as PropType<IArtist>, required: true}
 })
 
+const { isDesktop } = useDevice()
 const isOpenArtistModal = ref<boolean>(false)
+
+function openModal() {
+  if(!isDesktop.value) return
+  
+  isOpenArtistModal.value = true
+}
 </script>
 
 <style scoped lang="scss">
