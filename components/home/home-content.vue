@@ -3,7 +3,7 @@
     <filter-home-top v-if="isMobile" class="home-content__filters" @update:selected="filterList"/>
     <loader v-if="loading" class='home-content--loader' />
     <div v-else-if="allChart" class='home-content--all-chart'>
-      <section-small-cards v-if="isMobile && artistsList" :cards-list="artistsList" />
+      <section-small-cards v-if="artistsList" :cards-list="artistsList" />
       <section-cards
         v-if="trackList" 
         title-section="Morceaux du moment" 

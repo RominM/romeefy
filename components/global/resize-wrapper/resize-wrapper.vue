@@ -252,6 +252,9 @@ useGlobalEvents().subscribeTo(EGlobalEvent.COLLAPSE_LIBRARY, (payload: boolean |
   }
 
   &__center-panel {
+    container-type: inline-size;
+    container-name: centerPanel;
+      
     flex: 2;
     min-width: 0;
     overflow: hidden;
