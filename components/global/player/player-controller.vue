@@ -6,15 +6,23 @@
       '--lite': variant === EVaraintPlayer.LITE
     }]"
     >
-    <h-icon v-if="variant === EVaraintPlayer.FULL" :icon="ArrowDataTransferHorizontalIcon" size="20px"/>
-    <h-icon v-if="variant !== EVaraintPlayer.MINIMAL" :icon="PreviousIcon" size="20px" title="Précedent"/>
-    <h-icon 
-      :icon="isPlaying ? PauseCircleIcon : PlayCircleIcon" 
-      size="40px" 
-      :title="isPlaying ? 'Pause' : 'Lecture'" 
+    <coming-soon v-if="variant === EVaraintPlayer.FULL">
+      <h-icon :icon="ArrowDataTransferHorizontalIcon" size="20px"/>
+    </coming-soon>
+    <coming-soon v-if="variant !== EVaraintPlayer.MINIMAL">
+      <h-icon :icon="PreviousIcon" size="20px" title="Précedent"/>
+    </coming-soon>
+    <h-icon
+      :icon="isPlaying ? PauseCircleIcon : PlayCircleIcon"
+      size="40px"
+      :title="isPlaying ? 'Pause' : 'Lecture'"
       @click="togglePlay"/>
-    <h-icon v-if="variant !== EVaraintPlayer.MINIMAL" :icon="NextIcon" size="20px" title="Suivant"/>
-    <h-icon v-if="variant === EVaraintPlayer.FULL" :icon="onLoopSong ? RepeatOne01Icon : RepeatIcon" size="20px" :title="onLoopSong ? 'Désactiver la répétition' : 'Activer la répétition'"/>
+    <coming-soon v-if="variant !== EVaraintPlayer.MINIMAL">
+      <h-icon :icon="NextIcon" size="20px" title="Suivant"/>
+    </coming-soon>
+    <coming-soon v-if="variant === EVaraintPlayer.FULL">
+      <h-icon :icon="onLoopSong ? RepeatOne01Icon : RepeatIcon" size="20px" :title="onLoopSong ? 'Désactiver la répétition' : 'Activer la répétition'"/>
+    </coming-soon>
   </div>
 </template>
 

@@ -8,13 +8,13 @@
       <div class='user-library__bento'>
         <p class='user-library__bento__title'>Créez votre première playlist</p>
         <p class='user-library__bento__subtitle'>C'est simple, nous allons vous aider</p>
-        <button class='user-library__bento__btn'>Créer une playlist</button>
+        <coming-soon><button class='user-library__bento__btn'>Créer une playlist</button></coming-soon>
       </div>
 
       <div class='user-library__bento'>
         <p class='user-library__bento__title'>Cherchons quelque podcats auxquels vous abonner</p>
         <p class='user-library__bento__subtitle'>Nous vous transmettrons des informations sur les nouveaux épisodes</p>
-        <button class='user-library__bento__btn'>Parcourir les podcats</button>
+        <coming-soon><button class='user-library__bento__btn'>Parcourir les podcats</button></coming-soon>
       </div>
   </main-wrapper>
 </template>

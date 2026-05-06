@@ -2,14 +2,20 @@
   <header class="filter-home-top">
     <h-icon :icon="UserCircle02Icon"/>
     <ul class="filter-home-top__list">
-      <li 
-        v-for="(tag, index) in filterTags" 
-        :key="tag.label" 
-        :class="['filter-home-top__list__el', {active: tag.active}]" 
-        @click="selectTag(index)"
-      >
-        {{ tag.label }}
-      </li>
+      <template v-for="(tag, index) in filterTags" :key="tag.label">
+        <coming-soon v-if="tag.key !== 'ALL'">
+          <li :class="['filter-home-top__list__el', { active: tag.active }]">
+            {{ tag.label }}
+          </li>
+        </coming-soon>
+        <li
+          v-else
+          :class="['filter-home-top__list__el', { active: tag.active }]"
+          @click="selectTag(index)"
+        >
+          {{ tag.label }}
+        </li>
+      </template>
     </ul>
   </header>
 </template>

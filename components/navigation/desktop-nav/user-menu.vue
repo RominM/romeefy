@@ -1,9 +1,10 @@
 <template>
     <div class='user-menu'>
-      <button class='user-menu__btn'>Découvrir Premium</button>
-      <h-icon :icon="Notification01Icon" />
-      <h-icon :icon="UserGroup02Icon" />
-      <!-- <user-avatar/> -->
+      <coming-soon>
+        <button class='user-menu__btn'>Découvrir Premium</button>
+      </coming-soon>
+      <coming-soon><h-icon :icon="Notification01Icon" /></coming-soon>
+      <coming-soon><h-icon :icon="UserGroup02Icon" /></coming-soon>
       <native-window-handler />
     </div>
 </template>
