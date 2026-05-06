@@ -1,5 +1,5 @@
 <template>
-  <div :class="['dropdown-result', { '--show': showDropdown }]">
+  <div :class="['dropdown-result', { '--show': showDropdown && _searchStore.history.length > 0 }]">
     <h6 class="dropdown-result__title">Recherches récentes</h6>
 
     <ul class="dropdown-result__list">

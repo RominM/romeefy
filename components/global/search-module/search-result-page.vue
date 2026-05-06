@@ -17,6 +17,15 @@ const results = computed(()=> _searchStore.getResults)
 
 <style scoped lang="scss">
 .search-result-page {
-  
+  position: relative;
+  height: 100%;
+  width: 100%;
+
+  :deep(.loader-wrapper) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 </style>

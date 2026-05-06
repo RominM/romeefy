@@ -52,6 +52,7 @@ function handleInput() {
     return
   }
 
+  _searchStore.setLoading(true)
   if (debounceTimer) clearTimeout(debounceTimer)
   debounceTimer = setTimeout(() => fetchResults(entered), 300)
 }

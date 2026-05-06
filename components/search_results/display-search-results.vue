@@ -1,6 +1,5 @@
 <template>
   <div class="display-search-results">
-    <tags-list />
     <div class="display-search-results__top-result">
       <best-result
         v-if="mostFamousArtist" 
@@ -67,7 +66,7 @@ const famoustrackList = ref<TCoverCard[]>([])
 const isLoading = ref<boolean>(false)
 
 const mostFamousArtist = computed<TBestResult | undefined>(() => {
-  const artists = props.results.artists as IArtist[] | undefined
+  const artists = props.results?.artists as IArtist[] | undefined
   if (!artists || !artists.length) return
 
   const bestArtist = artists.reduce((max, current) => {
@@ -78,21 +77,24 @@ const mostFamousArtist = computed<TBestResult | undefined>(() => {
 })
 
 const trackListTitle = computed(() => {
-  const tracks = props.results.tracks as ITrack[] | undefined
+  const tracks = props.results?.tracks as ITrack[] | undefined
   if (!tracks || !tracks.length) return
   return tracks
 })
 
 const artistsList = computed(() => {
-  return useMapper().coverCard.fromArtist(props.results.artists)
+  const artists = props.results?.artists as IArtist[] | undefined
+  return artists?.length ? useMapper().coverCard.fromArtist(artists) : []
 })
 
 const playlistList = computed(() => {
-  return useMapper().coverCard.fromPlaylist(props.results.playlists)
+  const playlists = props.results?.playlists as IPlaylist[] | undefined
+  return playlists?.length ? useMapper().coverCard.fromPlaylist(playlists) : []
 })
 
 const albumsList = computed(() => {
-  return useMapper().coverCard.fromAlbum(props.results.albums)
+  const albums = props.results?.albums as IAlbum[] | undefined
+  return albums?.length ? useMapper().coverCard.fromAlbum(albums) : []
 })
 
 onMounted(() => {
