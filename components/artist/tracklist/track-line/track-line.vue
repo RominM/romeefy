@@ -53,10 +53,9 @@ const cover = computed(() => {
   }
 })
 
-const listenRandom = computed(() => {
-  const generateNumber = Math.floor(Math.random() * (1_000_000_000 - 100_000 + 1)) + 1_000_000
-  return new Intl.NumberFormat().format(generateNumber) 
-})
+const listenRandom = new Intl.NumberFormat().format(
+  Math.floor(Math.random() * (1_000_000_000 - 100_000 + 1)) + 1_000_000
+)
 
 function togglePlay() {
   byTrackId(props.track.id)

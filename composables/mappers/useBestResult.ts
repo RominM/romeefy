@@ -6,7 +6,7 @@ export const useBestResult = () => {
         name: track.title,
         type: track.type,
         picture: track.album.cover_medium,
-        trackId: 1
+        trackId: track.id
       }
     },
     fromArtist(artist: IArtist): TBestResult {
@@ -15,14 +15,8 @@ export const useBestResult = () => {
         name: artist.name,
         type: artist.type,
         picture: artist.picture_medium,
-        trackId: 1
+        trackId: artist.id
       }
-    },
-    fromArtists(artists: IArtist[]): TBestResult[] {
-      return artists.map(this.fromArtist)
-    },
-    fromTracks(tracks: ITrack[]): TBestResult[] {
-      return tracks.map(this.fromTrack)
     }
   }
 }

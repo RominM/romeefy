@@ -27,7 +27,6 @@ import { useSearchStore } from '~/store/searchStore'
 
 const _searchStore = useSearchStore()
 const showDropdown = defineModel<boolean>({ default: false })
-const query = ref('')
 const router = useRouter()
 
 onMounted(() => {
@@ -65,7 +64,6 @@ async function getDataFromPath(type: string, id: string) {
 }
 
 function selectHistory(item: TSearchItem) {
-  query.value = item.label
   showDropdown.value = false
   _searchStore.setQuery(item.label)
 }
