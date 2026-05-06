@@ -33,28 +33,38 @@ router.afterEach(() => {
 
 const inputRef = ref<HTMLInputElement | null>(null)
 const searchValue = ref<string>('')
+let debounceTimer: ReturnType<typeof setTimeout> | null = null
 
 onMounted(() => {
   inputRef.value?.focus()
 })
 
-async function handleInput() {
-  const entered = searchValue.value.trim()
+onUnmounted(() => {
+  if (debounceTimer) clearTimeout(debounceTimer)
+})
 
- _searchStore.setActive(entered.length > 0)
+function handleInput() {
+  const entered = searchValue.value.trim()
+  _searchStore.setActive(entered.length > 0)
 
   if (entered.length === 0) {
     _searchStore.clearResults()
     return
   }
 
+  if (debounceTimer) clearTimeout(debounceTimer)
+  debounceTimer = setTimeout(() => fetchResults(entered), 300)
+}
+
+async function fetchResults(query: string) {
   _searchStore.setLoading(true)
-  const { data, error } = await useAPI().search.global(entered)
+  const { data, error } = await useAPI().search.global(query)
   _searchStore.setLoading(false)
 
-  if (!data || error) {
-    return
-  }
+  if (!data || error) return
+
+  // Ignore stale result if the query has since changed
+  if (searchValue.value.trim() !== query) return
 
   _searchStore.setResults(data)
 }

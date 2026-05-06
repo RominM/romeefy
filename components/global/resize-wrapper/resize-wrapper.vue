@@ -59,7 +59,7 @@ import { ELocalStorageKey } from '~/types/enum/global/localStorageKeys'
 const _searchStore = useSearchStore()
 const showRightPanel = useState('showRightPanel', () => false)
 
-const { isReady, isDesktop, isMobile } = useDevice()
+const { isReady, isDesktop, isMobile, width: windowWidth } = useDevice()
 
 const MIN_WIDTH_PX = 350
 const MAX_WIDTH_PX = 450
@@ -78,23 +78,23 @@ let startXRight = 0
 let startWidthRight = 0
 
 const minLeftWidthPercent = computed(() => {
-  return (MIN_WIDTH_PX / window.innerWidth) * 100
+  return (MIN_WIDTH_PX / windowWidth.value) * 100
 })
 
 const minRightWidthPercent = computed(() => {
-  return (MIN_WIDTH_PX / window.innerWidth) * 100
+  return (MIN_WIDTH_PX / windowWidth.value) * 100
 })
 
 const maxRightWidthPercent = computed(() => {
-  return (MAX_WIDTH_PX / window.innerWidth) * 100
+  return (MAX_WIDTH_PX / windowWidth.value) * 100
 })
 
 const maxLeftWidthPercent = computed(() => {
-  return (MAX_WIDTH_PX / window.innerWidth) * 100
+  return (MAX_WIDTH_PX / windowWidth.value) * 100
 })
 
 const collapsedLeftPercent = computed(() => {
-  return (EXPAND_THRESHOLD_PX / window.innerWidth) * 100
+  return (EXPAND_THRESHOLD_PX / windowWidth.value) * 100
 })
 
 const centerWidth = computed(() => {
@@ -120,7 +120,7 @@ function onMouseDownLeft(e: MouseEvent) {
 function onMouseMoveLeft(e: MouseEvent) {
   if (!isDraggingLeft.value) return
 
-  const total = window.innerWidth
+  const total = windowWidth.value
   const dx = e.clientX - startXLeft
   const deltaPercent = (dx / total) * 100
 
@@ -161,7 +161,7 @@ function onMouseDownRight(e: MouseEvent) {
 
 function onMouseMoveRight(e: MouseEvent) {
   if (!isDraggingRight.value) return
-  const total = window.innerWidth
+  const total = windowWidth.value
   const dx = startXRight - e.clientX
   const deltaPercent = (dx / total) * 100
   const newVal = startWidthRight + deltaPercent

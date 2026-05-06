@@ -17,7 +17,6 @@
 
 <script setup lang='ts'>
 import { useFormatTime } from '~/composables/formats/useFormatTime'
-import { EGlobalEvent } from '~/types/enum/global/globalEvent'
 
 const props = defineProps({
   source: { type: String, default: '' },
@@ -35,12 +34,10 @@ onMounted(() => {
 
   audio.value.addEventListener('playing', () => {
     isPlaying.value = true
-    useGlobalEvents().emitEvent(EGlobalEvent.PLAYER_STATE, true)
   })
 
   audio.value.addEventListener('pause', () => {
     isPlaying.value = false
-    useGlobalEvents().emitEvent(EGlobalEvent.PLAYER_STATE, false)
   })
 })
 

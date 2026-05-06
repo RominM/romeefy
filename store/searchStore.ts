@@ -62,10 +62,6 @@ export const useSearchStore = defineStore('search', {
     getResults: (state) => state.searchResults,
     getLoadingState: (state) => state.isLoading,
     getActiveState: (state) => state.isActive,
-    getHistory: (state) => {
-      if (state.history.length) return state.history
-      const data = localStorage.getItem('history')
-      return data ? JSON.parse(data) : []
-    }
+    getHistory: (state) => state.history
   }
 })

@@ -8,7 +8,7 @@
         :scroll-top="scrollTop" 
         :color="currentColor" 
         :name="album.title" 
-        :track-id="Array.isArray(album.tracks) ? album.tracks[0].id : album.tracks.data[0].id" 
+        :track-id="Array.isArray(album.tracks) ? album.tracks[0]?.id : album.tracks.data[0]?.id"
       />
       <album-content :album="album" :color-secondary="colorSecondary" @scroll="onScroll" @track-id="trackId = $event"/>
     </div>

@@ -21,8 +21,6 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import { useRouter } from 'vue-router'
 import { useAPI } from '~/composables/api/useApi'
 import { useMapper } from '~/composables/mappers/useMapper'
 import { useSearchStore } from '~/store/searchStore'
@@ -33,14 +31,7 @@ const query = ref('')
 const router = useRouter()
 
 onMounted(() => {
-  const storedHistory = localStorage.getItem('history')
-  if (storedHistory) {
-    try {
-      _searchStore.history = JSON.parse(storedHistory)
-    } catch {
-      _searchStore.history = []
-    }
-  }
+  _searchStore.loadHistory()
 })
 
 router.afterEach((to) => {
@@ -80,13 +71,7 @@ function selectHistory(item: TSearchItem) {
 }
 
 function clearHistory() {
-  _searchStore.history = []
-  localStorage.removeItem('history')
-}
-
-function deleteItemHistoy(item: TSearchItem) {
-  _searchStore.history = _searchStore.history.filter(i => i.id !== item.id)
-  localStorage.setItem('history', JSON.stringify(_searchStore.history))
+  _searchStore.clearHistory()
 }
 </script>
 

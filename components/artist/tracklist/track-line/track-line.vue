@@ -33,8 +33,8 @@ import { playerStore } from '~/store/playerStore';
 const props = defineProps({
   track: { type: Object as PropType<ITrack>, required: true },
   index: { type: Number, default: null },
-  showCover: { type: Boolean, defautl: false },
-  variant: { type: Boolean, defautl: false }
+  showCover: { type: Boolean, default: false },
+  variant: { type: Boolean, default: false }
 })
 const availablePreview = !!props.track.preview
 

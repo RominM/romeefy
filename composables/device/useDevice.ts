@@ -23,8 +23,10 @@ export function useDevice() {
     return 'desktop'
   })
 
+  const width = computed(() => windowSize.width)
+
   return {
-    width: windowSize.width,
+    width,
     isReady,
     isMobile,
     isTablet,
